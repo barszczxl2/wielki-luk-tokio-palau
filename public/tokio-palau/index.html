@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tokio – Palau – Seul · listopad 2026 | Wielki Łuk</title>
+<meta name="description" content="Plan podróży Tokio – Palau – Seul, 5–23 listopada 2026: plan dzień po dniu, co kupić, co zobaczyć, formalności i pakowanie.">
+<link rel="canonical" href="https://wielki-luk.pl/tokio-palau/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tokio, Palau, Seul — plan podróży, listopad 2026">
+<meta property="og:description" content="18 dni, trzy klimaty: jesienne Tokio, laguna Palau i chłodny Seul. Plan dzień po dniu, zakupy, mapa, noclegi.">
+<meta property="og:url" content="https://wielki-luk.pl/tokio-palau/">
+<meta property="og:image" content="https://wielki-luk.pl/tokio-palau/img/chureito-pagoda-and-mount-fuji.jpg">
+<meta property="og:locale" content="pl_PL">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏝</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+:root{
+  --bg:#F2F4F3; --surface:#FFFFFF; --ink:#1A1F24; --muted:#5B6670; --line:#D5DBDA;
+  --tokio:#2B3A67; --palau:#0E7C86; --seul:#9E2F45; --warn:#8A5A00; --warn-bg:#FFF4DC;
+  --tokio-soft:#E6E9F3; --palau-soft:#DFF1F2; --seul-soft:#F6E4E8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12161A; --surface:#1A2026; --ink:#E7ECEE; --muted:#9AA6AF; --line:#2C353D;
+    --tokio:#9DAEF0; --palau:#5CC9D1; --seul:#F08EA3; --warn:#F2C46B; --warn-bg:#2E2614;
+    --tokio-soft:#1F2640; --palau-soft:#14302F; --seul-soft:#33202A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12161A; --surface:#1A2026; --ink:#E7ECEE; --muted:#9AA6AF; --line:#2C353D;
+  --tokio:#9DAEF0; --palau:#5CC9D1; --seul:#F08EA3; --warn:#F2C46B; --warn-bg:#2E2614;
+  --tokio-soft:#1F2640; --palau-soft:#14302F; --seul-soft:#33202A;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Serif 4",Georgia,serif;font-size:18px;line-height:1.62}
+h1,h2,h3,h4,.sans{font-family:"Bricolage Grotesque",system-ui,sans-serif}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--palau);outline-offset:2px}
+.wrap{max-width:780px;margin:0 auto;padding:0 16px}
+
+/* HERO: trasa jak pasek karty pokładowej */
+header.hero{padding:40px 0 28px}
+.hero h1{font-size:clamp(34px,7vw,58px);line-height:1.02;margin:0 0 10px;font-weight:800;letter-spacing:-0.02em}
+.hero p.lead{margin:0 0 26px;color:var(--muted);max-width:60ch}
+.route{display:grid;grid-template-columns:repeat(6,1fr);gap:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.stop{padding:14px 10px 12px;border-right:1px dashed var(--line);position:relative;min-width:0}
+.stop:last-child{border-right:0}
+.stop .code{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(20px,4.6vw,34px);letter-spacing:.02em;line-height:1}
+.stop .city{font-family:"Bricolage Grotesque",sans-serif;font-size:13px;color:var(--muted);margin-top:4px}
+.stop .date{font-family:"Bricolage Grotesque",sans-serif;font-size:14px;font-weight:600;margin-top:8px}
+.stop.t .code{color:var(--tokio)} .stop.p .code{color:var(--palau)} .stop.s .code{color:var(--seul)}
+.stop.t{background:var(--tokio-soft)} .stop.p{background:var(--palau-soft)} .stop.s{background:var(--seul-soft)}
+.stays{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;font-family:"Bricolage Grotesque",sans-serif;font-size:15px}
+.stays span{padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
+.stays b{font-weight:600}
+@media (max-width:560px){
+  .route{grid-template-columns:repeat(3,1fr)}
+  .stop:nth-child(3){border-right:0}
+  .stop:nth-child(-n+3){border-bottom:1px dashed var(--line)}
+}
+
+/* NAV */
+nav.legs{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.legs .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+nav.legs a{font-family:"Bricolage Grotesque",sans-serif;font-size:15px;font-weight:600;text-decoration:none;padding:6px 12px;border-radius:8px;white-space:nowrap;border:1px solid var(--line);background:var(--surface)}
+nav.legs a.t{color:var(--tokio)} nav.legs a.p{color:var(--palau)} nav.legs a.s{color:var(--seul)}
+#todayBtn{font-family:"Bricolage Grotesque",sans-serif;font-size:15px;font-weight:600;padding:6px 12px;border-radius:8px;border:0;background:var(--ink);color:var(--bg);cursor:pointer;white-space:nowrap}
+
+section.leg{padding:44px 0 8px;border-bottom:1px solid var(--line)}
+section.leg > .wrap > h2{font-size:clamp(28px,5.5vw,40px);margin:0 0 4px;letter-spacing:-0.01em;line-height:1.1}
+.leg-meta{font-family:"Bricolage Grotesque",sans-serif;color:var(--muted);font-size:15px;margin:0 0 20px}
+#tokio h2{color:var(--tokio)} #palau h2{color:var(--palau)} #seul h2{color:var(--seul)}
+h3{font-size:22px;margin:34px 0 10px}
+h4{font-size:17px;margin:20px 0 4px}
+p{margin:0 0 12px}
+
+/* PLAN DNI – to naprawdę sekwencja, więc daty są markerami */
+ol.days{list-style:none;margin:0;padding:0;border-left:2px solid var(--line)}
+ol.days li{position:relative;padding:4px 0 18px 22px}
+ol.days li::before{content:"";position:absolute;left:-7px;top:12px;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--muted)}
+#tokio ol.days li::before{border-color:var(--tokio)} #palau ol.days li::before{border-color:var(--palau)} #seul ol.days li::before{border-color:var(--seul)}
+ol.days .d{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:16px;display:block}
+ol.days .d small{font-weight:400;color:var(--muted);margin-left:6px}
+ol.days li.today{background:var(--warn-bg);border-radius:0 10px 10px 0;padding-right:10px}
+ol.days li.today::before{background:var(--warn);border-color:var(--warn)}
+ol.days li.today .d::after{content:"dziś";font-size:12px;margin-left:8px;padding:2px 8px;border-radius:999px;background:var(--warn);color:var(--bg)}
+
+/* ZAKUPY */
+.buy{display:grid;gap:12px}
+.item{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.item h4{margin:0 0 4px}
+.item .where{font-family:"Bricolage Grotesque",sans-serif;font-size:15px;color:var(--muted);margin:0 0 6px}
+.item p:last-child{margin-bottom:0}
+#tokio .item{border-left:4px solid var(--tokio)} #palau .item{border-left:4px solid var(--palau)} #seul .item{border-left:4px solid var(--seul)}
+
+ul.see{margin:0;padding-left:20px}
+ul.see li{margin-bottom:8px}
+ul.see b{font-family:"Bricolage Grotesque",sans-serif;font-weight:600}
+
+.note{background:var(--warn-bg);border-left:4px solid var(--warn);padding:14px 16px;border-radius:0 10px 10px 0;margin:18px 0}
+.note h4{margin:0 0 6px;color:var(--warn)}
+.note p:last-child,.note ul:last-child{margin-bottom:0}
+.note ul{margin:0;padding-left:20px}
+
+/* CHECKLISTA */
+ul.check{list-style:none;padding:0;margin:0}
+ul.check li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+ul.check input{width:22px;height:22px;margin-top:3px;accent-color:var(--palau);flex:none}
+ul.check label{cursor:pointer}
+ul.check .when{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:14px;color:var(--muted)}
+ul.check input:checked + label{color:var(--muted);text-decoration:line-through}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.two{grid-template-columns:1fr}}
+.two .item ul{margin:0;padding-left:18px}
+
+footer{padding:36px 0 60px;color:var(--muted);font-size:15px}
+footer ol{padding-left:20px}
+footer li{margin-bottom:4px;word-break:break-word}
+.theme-toggle{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:4px 10px;font-family:"Bricolage Grotesque",sans-serif;cursor:pointer}
+/* MAPA */
+#map{height:440px;border-radius:12px;border:1px solid var(--line);margin-top:10px;background:var(--surface);z-index:0}
+@media (max-width:560px){#map{height:380px}}
+.map-filter{display:flex;flex-wrap:wrap;gap:6px}
+.map-filter button{font-family:"Bricolage Grotesque",sans-serif;font-size:14px;font-weight:600;padding:5px 10px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.map-filter button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.map-note{font-family:"Bricolage Grotesque",sans-serif;font-size:13px;color:var(--muted);margin-top:6px}
+.pin{width:26px;height:26px;border-radius:50%;color:#fff;font:700 13px/26px "Bricolage Grotesque",sans-serif;text-align:center;border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.35)}
+.pin.home{border-radius:6px}
+.leaflet-popup-content{font-family:"Source Serif 4",Georgia,serif;font-size:15px;line-height:1.45;margin:10px 12px}
+.leaflet-popup-content b{font-family:"Bricolage Grotesque",sans-serif}
+/* OPISY MIEJSC */
+.places{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:640px){.places{grid-template-columns:1fr}}
+.place{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.place h4{margin:0 0 4px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.place .day{font-size:13px;font-weight:600;color:var(--tokio);white-space:nowrap}
+.place p{margin:0;font-size:16px}
+/* ZDJĘCIA */
+.place{overflow:hidden}
+.place figure.ph{margin:-12px -14px 10px}
+figure.ph{margin:0;position:relative;background:var(--line)}
+figure.ph img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+figure.ph figcaption{position:absolute;right:6px;bottom:6px;font:12px/1.2 "Bricolage Grotesque",sans-serif}
+figure.ph figcaption a{color:#fff;background:rgba(0,0,0,.55);padding:2px 6px;border-radius:4px;text-decoration:none}
+.photo-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+.photo-pair figure.ph{border-radius:10px;overflow:hidden}
+@media (max-width:560px){.photo-pair{grid-template-columns:1fr}}
+.item .price{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:16px}
+.item .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.item .links a{font-family:"Bricolage Grotesque",sans-serif;font-size:14px;font-weight:600;padding:5px 10px;border-radius:8px;border:1px solid var(--line);text-decoration:none;background:var(--bg)}
+.prices{width:100%;border-collapse:collapse;font-family:"Bricolage Grotesque",sans-serif;font-size:14px;margin:10px 0}
+.prices th,.prices td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.prices th{color:var(--muted);font-weight:600}
+@media (max-width:560px){.prices{font-size:13px}.prices th,.prices td{padding:5px 4px}}
+.topbar{font-family:"Bricolage Grotesque",sans-serif;font-size:14px;padding:10px 0 0}
+.topbar a{text-decoration:none;color:var(--muted)}
+.topbar a:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="topbar"><a href="/">← wielki-luk.pl</a></p>
+    <h1>Tokio, Palau, Seul</h1>
+    <p class="lead">18 dni, trzy klimaty: jesienne Tokio, tropikalna laguna i chłodny Seul. Plan zakłada, że loty pójdą zgodnie z rozkładem.</p>
+    <div class="route" aria-label="Trasa lotów">
+      <div class="stop"><div class="code">WAW</div><div class="city">wylot</div><div class="date">5.11</div></div>
+      <div class="stop t"><div class="code">NRT</div><div class="city">Tokio</div><div class="date">6–11.11</div></div>
+      <div class="stop p"><div class="code">ROR</div><div class="city">Palau</div><div class="date">11–19.11</div></div>
+      <div class="stop t"><div class="code">NRT</div><div class="city">noc w Naricie</div><div class="date">19–20.11</div></div>
+      <div class="stop s"><div class="code">ICN</div><div class="city">Seul</div><div class="date">20–23.11</div></div>
+      <div class="stop"><div class="code">WAW</div><div class="city">powrót</div><div class="date">23.11</div></div>
+    </div>
+    <div class="stays">
+      <span><b>Tokio</b> 6–11.11, 5 nocy</span>
+      <span><b>Palau</b> 11–19.11, 8 nocy</span>
+      <span><b>Narita</b> 19–20.11</span>
+      <span><b>Seul</b> 20–23.11, 3 noce</span>
+    </div>
+  </div>
+</header>
+
+<nav class="legs" aria-label="Sekcje">
+  <div class="wrap">
+    <button id="todayBtn" type="button">Pokaż dziś</button>
+    <a href="#formalnosci">Formalności</a>
+    <a class="t" href="#tokio">Tokio</a>
+    <a class="t" href="#mapa">Mapa</a>
+    <a class="t" href="#nocleg">Nocleg</a>
+    <a class="p" href="#palau">Palau</a>
+    <a class="s" href="#seul">Seul</a>
+    <a href="#pakowanie">Pakowanie</a>
+  </div>
+</nav>
+
+<!-- FORMALNOŚCI -->
+<section class="leg" id="formalnosci">
+  <div class="wrap">
+    <h2>Formalności</h2>
+    <p class="leg-meta">Zaznaczenia zapisują się w tej przeglądarce. Kwoty w złotych liczone po kursie NBP z 16.10.2026: 100 jenów ≈ 2,46 zł, 1 USD ≈ 3,90 zł, 1 GBP ≈ 5,17 zł.</p>
+    <ul class="check" id="checklist">
+      <li><input type="checkbox" id="c1"><label for="c1">Paszport ważny min. 6 miesięcy od dnia wjazdu na Palau (do co najmniej 11.05.2027), z wolną stroną na stempel <span class="when">Wymóg Palau</span></label></li>
+      <li><input type="checkbox" id="c2"><label for="c2">Visit Japan Web — kod QR na imigrację i odprawę celną w Naricie <span class="when">przed 5.11; drugi raz przed 19.11</span></label></li>
+      <li><input type="checkbox" id="c10"><label for="c10">Nocleg w Tokio 6–11.11 (5 nocy), pokój z dwoma łóżkami <span class="when">teraz — listopad to sezon jesiennych liści</span></label></li>
+      <li><input type="checkbox" id="c11"><label for="c11">Bilety na Fuji na 9.11 (autobus z Shinjuku lub Fuji Excursion), tam i z powrotem <span class="when">sprzedaż już trwa — zwróć uwagę na warunki anulowania</span></label></li>
+      <li><input type="checkbox" id="c12"><label for="c12">Shibuya Sky — bilet na godzinę przed zachodem słońca 8.11 <span class="when">kilka dni wcześniej</span></label></li>
+      <li><input type="checkbox" id="c3"><label for="c3">Palau Entry Form na palautravel.pw — zapisz kod QR <span class="when">najwcześniej 72 h przed przylotem, czyli od 8.11 (wypełnisz w Tokio)</span></label></li>
+      <li><input type="checkbox" id="c4"><label for="c4">Sprawdź, czy 100 USD (≈ 390 zł) opłaty środowiskowej Palau jest w cenie biletu (zwykle jest) <span class="when">na potwierdzeniu rezerwacji NRT–ROR</span></label></li>
+      <li><input type="checkbox" id="c5"><label for="c5">Gotówka w USD na Palau — opłaty za pozwolenia, drobne zakupy, napiwki <span class="when">kup w Polsce lub w Tokio</span></label></li>
+      <li><input type="checkbox" id="c6"><label for="c6">Korea: Polacy zwolnieni z K-ETA do 31.12.2026 — wystarczy paszport; kartę przyjazdu wypełniasz przy wjeździe <span class="when">przed 20.11</span></label></li>
+      <li><input type="checkbox" id="c7"><label for="c7">Ubezpieczenie podróżne obejmujące snorkeling i Japonię (wysokie koszty leczenia) <span class="when">przed 5.11</span></label></li>
+      <li><input type="checkbox" id="c8"><label for="c8">Krem z filtrem mineralnym zgodnym z prawem Palau (tylko tlenek cynku / dwutlenek tytanu, bez parabenów i fenoksyetanolu) <span class="when">kup w Tokio, sprawdź skład</span></label></li>
+      <li><input type="checkbox" id="c9"><label for="c9">Dron: rejestracja na Palau co najmniej 3 dni przed lotem (formularz PNAA) — jeśli zabierasz; w Polsce rejestracja operatora na drony.gov.pl <span class="when">formularz co najmniej 3 dni przed pierwszym lotem dronem na Palau — wyślij z Tokio</span></label></li>
+    </ul>
+
+    <div class="note">
+      <h4>Tax-free w Japonii zmienia się 1 listopada 2026</h4>
+      <p>Twoje zakupy będą już w nowym systemie: płacisz pełną cenę z 10% podatkiem konsumpcyjnym, a zwrot dostajesz po potwierdzeniu przez celników przy wylocie. Pokazujesz paszport przy kasie, minimum to 5000 jenów (≈ 123 zł) netto w jednym sklepie jednego dnia, a limit 500 tys. jenów (≈ 12 300 zł) znika.</p>
+      <ul>
+        <li>Towary muszą być przy Tobie przy odprawie wylotowej. Brak jednej rzeczy z paragonu unieważnia zwrot za cały paragon.</li>
+        <li>Wylatujesz z Japonii dwa razy. Zakupy z 6–10.11 potwierdzasz 11.11 w Naricie i wieziesz na Palau. Jeśli nie chcesz wozić drogich rzeczy po tropikach, zostaw duże zakupy na Naritę 19–20.11.</li>
+        <li>Kosmetyków i jedzenia kupionych tax-free nie otwieraj w Japonii.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TOKIO -->
+<section class="leg" id="tokio">
+  <div class="wrap">
+    <h2>Tokio</h2>
+    <p class="leg-meta">6–11.11 · w dzień ok. 15–18°C, wieczory chłodne · początek jesiennych liści · 2 osoby</p>
+
+    <h3>Plan dni</h3>
+    <ol class="days">
+      <li data-date="2026-11-05"><span class="d">5.11<small>czwartek</small></span>Wylot z Warszawy do Narity.</li>
+      <li data-date="2026-11-06"><span class="d">6.11<small>piątek</small></span>Przylot do Narity. Do Asakusy dojedziesz pociągiem Keisei: Skyliner do Ueno albo Access Express, którego część kursów jedzie bezpośrednio do Asakusy. Zameldowanie w ryokanie. Po południu na rozruch <b>park Ueno</b> i targ <b>Ameyoko</b> pod torami — używane zegarki, dżinsy, jedzenie.</li>
+      <li data-date="2026-11-07"><span class="d">7.11<small>sobota</small></span><b>Sensō-ji</b> o 7–8 rano, zanim przyjdą tłumy — wtedy jest najlepsze światło do zdjęć. Potem ulica Kappabashi (noże, przybory kuchenne) i <b>Edo-Tokyo Museum</b> w Ryōgoku (15 min metrem). Na zachód słońca <b>Tokyo Skytree</b>: w pogodny dzień widać stamtąd Fuji. Wieczorem <b>Tori-no-Ichi</b> w świątyni Ōtori, 20 min pieszo od ryokanu.</li>
+      <li data-date="2026-11-08"><span class="d">8.11<small>niedziela</small></span>Rano <b>Meiji Jingū</b> i <b>park Yoyogi</b>. Potem <b>Harajuku</b> — w niedzielę jest tam najwięcej przebierańców. Po południu <b>Shibuya</b>: skrzyżowanie i taras Shibuya Sky na zachód słońca. Wieczorem <b>Shinjuku</b>: darmowy taras w ratuszu (Metropolitan Government Building) z pokazem świetlnym na fasadzie, potem zaułek Omoide Yokochō i neony Kabukichō.</li>
+      <li data-date="2026-11-09"><span class="d">9.11<small>poniedziałek</small></span><b>Fuji</b>, jeśli prognoza jest czysta — szczegóły niżej. Plan B przy chmurach: <b>Odaiba</b> (Miraikan, Statua Wolności, Rainbow Bridge) i wieczorem iluminacja w <b>Roppongi</b>.</li>
+      <li data-date="2026-11-10"><span class="d">10.11<small>wtorek</small></span>O 8:00 targ <b>Tsukiji</b>, potem <b>Ginza</b>: Itoya, Seiko i Grand Seiko, Leica. Po południu <b>Nakano Broadway</b> (zegarki, kolekcjonerskie), wieczorem <b>Akihabara</b> — Yodobashi jest czynne do 22:00. Pakowanie zakupów tax-free tak, by dało się je pokazać celnikom.</li>
+      <li data-date="2026-11-11"><span class="d">11.11<small>środa</small></span>Narita → Palau. Na lotnisku potwierdzenie tax-free przy odprawie wylotowej.</li>
+    </ol>
+
+    <h3 id="mapa">Mapa</h3>
+    <p>Kolorowe punkty to dni, linia pokazuje kolejność zwiedzania (nie trasę przejazdu). Domek to nocleg.</p>
+    <div class="map-filter" role="group" aria-label="Pokaż na mapie">
+      <button type="button" data-f="all" aria-pressed="true">Wszystko</button>
+      <button type="button" data-f="6">6.11</button>
+      <button type="button" data-f="7">7.11</button>
+      <button type="button" data-f="8">8.11</button>
+      <button type="button" data-f="9">9.11</button>
+      <button type="button" data-f="10">10.11</button>
+      <button type="button" data-f="hotel">Noclegi</button>
+      <button type="button" data-f="trip">Wycieczki</button>
+    </div>
+    <div id="map" aria-label="Mapa Tokio z punktami planu"></div>
+    <p class="map-note">Mapa: © współtwórcy OpenStreetMap.</p>
+
+    <h3>Co zobaczyć — opis miejsc</h3>
+    <div class="places">
+      <div class="place"><figure class="ph"><img src="img/senso-ji-kaminarimon-201503a.jpg" alt="Brama Kaminarimon świątyni Sensō-ji" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Senso-ji_Kaminarimon_201503a.jpg" target="_blank" rel="noopener">Fot. Tak1701d · CC BY-SA 3.0</a></figcaption></figure><h4>Asakusa i Sensō-ji <span class="day">7.11</span></h4><p>Najstarsza świątynia Tokio (VII w.) z bramą Kaminarimon i wielkim czerwonym lampionem, do której prowadzi handlowa uliczka Nakamise. Rano jest pusta i fotogeniczna, od 10:00 robi się tłoczno. To Twoja dzielnica noclegowa.</p></div>
+      <div class="place"><figure class="ph"><img src="img/tori-no-ichi-2011-asakusa-tokyo-japan.jpg" alt="Jarmark Tori-no-Ichi w Asakusie" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Tori-no-Ichi_2011%2C_Asakusa%2C_Tokyo%2C_Japan.JPG" target="_blank" rel="noopener">Fot. Shoestring (Wikivoyage) · CC BY-SA 4.0</a></figcaption></figure><h4>Tori-no-Ichi <span class="day">7.11</span></h4><p>Jarmark w świątyni Ōtori w dzień koguta: setki straganów z grabkami kumade obwieszonymi maskami i złotymi monetami, które mają zgarniać pomyślność. Trwa całą dobę, najładniej jest wieczorem przy lampionach.</p></div>
+      <div class="place"><figure class="ph"><img src="img/tokyo-skytree-sunset-view.jpg" alt="Tokyo Skytree o zachodzie słońca" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Tokyo_Skytree_Sunset_View.jpg" target="_blank" rel="noopener">Fot. Pinterpandai.com · CC BY-SA 4.0</a></figcaption></figure><h4>Tokyo Skytree <span class="day">7.11</span></h4><p>Wieża widokowa o wysokości 634 m, z tarasami na 350 i 450 m. Najlepiej wjechać tuż przed zachodem słońca: widać miasto za dnia, o zmroku i w nocy, a w pogodne listopadowe dni także Fuji na horyzoncie.</p></div>
+      <div class="place"><figure class="ph"><img src="img/edo-tokyo-museum.jpg" alt="Budynek Edo-Tokyo Museum" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Edo-Tokyo_Museum.jpg" target="_blank" rel="noopener">Fot. Wiiii · CC BY-SA 3.0</a></figcaption></figure><h4>Edo-Tokyo Museum <span class="day">7.11</span></h4><p>Muzeum historii miasta od Edo do współczesności, z makietami w skali 1:1 (most Nihonbashi, teatr kabuki). Ponownie otwarte 31.03.2026 po czterech latach remontu. Bilet na wystawę stałą kosztuje ok. 800 jenów (≈ 20 zł).</p></div>
+      <div class="place"><figure class="ph"><img src="img/shinobazu-pond-ueno-park-11096102376.jpg" alt="Staw Shinobazu w parku Ueno" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Shinobazu_Pond_%40_Ueno_Park_%2811096102376%29.jpg" target="_blank" rel="noopener">Fot. Guilhem Vellut · CC BY 2.0</a></figcaption></figure><h4>Park Ueno <span class="day">6.11</span></h4><p>Duży park ze stawem Shinobazu, świątyniami i muzeami, w tym Muzeum Narodowym. Na zdjęciu w aplikacji kwitną wiśnie, ale to wiosna — w listopadzie są tu żółknące miłorzęby. Obok targ Ameyoko.</p></div>
+      <div class="place"><figure class="ph"><img src="img/harajuku-takeshita-street-15-15119971464.jpg" alt="Ulica Takeshita w Harajuku" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Harajuku_-_Takeshita_Street_15_%2815119971464%29.jpg" target="_blank" rel="noopener">Fot. Joe Mabel · CC BY-SA 3.0</a></figcaption></figure><h4>Harajuku <span class="day">8.11</span></h4><p>Ulica Takeshita to młodzieżowa moda, cosplay i kolorowe słodycze. Przebierańcy ze zdjęcia pojawiają się głównie w weekendy. Równolegle biegnie elegancka aleja Omotesandō z architekturą Tadao Andō i SANAA.</p></div>
+      <div class="place"><figure class="ph"><img src="img/torii-gate-at-meiji-jingu-shrine-tokyo-5.jpg" alt="Brama torii chramu Meiji Jingū" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Torii_Gate_at_Meiji_Jingu_Shrine%2C_Tokyo_%2850125273602%29.jpg" target="_blank" rel="noopener">Fot. Ray in Manila · CC BY 2.0</a></figcaption></figure><h4>Meiji Jingū i park Yoyogi <span class="day">8.11</span></h4><p>Chram cesarza Meiji w lesie liczącym 100 tys. drzew, tuż przy Harajuku. Za nim park Yoyogi z fontanną i stawem — w listopadzie liście zaczynają się tam przebarwiać.</p></div>
+      <div class="place"><figure class="ph"><img src="img/2025-shibuya-crossing-at-night.jpg" alt="Skrzyżowanie Shibuya nocą" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:2025_Shibuya_Crossing_at_night.jpg" target="_blank" rel="noopener">Fot. Kakidai · CC BY-SA 4.0</a></figcaption></figure><h4>Shibuya <span class="day">8.11</span></h4><p>Najsłynniejsze skrzyżowanie świata — przy jednym zielonym świetle przechodzi nawet 3 tys. osób. Najlepiej widać je z góry: z Shibuya Sky (bilety z godziną wejścia, na zachód słońca kup wcześniej) albo z kawiarni nad stacją.</p></div>
+      <div class="place"><figure class="ph"><img src="img/omoide-yokocho-shinjuku-44144012872.jpg" alt="Zaułek Omoide Yokochō w Shinjuku" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Omoide_Yokocho%2C_Shinjuku_%2844144012872%29.jpg" target="_blank" rel="noopener">Fot. Fabio Achilli · CC BY 2.0</a></figcaption></figure><h4>Shinjuku nocą <span class="day">8.11</span></h4><p>Neony Kabukichō i wąski zaułek Omoide Yokochō pod torami, z kilkudziesięcioma barami z grillem yakitori na kilka miejsc każdy. Najlepszy klimat i zdjęcia po zmroku.</p></div>
+      <div class="place"><figure class="ph"><img src="img/tokyo-metropolitan-government-building-a.jpg" alt="Ratusz Tokio nocą" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Tokyo_Metropolitan_Government_Building_at_night.jpg" target="_blank" rel="noopener">Fot. DestinationFearFan · CC BY-SA 4.0</a></figcaption></figure><h4>Ratusz Tokio <span class="day">8.11</span></h4><p>Dwie wieże ratusza (Metropolitan Government Building) mają darmowe tarasy na 45. piętrze, czynne 9:30–22:00. Po zmroku na fasadzie odbywa się pokaz świetlny TOKYO Night &amp; Light — nie trzeba biletów.</p></div>
+      <div class="place"><figure class="ph"><img src="img/odaiba-statue-of-liberty-rainbow-bridge-.jpg" alt="Statua Wolności i Rainbow Bridge na Odaibie" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Odaiba_Statue_of_Liberty_%26_Rainbow_Bridge_7.jpg" target="_blank" rel="noopener">Fot. Zairon · CC BY-SA 4.0</a></figcaption></figure><h4>Odaiba <span class="day">9.11 · plan B</span></h4><p>Sztuczna wyspa w zatoce z repliką Statuy Wolności i widokiem na Rainbow Bridge oraz Tokyo Tower. Ładna na zachód słońca.</p></div>
+      <div class="place"><figure class="ph"><img src="img/main-hall-and-geo-cosmos-in-the-miraikan.jpg" alt="Globus Geo-Cosmos w Miraikan" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Main_hall_and_Geo-Cosmos_in_the_Miraikan_%289409476063%29.jpg" target="_blank" rel="noopener">Fot. Maarten Heerlien · CC BY 2.0</a></figcaption></figure><h4>Miraikan <span class="day">9.11 · plan B</span></h4><p>Narodowe muzeum nauki i innowacji, z wielkim globusem Geo-Cosmos zawieszonym nad holem i wystawami o kosmosie, robotyce i klimacie. Nieczynne we wtorki.</p></div>
+      <div class="place"><figure class="ph"><img src="img/roppongi-keyakizaka-01.jpg" alt="Aleja Keyakizaka w Roppongi" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Roppongi_Keyakizaka_-01.jpg" target="_blank" rel="noopener">Fot. Aimaimyi · CC BY-SA 3.0</a></figcaption></figure><h4>Roppongi <span class="day">9.11 · plan B</span></h4><p>Zdjęcie z aplikacji to iluminacja Keyakizaka przy Roppongi Hills: od 5.11 do 25.12, codziennie 17:00–22:00, z widokiem na Tokyo Tower. Pasuje na wieczór po Odaibie.</p></div>
+      <div class="place"><figure class="ph"><img src="img/tsukiji-outer-market-01.jpg" alt="Zewnętrzny targ Tsukiji" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Tsukiji_Outer_Market_-01.jpg" target="_blank" rel="noopener">Fot. Aimaimyi · CC BY-SA 3.0</a></figcaption></figure><h4>Tsukiji <span class="day">10.11</span></h4><p>Hurtowy targ rybny przeniesiono do Toyosu, ale zewnętrzny targ został: kilkaset straganów z sushi, tamagoyaki (słodki omlet) i nożami. Przyjdź rano, część sklepów zamyka się po południu.</p></div>
+      <div class="place"><figure class="ph"><img src="img/ginza-4-chome-crossing-2021-04-28.jpg" alt="Skrzyżowanie Ginza 4-chōme" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Ginza_4-Chome_Crossing_2021-04-28.jpg" target="_blank" rel="noopener">Fot. Asanagi · CC0</a></figcaption></figure><h4>Ginza <span class="day">10.11</span></h4><p>Najelegantsza dzielnica handlowa Tokio: domy towarowe, butiki zegarków, Itoya, Leica. W weekend główna ulica jest deptakiem, we wtorek jest spokojniej.</p></div>
+      <div class="place"><figure class="ph"><img src="img/akihabara-night.jpg" alt="Akihabara nocą" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Akihabara_Night.jpg" target="_blank" rel="noopener">Fot. ElHeineken · CC BY 4.0</a></figcaption></figure><h4>Akihabara <span class="day">10.11</span></h4><p>Dzielnica elektroniki, anime i gier, z salonami SEGA ze zdjęcia. Dla Ciebie liczy się Yodobashi Akiba: elektronika, foto i piętro z zabawkami i LEGO.</p></div>
+    </div>
+
+    <h3 id="fuji">Fuji — czy warto?</h3>
+    <p><b>Tak, jeśli rano w dniu wyjazdu widać ją na kamerach.</b> Listopad to jeden z najlepszych miesięcy na widok: powietrze jest przejrzyste, a na szczycie leży śnieg. Według danych prognostycznych serwisu isfujivisible.com w listopadzie 2025 r. góra była dobrze widoczna przez około 90% poranków, choć to szacunek z jednego sezonu, a nie pomiar. Od 7 do 29.11 nad jeziorem Kawaguchi trwa festiwal jesiennych liści z podświetleniem do 21:00.</p>
+    <p>Minusy: to cały dzień, po ok. 2 godziny w każdą stronę. Szczyt kolorów prognozowano na 13–21.11, więc 9.11 liście będą dopiero się przebarwiać. W weekendy 7–8.11 jest tłoczno, dlatego plan wyznacza poniedziałek.</p>
+    <div class="photo-pair"><figure class="ph"><img src="img/chureito-pagoda-and-mount-fuji.jpg" alt="Pagoda Chūreitō i Fuji" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Chureito_Pagoda_and_Mount_Fuji.jpg" target="_blank" rel="noopener">Fot. Manishprabhune · CC BY-SA 4.0</a></figcaption></figure><figure class="ph"><img src="img/kawaguchiko-momiji-tunnel-fuji.jpg" alt="Korytarz klonów nad jeziorem Kawaguchi" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Kawaguchiko_Momiji_Tunnel_Fuji.jpg" target="_blank" rel="noopener">Fot. Fabimaru · CC BY-SA 4.0</a></figcaption></figure></div>
+    <div class="two">
+      <div class="item">
+        <h4>Jak dojechać z Shinjuku</h4>
+        <ul>
+          <li>Autobus z dworca Busta Shinjuku: ok. 1 h 45 min, 2200 jenów (≈ 54 zł) w jedną stronę. Dla 2 osób tam i z powrotem ok. 8800 jenów (≈ 215 zł).</li>
+          <li>Pociąg Fuji Excursion: ok. 2 h, 4200 jenów (≈ 103 zł). Dla 2 osób tam i z powrotem ok. 16 800 jenów (≈ 410 zł). Zatrzymuje się w Shimoyoshida pod pagodą Chūreitō.</li>
+          <li>Rezerwacja otwiera się miesiąc przed podróżą, więc na 9.11 już można kupić bilety. Kup od razu powrót.</li>
+          <li>Z Asakusy do Shinjuku jedzie się ok. 30 min — wyjdź przed 7:00.</li>
+        </ul>
+      </div>
+      <div class="item">
+        <h4>Plan dnia</h4>
+        <ul>
+          <li>Rano pagoda Chūreitō: klasyczny kadr z Fuji, ok. 400 schodów.</li>
+          <li>Południe: jezioro Kawaguchi, park Ōishi.</li>
+          <li>Popołudnie: Momiji Corridor (korytarz klonów) na północnym brzegu, Itchiku Kubota Art Museum.</li>
+          <li>Ostatni zwykły pociąg Fuji Excursion wraca ok. 17:41 (według rozkładu z marca 2026). Na podświetlenie trzeba zostać na noc albo wracać przez Ōtsuki.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="note">
+      <h4>Jak zdecydować</h4>
+      <p>Wieczorem 8.11 sprawdź prognozę dla Kawaguchiko i rano kamerę na żywo. Pogoda w Tokio nic nie mówi o chmurach nad Fuji. Jeśli jest pochmurno — plan B (Odaiba i Roppongi), a bilet przesuń albo anuluj. Nad jeziorem bywa zimno: ok. 14°C w dzień i blisko zera rano.</p>
+    </div>
+
+    <h3>Inne wycieczki za miasto</h3>
+    <div class="places">
+      <div class="place"><figure class="ph"><img src="img/nikko-toshogu-yomeimon-m3249.jpg" alt="Brama Yōmeimon w Nikkō Tōshō-gū" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Nikko_Toshogu_Yomeimon_M3249.jpg" target="_blank" rel="noopener">Fot. Fg2 · domena publiczna</a></figcaption></figure><h4>Nikkō</h4><p>Chram Tōshō-gū i most Shinkyō. W dolinie liście są najpiękniejsze ok. 1–15.11, ale serpentyny Irohazaka ze zdjęcia w aplikacji będą już po sezonie. Jedzie się prawie 2 h w każdą stronę z Asakusy (Tobu Spacia X). Za dużo jak na pięć dni — wybierz albo Fuji, albo Nikkō.</p></div>
+      <div class="place"><figure class="ph"><img src="img/the-great-buddha-of-k-toku-in-kamakura-d.jpg" alt="Wielki Budda w Kamakurze" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:The_Great_Buddha_of_K%C5%8Dtoku-in_%28Kamakura_Daibutsu%29.jpg" target="_blank" rel="noopener">Fot. Dandy1022 · CC BY-SA 3.0</a></figcaption></figure><h4>Kamakura</h4><p>Wielki Budda z brązu (XIII w.) i świątynie w lesie, godzina pociągiem. Najlepsza alternatywa, jeśli Fuji schowa się w chmurach, a Ty chcesz jednak wyjechać z miasta.</p></div>
+      <div class="place"><figure class="ph"><img src="img/the-night-view-of-minato-mirai-21.jpg" alt="Minato Mirai w Jokohamie nocą" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:The_night_view_of_Minato_Mirai_21.jpg" target="_blank" rel="noopener">Fot. Kakidai · CC BY-SA 4.0</a></figcaption></figure><h4>Jokohama</h4><p>Port, Minato Mirai, Chinatown. Nowoczesne miasto, podobne do Tokio. Przy tak krótkim pobycie można odpuścić.</p></div>
+    </div>
+
+    <h3 id="nocleg">Nocleg — 2 osoby, oddzielne łóżka</h3>
+    <p>Polecam bazę w <b>Asakusie</b>: Tori-no-Ichi, Sensō-ji o świcie i Skytree masz pieszo, a z Narity dojedziesz bez przesiadki. Przy 187 cm wzrostu wybierz pokój z łóżkami — tradycyjne futony leżą na tatami tuż przy podłodze.</p>
+    <div class="buy">
+      <div class="item">
+        <h4>Ryokan Asakusa Shigetsu — pierwszy wybór</h4>
+        <p class="where">1-31-11 Asakusa · 1 min do Sensō-ji, 3 min do stacji Asakusa · ocena gości 9,2/10</p>
+        <p>Klasyczny ryokan z ogrodem i wspólną japońską łaźnią, do której zapisujesz się na godzinę. Zarezerwuj typ pokoju „Japanese-Western Deluxe Twin”: 2 pojedyncze łóżka i tatami, 23 m², własna łazienka. Pokoje „Kiku/Sakura” mają tylko futony.</p>
+        <p class="price">Od ok. 173 USD (≈ 675 zł) za noc za 2 osoby — to najtańszy pokój na początku listopada. Za 5 nocy wychodzi od ok. 3 400 zł, a pokój z łóżkami będzie droższy.</p>
+        <p class="links"><a href="https://www.shigetsu.com/en/index.html" target="_blank" rel="noopener">Strona ryokanu</a><a href="https://www.expedia.com/Tokyo-Hotels-Ryokan-Asakusa-Shigetsu.h4632504.Hotel-Information" target="_blank" rel="noopener">Ceny i opinie (Expedia)</a></p>
+      </div>
+      <div class="item">
+        <h4>OMO3 Asakusa (Hoshino Resorts) — nowocześnie</h4>
+        <p class="where">1-15-5 Hanakawado · naprzeciwko Sensō-ji · otwarty w 2023 r.</p>
+        <p>Hotel w japońskim stylu, nie ryokan. Pokoje Deluxe Twin (33 m²) mają widok na świątynię, a pokoje Yose Twin są urządzone w duchu tradycyjnego teatru. Wygodne łóżka, ale bez tatami i łaźni.</p>
+        <p class="price">Ceny nie są podane publicznie — sprawdź je na Twoje daty w wyszukiwarce hotelu.</p>
+        <p class="links"><a href="https://hoshinoresorts.com/en/hotels/omo3asakusa/" target="_blank" rel="noopener">Strona hotelu</a><a href="https://hoshinoresorts.com/EN/hotels/0000000316" target="_blank" rel="noopener">Sprawdź ceny</a></p>
+      </div>
+      <div class="item">
+        <h4>Onsen Ryokan Yuen Shinjuku — z gorącymi źródłami</h4>
+        <p class="where">5-3-18 Shinjuku · 6 min do stacji Shinjuku-sanchōme · ocena gości 9,2/10</p>
+        <p>Nowoczesny ryokan z łaźnią onsen na dachu (15:00–2:00) i jukatami. Pokój Comfort Twin ma 20 m² i 2 łóżka 90×195 cm — przy 187 cm wzrostu się zmieścisz, ale bez zapasu — oraz prysznic bez wanny. Zaletą jest bliskość autobusu na Fuji i Nakano, wadą — dalej do Asakusy i Tori-no-Ichi. W 2026 r. trwają tu prace w części pokoi i restauracji, więc zapytaj, czy dotyczą Twojego terminu.</p>
+        <p class="price">Orientacyjnie ok. 219 GBP (≈ 1 130 zł) za noc (cena z października). Za 5 nocy wychodzi ok. 5 650 zł.</p>
+        <p class="links"><a href="https://www.uds-hotels.com/en/yuen/shinjuku/" target="_blank" rel="noopener">Strona ryokanu</a><a href="https://reserve.uds-hotels.com/booking/result?code=a7bd8adf-ddae-402c-bb75-1e59f3dfd9b6&amp;search_type=undated" target="_blank" rel="noopener">Rezerwacja</a><a href="https://uk.hotels.com/ho1093686848/onsen-ryokan-yuen-shinjuku-tokyo-japan" target="_blank" rel="noopener">Opinie (Hotels.com)</a></p>
+      </div>
+    </div>
+    <p class="map-note">Prostyle Ryokan Asakusa ma tylko łóżka podwójne, dlatego go pominąłem. Do cen dolicz miejski podatek hotelowy pobierany na miejscu.</p>
+
+    <h3>Co kupić w Tokio</h3>
+    <div class="buy">
+      <div class="item">
+        <h4>Zegarki</h4>
+        <p class="where">Nakano Broadway (Jackroad, Bettyroad, AskWatch) · Ameyoko w Ueno · Ginza</p>
+        <p>Jackroad ma w ofercie tysiące sztuk: nowe, używane i vintage, w tym japońskie Seiko, Grand Seiko i Citizen. W Ameyoko jest kilka sklepów z japońskim vintage. Japońskie modele rynku krajowego (JDM) i używany Grand Seiko to najlepszy stosunek jakości do ceny. Klasyka, nie błyskotki. Przy używanych pytaj o datę serwisu i oryginalne pudełko.</p>
+      </div>
+      <div class="item">
+        <h4>LEGO i kolekcjonerskie</h4>
+        <p class="where">Yodobashi Akiba · Nakano Broadway (Mandarake, sklepy z zabawkami) · firmowe LEGO Store</p>
+        <p>Szukaj zestawów z japońskimi wersjami pudełek i promocyjnych dodatków do zakupów, np. 40906 Restaurants of the World Japan z 2026 r. Sklepy firmowe mają też ścianę Pick-a-Brick. Jeśli kupujesz do kolekcji lub na sprzedaż, zwróć uwagę na stan pudełek: japońskie sklepy dbają o nie bardziej niż europejskie.</p>
+      </div>
+      <div class="item">
+        <h4>Dżinsy (japoński denim)</h4>
+        <p class="where">Ueno (Ameyoko) · Harajuku · Shibuya</p>
+        <p>Japońska rozmiarówka jest mała. Przy dużych rozmiarach (XXL i więcej) potrzebujesz realnie pasa W40 lub szerszego. Część marek szyje modele do W40–42 (np. Warehouse, Samurai), ale w sklepie często ich nie ma. Pytaj od razu o „W40” i długość nogawki. Selvedge (dżins z tkaną krawędzią) bywa sprzedawany surowy — kurczy się po pierwszym moczeniu, więc kupuj z zapasem albo w wersji „one wash”.</p>
+      </div>
+      <div class="item">
+        <h4>Przybory do pisania i smart notes</h4>
+        <p class="where">Itoya (Ginza) · Sekaido (Shinjuku) · Loft, Hands · Maruzen (Nihonbashi)</p>
+        <p>Notes, który cyfryzuje pismo: potrzebujesz pióra z kamerą i papieru z nadrukowaną siatką kropek. Sprawdzone systemy to Neo Smartpen (np. M1+) i Moleskine Smart Writing Set, który działa na tym samym silniku. Aplikacja zamienia notatki na tekst. Producent Neo Smartpen, NeoLAB, jest koreański — w Seulu łatwiej o model i wkłady. W Tokio polecam japońskie pióra: Sailor, Pilot, Platinum, oraz zeszyty Midori i Life.</p>
+      </div>
+      <div class="item">
+        <h4>Golenie i kosmetyki</h4>
+        <p class="where">Hands, Loft · Don Quijote · @cosme Tokyo (Harajuku) · drogerie Matsumoto Kiyoshi</p>
+        <p>Dla siebie: japońskie maszynki i żyletki (Feather, Kai), pianki i balsamy po goleniu. Dla pań: japońska pielęgnacja i filtry przeciwsłoneczne — najszerszy wybór na @cosme Tokyo, które masz po drodze 8.11. Kosmetyki koreańskie lepiej kupić w Seulu, a mineralny filtr na Palau właśnie tu.</p>
+      </div>
+      <div class="item">
+        <h4>Jedzenie i pamiątki</h4>
+        <p class="where">Depachika (Mitsukoshi Ginza, Takashimaya) · Tsukiji · Don Quijote · Kappabashi</p>
+        <p>Matcha i herbaty, wagashi (słodycze), regionalne KitKaty, przyprawy (furikake, shichimi), ryż do onigiri. Noże z Kappabashi — kup w sklepie, który wyda certyfikat i zapakuje do bagażu rejestrowanego.</p>
+      </div>
+      <div class="item" id="dron">
+        <h4>Dron — kupić w Tokio? Tak, działa w Polsce</h4>
+        <p class="where">Yodobashi Akiba, Bic Camera · przykład: DJI Mini 5 Pro</p>
+        <p><b>Sprzęt jest ten sam na całym świecie.</b> DJI nie produkuje osobnej „wersji japońskiej”: jeden model ma w specyfikacji cztery tryby radia — FCC, CE, SRRC i MIC (Japonia) — a dron wybiera tryb sam, po pozycji GPS. W Japonii nadaje tylko w 2,4 GHz (tak wymaga tamtejsze prawo), w Polsce przełączy się w tryb CE. Mój wcześniejszy wpis o „innych ustawieniach radiowych” był błędem — to ustawienie, nie inny sprzęt.</p>
+        <p><b>Prawo w Polsce.</b> Mini 5 Pro ma klasę C0 (DJI deklaruje 249,9 g; EASA potwierdziła klasę mimo pomiarów ok. 252 g, bo norma dopuszcza ±3%). Naklejka C0 jest na spodzie drona. Gdyby egzemplarz z Japonii jej nie miał, nic się nie zmienia: dron bez etykiety klasy o masie poniżej 250 g lata w UE w tej samej podkategorii A1, bez doklejania czegokolwiek. Obowiązki: darmowa rejestracja operatora na drony.gov.pl (dron ma kamerę) i numer operatora na kadłubie. Bez egzaminu, bez Remote ID. Deklarację zgodności UE DJI publikuje dla modelu, nie dla numeru seryjnego — kraj zakupu nie ma znaczenia.</p>
+        <p><b>Co naprawdę tracisz:</b> serwis. Gwarancja i DJI Care Refresh są regionalne — Care Refresh musi być kupiony w tym samym kraju co dron i działa tylko tam (wyjątkiem są modele z listy „international coverage”, sprawdź przed zakupem). Naprawę gwarancyjną egzemplarza z Japonii DJI może odesłać do Japonii.</p>
+        <table class="prices">
+          <thead><tr><th>Zestaw</th><th>Tokio (z 10% podatkiem)</th><th>Tokio po zwrocie podatku</th><th>Polska</th></tr></thead>
+          <tbody>
+            <tr><td>Mini 5 Pro + RC-N3</td><td>106 700 ¥ ≈ 2 620 zł</td><td>≈ 2 385 zł</td><td>3 649 zł</td></tr>
+            <tr><td>Fly More Combo + RC-N3</td><td>128 700 ¥ ≈ 3 165 zł</td><td>≈ 2 875 zł</td><td>ok. 4 500 zł</td></tr>
+            <tr><td>Fly More Combo + RC 2</td><td>150 480 ¥ ≈ 3 700 zł</td><td>≈ 3 360 zł</td><td>ok. 5 200 zł</td></tr>
+          </tbody>
+        </table>
+        <p><b>Cło.</b> Limit zwolnienia dla podróżnych wracających samolotem to 430 € (≈ 1 880 zł). Dron go przekracza, więc formalnie zgłaszasz go na czerwonym korytarzu i płacisz 23% VAT od wartości (ok. 550 zł od zestawu podstawowego) plus cło według taryfy TARIC dla kodu 8806 (0–7,5%). Po tym oszczędność na zestawie podstawowym spada do kilkuset złotych, a zostajesz bez serwisu w Europie. Decyzja: opłaca się umiarkowanie — raczej dla zestawu Fly More niż dla podstawowego.</p>
+        <p><b>Na Palau</b> zarejestruj drona co najmniej 3 dni przed lotem (formularz PNAA, pozycja na liście formalności), a w Rock Islands potrzebujesz dodatkowo pozwolenia. Zakupy tax-free od 1.11 rozliczysz przy wylocie z Narity 11.11.</p>
+        <p class="links"><a href="https://dronexl.co/2025/09/23/easa-dji-mini-5-pro-c0-status-weight/" target="_blank" rel="noopener">EASA o klasie C0 Mini 5 Pro</a><a href="https://www.easa.europa.eu/en/the-agency/faqs/drones-without-class-identification-label-open-category" target="_blank" rel="noopener">EASA: drony bez etykiety klasy</a><a href="https://www.dji.com/support/service/djicare-refresh/faq" target="_blank" rel="noopener">DJI Care Refresh — regiony</a><a href="https://drony.gov.pl" target="_blank" rel="noopener">drony.gov.pl — rejestracja</a></p>
+      </div>
+    </div>
+
+    <h3>Narita, 19.11</h3>
+    <p>Jeśli przylot z Palau pozwoli: świątynia Naritasan Shinshōji i ulica Omotesandō z restauracjami serwującymi węgorza.</p>
+  </div>
+</section>
+
+<!-- PALAU -->
+<section class="leg" id="palau">
+  <div class="wrap">
+    <h2>Palau</h2>
+    <p class="leg-meta">11–19.11 · 27–32°C, woda 28–29°C · baza: Koror · waluta: USD</p>
+
+    <div class="note">
+      <h4>Pogoda i bezpieczeństwo w wodzie</h4>
+      <p>Listopad to przejście z pory deszczowej w suchą. Krótkie ulewy są normalne, tajfuny rzadkie, ale możliwe (w listopadzie 2025 r. tajfun przeszedł przez północ archipelagu). Dlatego w planie są dwa dni zapasowe. W wodzie zawsze kamizelka do snorkelingu — przewoźnicy ją wypożyczają — i tylko wycieczki z przewodnikiem. Jeśli słabo pływasz, powiedz to na starcie i poproś o płytkie miejsca — to normalna prośba, dobiorą trasę.</p>
+    </div>
+
+    <h3>Plan dni</h3>
+    <ol class="days">
+      <li data-date="2026-11-11"><span class="d">11.11<small>środa</small></span>Przylot do ROR (wyspa Babeldaob), przy wjeździe podpisujesz Palau Pledge w paszporcie. Transfer do Koror, odpoczynek.</li>
+      <li data-date="2026-11-12"><span class="d">12.11<small>czwartek</small></span>Koror na lądzie: Belau National Museum, Etpison Museum (kolekcja storyboardów), Palau Aquarium przy PICRC. Rezerwacja wycieczek na kolejne dni.</li>
+      <li data-date="2026-11-13"><span class="d">13.11<small>piątek</small></span><b>Rock Islands</b> — całodniowa wycieczka łodzią: Milky Way (zatoka z białym wapiennym błotem, płytko), piaszczysta łacha Long Beach, spokojne rafy przybrzeżne.</li>
+      <li data-date="2026-11-14"><span class="d">14.11<small>sobota</small></span><b>Jellyfish Lake</b> i druga część Rock Islands. Jezioro jest zamknięte, spokojne i nie trzeba nurkować. Liczba złotych meduz mocno się waha — zapytaj operatora o aktualny stan, zanim dopłacisz za pozwolenie.</li>
+      <li data-date="2026-11-15"><span class="d">15.11<small>niedziela</small></span>Dzień zapasowy na pogodę lub odpoczynek. Plaża hotelowa, kajak z przewodnikiem po spokojnej lagunie.</li>
+      <li data-date="2026-11-16"><span class="d">16.11<small>poniedziałek</small></span><b>Babeldaob</b> samochodem lub z wycieczką: wodospad Ngardmau (szlak przez las, strome odcinki, dobre buty), kamienne monolity Badrulchau, budynek Kapitolu w Melekeok.</li>
+      <li data-date="2026-11-17"><span class="d">17.11<small>wtorek</small></span><b>Peleliu</b> — wyprawa na pole bitwy z 1944 r.: japońskie bunkry, wraki czołgów, Bloody Nose Ridge. Łodzią lub awionetką, najlepiej z przewodnikiem.</li>
+      <li data-date="2026-11-18"><span class="d">18.11<small>środa</small></span>Drugi dzień zapasowy: powtórka ulubionego miejsca, zakupy pamiątek, pakowanie.</li>
+      <li data-date="2026-11-19"><span class="d">19.11<small>czwartek</small></span>Palau → Narita, noc przy lotnisku.</li>
+    </ol>
+
+    <h3>Pozwolenia</h3>
+    <p>Na łódź po Rock Islands potrzebujesz pozwolenia stanu Koror: 50 USD (≈ 195 zł) za Rock Islands albo 100 USD (≈ 390 zł) z wejściem na Jellyfish Lake. Zwykle załatwia je organizator wycieczki. Stan Koror rozważał podwyżki, więc sprawdź aktualną cenę na miejscu.</p>
+
+    <h3>Co kupić na Palau</h3>
+    <div class="buy">
+      <div class="item">
+        <h4>Storyboard — rzeźbiona deska z legendą</h4>
+        <p class="where">Sklep przy więzieniu w Koror · sklep Belau National Museum · Etpison Museum</p>
+        <p>Najbardziej palauska pamiątka: deska z drewna z wyrzeźbioną jedną z ok. 30 tradycyjnych legend. Największy wybór jest w sklepie przy zakładzie karnym, gdzie rzeźbią więźniowie, a dochód trafia do ich rodzin. Poproś o kartkę z opisem legendy.</p>
+      </div>
+      <div class="item">
+        <h4>Rękodzieło</h4>
+        <p class="where">Sklep Belau National Museum · Ormuul Gift Shop</p>
+        <p>Plecione wyroby z pandanu, rzeźbione figurki, modele czółen.</p>
+      </div>
+      <div class="item">
+        <h4>Czego nie kupować</h4>
+        <p class="where">Wszędzie</p>
+        <p>Muszle, koral, wyroby ze skorupy żółwia i z rekina: wywóz jest nielegalny, a na Palau sprzedaż części z nich również.</p>
+      </div>
+    </div>
+
+    <h3>Co zobaczyć</h3>
+    <div class="places">
+      <div class="place"><figure class="ph"><img src="img/rock-islands-near-german-channel-palau-9.jpg" alt="Rock Islands na Palau" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Rock_Islands_near_German_Channel%2C_Palau_%289971717656%29.jpg" target="_blank" rel="noopener">Fot. Matt Kieffer · CC BY-SA 2.0</a></figcaption></figure><h4>Rock Islands</h4><p>Kilkaset porośniętych lasem wapiennych wysepek w kształcie grzybów, wpisanych na listę UNESCO. Leica Q najlepiej sprawdzi się z łodzi przy niskim słońcu.</p></div>
+      <div class="place"><figure class="ph"><img src="img/milky-way-palau.jpg" alt="Zatoka Milky Way na Palau" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Milky_Way%2C_Palau.jpg" target="_blank" rel="noopener">Fot. LuxTonnerre · CC BY 2.0</a></figcaption></figure><h4>Milky Way</h4><p>Turkusowa zatoka z białym wapiennym błotem, którym smaruje się skórę. Płytka i spokojna.</p></div>
+      <div class="place"><figure class="ph"><img src="img/jellyfish-lake-palau.jpg" alt="Meduzy w Jellyfish Lake" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Jellyfish_Lake_Palau.jpg" target="_blank" rel="noopener">Fot. Onyo · CC BY-SA 4.0</a></figcaption></figure><h4>Jellyfish Lake</h4><p>Jedyne udostępnione jezioro z meduzami bez parzydełek. Pływa się na powierzchni, bez nurkowania.</p></div>
+      <div class="place"><figure class="ph"><img src="img/japanese-world-war-ii-tank-at-peleliu.jpg" alt="Japoński czołg z II wojny światowej na Peleliu" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Japanese_World_War_II_Tank_at_Peleliu.JPG" target="_blank" rel="noopener">Fot. Manuae · CC BY-SA 3.0</a></figcaption></figure><h4>Peleliu</h4><p>Ślady jednej z najkrwawszych bitew na Pacyfiku: wraki czołgów, bunkry i Bloody Nose Ridge.</p></div>
+    </div>
+    <ul class="see" style="margin-top:14px">
+      <li><b>Ngardmau</b> — największy wodospad Palau.</li>
+      <li><b>Etpison Museum i Belau National Museum</b> — historia, pieniądze z kamienia i szkła, nawigacja.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SEUL -->
+<section class="leg" id="seul">
+  <div class="wrap">
+    <h2>Seul</h2>
+    <p class="leg-meta">20–23.11 · wieczorem 5–7°C · końcówka jesiennych liści w pałacach</p>
+
+    <h3>Plan dni</h3>
+    <ol class="days">
+      <li data-date="2026-11-20"><span class="d">20.11<small>piątek</small></span>Narita → Incheon. AREX do centrum. Wieczorem Myeongdong: flagowy Olive Young, uliczne jedzenie.</li>
+      <li data-date="2026-11-21"><span class="d">21.11<small>sobota</small></span>Gyeongbokgung (nieczynny we wtorki), wioska hanoków Bukchon, Insadong — papier hanji, pędzle, tradycyjne przybory do pisania, herbaciarnie. Wieczorem Namsan i wieża N Seoul.</li>
+      <li data-date="2026-11-22"><span class="d">22.11<small>niedziela</small></span>Changdeokgung z ogrodem Huwon (wstęp z przewodnikiem, rezerwuj wcześniej), targ Gwangjang, Dongdaemun Design Plaza. Ostatnie zakupy.</li>
+      <li data-date="2026-11-23"><span class="d">23.11<small>poniedziałek</small></span>Incheon → Warszawa.</li>
+    </ol>
+
+    <h3>Co zobaczyć</h3>
+    <div class="places">
+      <div class="place"><figure class="ph"><img src="img/gyeongbokgung-geunjeongjeon.jpg" alt="Sala tronowa Geunjeongjeon w pałacu Gyeongbokgung" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Gyeongbokgung-GeunJeongJeon.jpg" target="_blank" rel="noopener">Fot. Blmtduddl · CC BY-SA 3.0</a></figcaption></figure><h4>Gyeongbokgung <span class="day">21.11</span></h4><p>Główny pałac dynastii Joseon z salą tronową Geunjeongjeon. W listopadzie dziedzińce otaczają przebarwione drzewa. Nieczynny we wtorki.</p></div>
+      <div class="place"><figure class="ph"><img src="img/bukchon-hanok-village-01.jpg" alt="Domy hanok w Bukchon" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Bukchon_Hanok_Village_01.jpg" target="_blank" rel="noopener">Fot. Bgag · CC0</a></figcaption></figure><h4>Bukchon <span class="day">21.11</span></h4><p>Wzgórze z setkami tradycyjnych domów hanok między dwoma pałacami. Mieszkają tam ludzie, więc zachowuj ciszę.</p></div>
+      <div class="place"><figure class="ph"><img src="img/myeongdong-at-night.jpg" alt="Myeongdong nocą" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Myeongdong_at_night.jpg" target="_blank" rel="noopener">Fot. Christian Bolz · CC BY-SA 4.0</a></figcaption></figure><h4>Myeongdong <span class="day">20.11</span></h4><p>Neonowa dzielnica handlowa z ulicznym jedzeniem i kilkoma sklepami Olive Young, w tym flagowym.</p></div>
+    </div>
+
+    <h3>Co kupić w Seulu</h3>
+    <div class="buy">
+      <div class="item">
+        <h4>Kosmetyki damskie (K-beauty)</h4>
+        <p class="where">Olive Young — flagowy sklep w Myeongdong i dziesiątki filii</p>
+        <p>To właściwe miejsce na kosmetyki dla pań: pielęgnacja, maseczki w płachcie, filtry. Ceny niższe niż w Europie, zwrot podatku zwykle od razu w sklepie po okazaniu paszportu.</p>
+      </div>
+      <div class="item">
+        <h4>Smart pen</h4>
+        <p class="where">Duże sklepy z elektroniką i papiernicze</p>
+        <p>Neo Smartpen to produkt koreański — jeśli nie kupisz w Tokio, szukaj tutaj, razem z zapasem notesów Ncode.</p>
+      </div>
+      <div class="item">
+        <h4>Papier i tradycyjne przybory</h4>
+        <p class="where">Insadong</p>
+        <p>Papier hanji, pędzle, pieczątki z wygrawerowanym imieniem — dobre prezenty, lekkie w bagażu.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAKOWANIE -->
+<section class="leg" id="pakowanie">
+  <div class="wrap">
+    <h2>Pakowanie</h2>
+    <p class="leg-meta">Od 5°C w Seulu do 32°C na Palau — warstwy zamiast grubej kurtki</p>
+    <div class="two">
+      <div class="item">
+        <h4>Tokio i Seul</h4>
+        <ul>
+          <li>Lekka puchówka lub kurtka do kompresji</li>
+          <li>Sweter, szalik, cienkie rękawiczki na Seul</li>
+          <li>Wygodne buty do 15–20 tys. kroków</li>
+          <li>Adapter: Japonia typ A (100 V), Korea typ C/F (220 V)</li>
+          <li>Torba składana na zakupy z tax-free</li>
+        </ul>
+      </div>
+      <div class="item">
+        <h4>Palau</h4>
+        <ul>
+          <li>Kamizelka do snorkelingu (lub wypożyczenie), maska, rurka</li>
+          <li>Koszulka z długim rękawem do wody (UV) zamiast tony kremu</li>
+          <li>Mineralny filtr zgodny z przepisami Palau</li>
+          <li>Wodoodporny worek na Leikę na łodzi</li>
+          <li>Buty do wody i trekkingowe sandały na Ngardmau</li>
+          <li>Lekka kurtka przeciwdeszczowa</li>
+          <li>Gotówka w USD</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Stan na 19.10.2026. Położenie punktów na mapie jest przybliżone. Zdjęcia: Wikimedia Commons, wolne licencje — autor i licencja w podpisie każdego zdjęcia (zmniejszone do 1000 px). Przepisy i ceny sprawdzaj tuż przed wyjazdem. <button class="theme-toggle" id="themeBtn" type="button">Zmień motyw</button></p>
+    <h4>Źródła</h4>
+    <ol>
+      <li><a href="https://tokyocheapo.com/shopping-2/tax-free-shopping-japan/">Tokyo Cheapo — tax-free shopping, zmiany od 1.11.2026</a></li>
+      <li><a href="https://en.japantravel.com/article/tax-free-shopping-in-japan-2026-changes/72305">Japan Travel — tax-free w Japonii, zmiany 2026</a></li>
+      <li><a href="https://www.gltjp.com/en/article/item/21542/">GLTJP — nowy system zwrotu podatku</a></li>
+      <li><a href="https://www.indoneo.com/compass/palau-digital-entry-form-qr-code-mandatory-arrivals-2/">Indoneo — obowiązkowy formularz wjazdowy Palau</a></li>
+      <li><a href="https://adoption.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Palau.html">US State Dept — Palau, wymogi wjazdowe</a></li>
+      <li><a href="https://www.mofa.go.kr/nl-en/brd/m_6971/view.do?seq=761802">MOFA Korea — przedłużenie zwolnienia z K-ETA do 31.12.2026</a></li>
+      <li><a href="https://palaudiveadventures.com/palau-jellyfish-lake/">Palau Dive Adventures — Jellyfish Lake, pozwolenia</a></li>
+      <li><a href="https://islandtimes.org/public-hearing-for-proposed-jellyfish-lake-rock-island-fees-hike-set-feb-20/">Island Times — propozycja podwyżki opłat</a></li>
+      <li><a href="https://stream2sea.com/blogs/dive-deeper/the-republic-of-palau-adopts-the-worlds-strictest-national-sunscreen-standard">Stream2Sea — przepisy Palau o filtrach</a></li>
+      <li><a href="https://pristineparadisepalau.com/drone-registration/">Pristine Paradise Palau — rejestracja drona</a></li>
+      <li><a href="https://dronesgator.com/drone-laws-in-japan">Dronesgator — przepisy dronowe w Japonii 2026</a></li>
+      <li><a href="https://dronexl.co/2025/09/23/easa-dji-mini-5-pro-c0-status-weight/">DroneXL — EASA potwierdza klasę C0 DJI Mini 5 Pro</a></li>
+      <li><a href="https://www.easa.europa.eu/en/the-agency/faqs/drones-without-class-identification-label-open-category">EASA — drony bez etykiety klasy w kategorii otwartej</a></li>
+      <li><a href="https://mavicpilots.com/threads/fcc-and-ce-mini-3-any-differences.126740/latest">MavicPilots — FCC/CE: ten sam sprzęt, tryb po lokalizacji</a></li>
+      <li><a href="https://mavicpilots.com/threads/hello-from-japan.104613/page-2">MavicPilots — drony DJI w Japonii, 2,4 GHz</a></li>
+      <li><a href="https://www.dji.com/support/service/djicare-refresh/faq">DJI — Care Refresh FAQ (regiony)</a></li>
+      <li><a href="https://av.watch.impress.co.jp/docs/news/2047701.html">AV Watch — ceny DJI Mini 5 Pro w Japonii</a></li>
+      <li><a href="https://www.tabletowo.pl/premiera-dji-mini-5-pro-co-oferuje-cena/">Tabletowo — ceny DJI Mini 5 Pro w Polsce</a></li>
+      <li><a href="https://antyweb.pl/co-trzeba-wiedziec-zeby-latac-dronem">Antyweb — rejestracja operatora drona w Polsce</a></li>
+      <li><a href="https://celna24.pl/customs-tariff/880691">Celna24 — taryfa celna, drony do 250 g (8806 91)</a></li>
+      <li><a href="https://selfguidejapan.com/blog/tori-no-ichi-2026">Self Guide Japan — Tori-no-Ichi 2026</a></li>
+      <li><a href="https://real-japan-guide.com/?p=2698">Real Japan Guide — Asakusa Tori no Ichi 2026</a></li>
+      <li><a href="https://livejapan.com/th/in-tokyo/in-pref-tokyo/in-shinjuku/article-a0005717/">Live Japan — Jackroad i sklepy z zegarkami</a></li>
+      <li><a href="https://omegaforums.net/threads/does-any-one-have-a-favorite-watch-shops-in-tokyo-japan.22094/">Omega Forums — vintage zegarki w Ueno</a></li>
+      <li><a href="https://supertalk.superfuture.com/topic/10645-denim-for-the-larger-guy/page/2/">Superfuture — japoński denim w dużych rozmiarach</a></li>
+      <li><a href="https://www.tokyoweekender.com/?p=261034">Tokyo Weekender — sklepy papiernicze</a></li>
+      <li><a href="https://agtechdata.uga.edu/6-best-digital-notebooks-2026-remarkable-kobo-kindle/">Przegląd smart pen 2026 (Neo, Moleskine)</a></li>
+      <li><a href="https://www.worldtravelguide.net/guides/oceania/pacific-islands-of-micronesia/palau/shopping-nightlife">World Travel Guide — zakupy na Palau</a></li>
+      <li><a href="https://www.islands.com/palau-time-and-talent-served/">Islands — storyboardy z więzienia w Koror</a></li>
+      <li><a href="https://www.lonelyplanet.com/articles/first-time-guide-to-palau">Lonely Planet — Palau po raz pierwszy</a></li>
+      <li><a href="https://www.laenderdaten.info/Ozeanien/Palau/taifune.php">Länderdaten — tajfuny na Palau</a></li>
+      <li><a href="https://mileasia.com/korea/korea-in-november/">MileAsia — Korea w listopadzie</a></li>
+      <li><a href="https://www.japan-guide.com/blog/thomas/260325.html">japan-guide.com — ponowne otwarcie Edo-Tokyo Museum</a></li>
+      <li><a href="https://real-japan-guide.com/?p=2006">Real Japan Guide — Tokio–Fuji 2026: pociąg, autobus, plan B</a></li>
+      <li><a href="https://real-japan-guide.com/?p=2094">Real Japan Guide — festiwal liści w Kawaguchiko 2026</a></li>
+      <li><a href="https://isfujivisible.com/blog/mount-fuji-autumn-leaves-2026">isfujivisible.com — widoczność Fuji i prognoza liści 2026</a></li>
+      <li><a href="https://japanactivity.com/nikko-in-november">Japan Activity — Nikkō w listopadzie</a></li>
+      <li><a href="https://www.haveagood-holiday.com/en/articles/roppongi-hills-christmas-2026">Have a Good Holiday — iluminacja Roppongi Hills 2026</a></li>
+      <li><a href="https://www.gotokyo.org/en/tourists/info/observatory.html">GO TOKYO — tarasy widokowe ratusza</a></li>
+      <li><a href="https://www.expedia.com/Tokyo-Hotels-Ryokan-Asakusa-Shigetsu.h4632504.Hotel-Information">Ryokan Asakusa Shigetsu — pokoje i oceny</a></li>
+      <li><a href="https://www.imfirstclass.com/en/stories/2638/">I'm First Class — OMO3 Asakusa</a></li>
+      <li><a href="https://uk.hotels.com/ho1093686848/onsen-ryokan-yuen-shinjuku-tokyo-japan">Onsen Ryokan Yuen Shinjuku — pokoje i oceny</a></li>
+      <li><a href="https://www.shigetsu.com/en/index.html">Ryokan Asakusa Shigetsu — strona oficjalna</a></li>
+      <li><a href="https://www.uds-hotels.com/en/yuen/shinjuku/">Onsen Ryokan Yuen Shinjuku — strona oficjalna</a></li>
+      <li><a href="https://hoshinoresorts.com/en/hotels/omo3asakusa/">OMO3 Asakusa — strona oficjalna</a></li>
+      <li><a href="https://direct.money.pl/kursy-walut/nbp/kurs-JPY">money.pl — kurs jena NBP</a></li>
+      <li><a href="https://comparic.pl/dolar-wraca-ponizej-390-zl-kurs-zlotego-zyskuje-15-pazdziernika-2026-r/">Comparic — kursy USD i GBP</a></li>
+      <li><a href="https://www.expedia.com/Tokyo-Hotels-Prostyle-Ryokan-Tokyo-Asakusa.h39030593.Hotel-Information">Prostyle Ryokan Tokyo Asakusa — typy pokoi</a></li>
+    </ol>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Checklista zapamiętywana lokalnie
+  var KEY='wl-tokio-palau-check';
+  var state={};
+  try{state=JSON.parse(localStorage.getItem(KEY))||{};}catch(e){}
+  document.querySelectorAll('#checklist input').forEach(function(cb){
+    if(state[cb.id]) cb.checked=true;
+    cb.addEventListener('change',function(){
+      state[cb.id]=cb.checked;
+      try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}
+    });
+  });
+
+  // Podświetlenie dzisiejszego dnia
+  function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+  var today=iso(new Date());
+  var hits=document.querySelectorAll('ol.days li[data-date="'+today+'"]');
+  hits.forEach(function(li){li.classList.add('today');});
+  var btn=document.getElementById('todayBtn');
+  btn.addEventListener('click',function(){
+    if(hits.length){hits[0].scrollIntoView({block:'center'});}
+    else if(today<'2026-11-05'){document.getElementById('formalnosci').scrollIntoView();btn.textContent='Jeszcze przed wyjazdem';}
+    else{document.getElementById('pakowanie').scrollIntoView();btn.textContent='Podróż zakończona';}
+  });
+
+
+  // MAPA
+  (function(){
+    if(typeof L==='undefined'){var m=document.getElementById('map');if(m)m.innerHTML='<p style="padding:16px">Mapa nie wczytała się — sprawdź połączenie.</p>';return;}
+    var C={'6':'#3E5BA9','7':'#C0392B','8':'#8E44AD','9':'#0E7C86','9b':'#5B8C8F','10':'#C77D0A','hotel':'#1A1F24','trip':'#6B7680'};
+    // g: grupa koloru; f: filtry; far: poza Tokio
+    var P=[
+      ['6','Park Ueno','Staw Shinobazu, muzea, jesienne miłorzęby.',35.7148,139.7714],
+      ['6','Ameyoko','Targ pod torami: zegarki, dżinsy, jedzenie.',35.7101,139.7745],
+      ['7','Sensō-ji','Najstarsza świątynia Tokio — przyjdź o 7–8 rano.',35.7148,139.7967],
+      ['7','Kappabashi','Ulica noży i przyborów kuchennych.',35.7132,139.7883],
+      ['7','Edo-Tokyo Museum','Historia miasta, makiety 1:1. Otwarte ponownie od 31.03.2026.',35.6966,139.7958],
+      ['7','Tokyo Skytree','634 m; wjedź przed zachodem słońca.',35.7101,139.8107],
+      ['7','Ōtori-jinja — Tori-no-Ichi','Jarmark z grabkami kumade, 7.11 przez całą dobę.',35.7237,139.7920],
+      ['8','Meiji Jingū','Chram cesarza Meiji w lesie.',35.6764,139.6993],
+      ['8','Park Yoyogi','Fontanna i staw, jesienne liście.',35.6717,139.6949],
+      ['8','Harajuku — Takeshita','Moda, cosplay; w niedzielę najwięcej przebierańców.',35.6716,139.7031],
+      ['8','Skrzyżowanie Shibuya','Najsłynniejsze przejście dla pieszych świata.',35.6595,139.7005],
+      ['8','Shibuya Sky','Taras na dachu — bilet z godziną wejścia.',35.6584,139.7022],
+      ['8','Ratusz Tokio','Darmowe tarasy na 45. piętrze, 9:30–22:00, pokaz świetlny po zmroku.',35.6896,139.6917],
+      ['8','Omoide Yokochō','Wąskie bary z grillem pod torami.',35.6929,139.6996],
+      ['9','Pagoda Chūreitō','Klasyczny kadr z Fuji, ok. 400 schodów. Stacja Shimoyoshida.',35.5011,138.8016,1],
+      ['9','Stacja Kawaguchiko','Stąd autobus Red Line wzdłuż jeziora.',35.4986,138.7689,1],
+      ['9','Park Ōishi i Momiji Corridor','Północny brzeg jeziora; festiwal liści 7–29.11.',35.5195,138.7480,1],
+      ['9b','Miraikan (plan B)','Muzeum nauki, globus Geo-Cosmos. Nieczynne we wtorki.',35.6190,139.7765],
+      ['9b','Statua Wolności, Odaiba (plan B)','Widok na Rainbow Bridge.',35.6274,139.7720],
+      ['9b','Roppongi Hills (plan B)','Iluminacja Keyakizaka 17:00–22:00, od 5.11.',35.6597,139.7297],
+      ['10','Targ Tsukiji','Rano: sushi, tamagoyaki, noże.',35.6654,139.7707],
+      ['10','Itoya, Ginza','12 pięter papierniczych; obok Seiko, Leica.',35.6723,139.7670],
+      ['10','Nakano Broadway','Jackroad (3. piętro), kolekcjonerskie.',35.7090,139.6656],
+      ['10','Yodobashi Akiba','Elektronika, foto, LEGO. Czynne do 22:00.',35.6990,139.7749],
+      ['hotel','Ryokan Asakusa Shigetsu','Pierwszy wybór. Pokój Japanese-Western Deluxe Twin. Położenie przybliżone.',35.7118,139.7953],
+      ['hotel','OMO3 Asakusa','Nowoczesny hotel naprzeciw Sensō-ji. Położenie przybliżone.',35.7126,139.7984],
+      ['hotel','Onsen Ryokan Yuen Shinjuku','Onsen na dachu, pokoje Twin. Położenie przybliżone.',35.6913,139.7089],
+      ['trip','Kamakura — Wielki Budda','Godzina pociągiem; dobra alternatywa przy chmurach nad Fuji.',35.3167,139.5358,1],
+      ['trip','Nikkō — Tōshō-gū','Prawie 2 h w jedną stronę; liście w dolinie 1–15.11.',36.7580,139.5990,1],
+      ['trip','Jokohama — Minato Mirai','Nowoczesny port; przy krótkim pobycie do pominięcia.',35.4570,139.6326,1]
+    ];
+    var map=L.map('map',{scrollWheelZoom:false});
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© współtwórcy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
+    var groups={},counters={};
+    P.forEach(function(r){
+      var g=r[0],col=C[g];counters[g]=(counters[g]||0)+1;
+      var label=g==='hotel'?'⌂':(g==='trip'?'•':counters[g]);
+      var icon=L.divIcon({className:'',html:'<div class="pin'+(g==='hotel'?' home':'')+'" style="background:'+col+'">'+label+'</div>',iconSize:[26,26],iconAnchor:[13,13],popupAnchor:[0,-12]});
+      var dayTxt=g==='hotel'?'Nocleg':(g==='trip'?'Wycieczka za miasto':(g==='9b'?'9.11 — plan B':g+'.11'));
+      var mk=L.marker([r[3],r[4]],{icon:icon,title:r[1]}).bindPopup('<b>'+r[1]+'</b><br><small>'+dayTxt+'</small><br>'+r[2]);
+      (groups[g]=groups[g]||{markers:[],pts:[],far:[]});
+      groups[g].markers.push(mk);groups[g].pts.push([r[3],r[4]]);groups[g].far.push(!!r[5]);
+    });
+    var layers={};
+    Object.keys(groups).forEach(function(g){
+      var lg=L.layerGroup(groups[g].markers);
+      if(['hotel','trip'].indexOf(g)<0 && groups[g].pts.length>1){
+        L.polyline(groups[g].pts,{color:C[g],weight:3,opacity:.7,dashArray:g==='9b'?'6 6':null}).addTo(lg);
+      }
+      layers[g]=lg;
+    });
+    var sets={
+      'all':['6','7','8','9b','10','hotel'],
+      '6':['6','hotel'],'7':['7','hotel'],'8':['8','hotel'],'9':['9','9b','hotel'],'10':['10','hotel'],
+      'hotel':['hotel'],'trip':['trip','9','hotel']
+    };
+    function show(f){
+      Object.keys(layers).forEach(function(g){map.removeLayer(layers[g]);});
+      var b=[];
+      sets[f].forEach(function(g){layers[g].addTo(map);b=b.concat(groups[g].pts);});
+      map.fitBounds(L.latLngBounds(b),{padding:[30,30],maxZoom:15});
+    }
+    document.querySelectorAll('.map-filter button').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        document.querySelectorAll('.map-filter button').forEach(function(x){x.setAttribute('aria-pressed','false');});
+        btn.setAttribute('aria-pressed','true');show(btn.getAttribute('data-f'));
+      });
+    });
+    show('all');
+  })();
+
+  // Przełącznik motywu
+  var root=document.documentElement;
+  try{var t=localStorage.getItem('wl-theme');if(t)root.setAttribute('data-theme',t);}catch(e){}
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var dark=root.getAttribute('data-theme')==='dark'||(!root.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme: dark)').matches);
+    var n=dark?'light':'dark';root.setAttribute('data-theme',n);
+    try{localStorage.setItem('wl-theme',n);}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
