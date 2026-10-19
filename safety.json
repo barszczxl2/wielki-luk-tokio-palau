@@ -1,0 +1,53 @@
+{
+ "source": "MSZ / odyseusz.gov.pl",
+ "countries": {
+  "TH": {
+   "name": "Tajlandia",
+   "updated": "2026-09-07",
+   "level": 2,
+   "regional": [
+    {
+     "level": 3,
+     "regions": [
+      "Prowincja Pattani",
+      "Prowincja Yala",
+      "Prowincja Narathiwat",
+      "Prowincja Songkhla",
+      "Prowincja Ubon Ratchathani",
+      "Sisaket",
+      "Prowincja Surin",
+      "Prowincja Buri Ram",
+      "Prowincja Sa Kaeo"
+     ]
+    }
+   ]
+  },
+  "LA": {
+   "name": "Laos",
+   "updated": "2026-06-30",
+   "level": 2,
+   "regional": [
+    {
+     "level": 3,
+     "regions": [
+      "Xaisomboun Province",
+      "Prowincja Bokéo"
+     ]
+    }
+   ]
+  },
+  "CN": {
+   "name": "Chiny",
+   "updated": "2026-09-03",
+   "level": 1,
+   "regional": []
+  },
+  "VN": {
+   "name": "Wietnam",
+   "updated": "2026-06-30",
+   "level": 1,
+   "regional": []
+  }
+ },
+ "fetched": "2026-10-19"
+}

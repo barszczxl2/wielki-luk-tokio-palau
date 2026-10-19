@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+ <name>Wielki Luk Kolejowy: Bangkok - Ha Long</name>
+ <description>Trasa Bangkok - Laos - Junnan - Zatoka Ha Long. Punkty = centra miast/dworce (przyblizone). Linie = przebieg pogladowy, nie dokladny slad torow.</description>
+
+ <Style id="sleeper"><LineStyle><color>ff8b3d8b</color><width>4</width></LineStyle></Style>
+ <Style id="hsr"><LineStyle><color>ffd07830</color><width>4</width></LineStyle></Style>
+ <Style id="walk"><LineStyle><color>ff2222cc</color><width>4</width></LineStyle></Style>
+ <Style id="bus"><LineStyle><color>ff338833</color><width>4</width></LineStyle></Style>
+ <Style id="flight"><LineStyle><color>ff999999</color><width>3</width></LineStyle></Style>
+ <Style id="stop"><IconStyle><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/paddle/red-circle.png</href></Icon></IconStyle></Style>
+
+ <Folder>
+ <name>Przystanki</name>
+ <Placemark><styleUrl>#stop</styleUrl><name>1. Bangkok (Krung Thep Aphiwat)</name><description>Start. Sleeper nr 133 do Wientianu, ~11 h</description><Point><coordinates>100.5389,13.8039,0</coordinates></Point></Placemark>
+ <Placemark><styleUrl>#stop</styleUrl><name>Nong Khai (granica TH/LA)</name><description>Odprawa wyjazdowa z Tajlandii, Most Przyjazni nad Mekongiem</description><Point><coordinates>102.7449,17.8783,0</coordinates></Point></Placemark>
+ <Placemark><styleUrl>#stop</styleUrl><name>2. Wientian</name><description>1 dzien: Pha That Luang, Patuxai. Uwaga: 2 rozne dworce (Khamsavath vs dworzec LCR)</description><Point><coordinates>102.6331,17.9757,0</coordinates></Point></Placemark>
+ <Placemark><styleUrl>#stop</styleUrl><name>3. Vang Vieng</name><description>1-2 noce: krasowe ostance, Nam Song, laguny</description><Point><coordinates>102.4478,18.9231,0</coordinates></Point></Placemark>
+ <Placemark><styleUrl>#stop</styleUrl><name>4. Luang Prabang</name><description>2-3 noce, UNESCO. Dworzec ~12 km od miasta</description><Point><coordinates>102.1350,19.8867,0</coordinates></Point></Placemark>
+ <Placemark><styleUrl>#stop</styleUrl><name>Boten / Mohan (granica LA/CN)</name><description>Odprawa ~90 min, pociag D888 czeka</description><Point><coordinates>101.6800,21.1850,0</coordinates></Point></Placemark>
+ <Placemark><styleUrl>#stop</styleUrl><name>5-6. Kunming</name><description>1-2 dni: Kamienny Las (Shilin), jezioro Dian. Przyjazd: Kunming South; wyjazd do Hekou: Kunming Main!</description><Point><coordinates>102.7060,25.0430,0</coordinates></Point></Placemark>
+ <Placemark><styleUrl>#stop</styleUrl><name>7. Hekou North (koniec chinskich torow)</name><description>Bus 2 RMB do portu granicznego</description><Point><coordinates>103.9390,22.5290,0</coordinates></Point></Placemark>
+ <Placemark><styleUrl>#stop</styleUrl><name>8. Lao Cai (granica CN/VN, pieszo przez most)</name><description>Przejscie piesze ~1-1.5 h. Opcja: Sapa. Wieczorem sleeper do Hanoi</description><Point><coordinates>103.9707,22.4856,0</coordinates></Point></Placemark>
+ <Placemark><styleUrl>#stop</styleUrl><name>9. Hanoi</name><description>1-2 dni: Stare Miasto, Train Street, most Long Bien</description><Point><coordinates>105.8542,21.0285,0</coordinates></Point></Placemark>
+ <Placemark><styleUrl>#stop</styleUrl><name>10. Zatoka Ha Long</name><description>Rejs 2 dni / 1 noc, UNESCO. Wariant: Lan Ha / Bai Tu Long</description><Point><coordinates>107.1839,20.9101,0</coordinates></Point></Placemark>
+ <Placemark><styleUrl>#stop</styleUrl><name>11. Hanoi Noi Bai (HAN) - lot powrotny</name><description>HAN - BKK ~2 h</description><Point><coordinates>105.8072,21.2212,0</coordinates></Point></Placemark>
+ </Folder>
+
+ <Folder>
+ <name>Odcinki</name>
+ <Placemark><styleUrl>#sleeper</styleUrl><name>Sleeper 133: Bangkok - Nong Khai - Wientian (~640 km)</name>
+ <LineString><tessellate>1</tessellate><coordinates>100.5389,13.8039 100.62,14.53 100.85,15.20 101.06,15.81 102.10,16.44 102.79,17.41 102.7449,17.8783 102.6331,17.9757</coordinates></LineString></Placemark>
+ <Placemark><styleUrl>#hsr</styleUrl><name>LCR: Wientian - Vang Vieng - Luang Prabang - Boten (EMU 160 km/h)</name>
+ <LineString><tessellate>1</tessellate><coordinates>102.6331,17.9757 102.53,18.50 102.4478,18.9231 102.30,19.45 102.1350,19.8867 101.98,20.45 101.77,20.95 101.6800,21.1850</coordinates></LineString></Placemark>
+ <Placemark><styleUrl>#hsr</styleUrl><name>D888: Mohan - Xishuangbanna - Pu'er - Kunming South (200 km/h)</name>
+ <LineString><tessellate>1</tessellate><coordinates>101.6800,21.1850 100.7970,22.0060 100.9780,22.7770 101.60,23.90 102.7060,25.0430</coordinates></LineString></Placemark>
+ <Placemark><styleUrl>#hsr</styleUrl><name>Kunming - Yuxi - Mengzi - Hekou North (~470 km)</name>
+ <LineString><tessellate>1</tessellate><coordinates>102.7060,25.0430 102.5450,24.3520 103.20,23.70 103.3850,23.3960 103.9390,22.5290</coordinates></LineString></Placemark>
+ <Placemark><styleUrl>#walk</styleUrl><name>Pieszo przez most graniczny: Hekou - Lao Cai</name>
+ <LineString><tessellate>1</tessellate><coordinates>103.9390,22.5290 103.9707,22.4856</coordinates></LineString></Placemark>
+ <Placemark><styleUrl>#sleeper</styleUrl><name>Sleeper: Lao Cai - Yen Bai - Hanoi (296 km, ~8 h)</name>
+ <LineString><tessellate>1</tessellate><coordinates>103.9707,22.4856 104.40,22.10 104.8700,21.7050 105.40,21.35 105.8542,21.0285</coordinates></LineString></Placemark>
+ <Placemark><styleUrl>#bus</styleUrl><name>Bus: Hanoi - Ha Long (~2,5 h)</name>
+ <LineString><tessellate>1</tessellate><coordinates>105.8542,21.0285 106.30,21.00 106.80,20.95 107.1839,20.9101</coordinates></LineString></Placemark>
+ <Placemark><styleUrl>#flight</styleUrl><name>Lot: Hanoi (HAN) - Bangkok (BKK)</name>
+ <LineString><tessellate>1</tessellate><coordinates>105.8072,21.2212 103.5,18.0 101.5,15.0 100.7501,13.6900</coordinates></LineString></Placemark>
+ </Folder>
+</Document>
+</kml>
