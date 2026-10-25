@@ -1,8 +1,8 @@
 #!/bin/bash
-# Wgrywa podstronę /tokio-palau/ do źródeł wielki-luk.pl na VPS i publikuje.
+# OPCJONALNE: wgrywa podstronę /tokio-palau/ do źródeł wielki-luk.pl na VPS (/root/wielki-luk-web).
+# Od 25.10.2026 nie jest to konieczne — Build Command projektu na Vercelu (scripts/vercel-build.sh)
+# dokleja podstronę i kartę przy każdym wdrożeniu, także tym z crona na VPS.
 # Uruchom na VPS (jako root):  bash scripts/apply-on-vps.sh
-# Źródła strony: /root/wielki-luk-web (Astro). Cron codziennie o 05:36 UTC robi
-# npm run build + vercel deploy --prod, więc po tym kroku podstrona zostaje na stałe.
 set -e
 SRC="$(cd "$(dirname "$0")/.." && pwd)"
 DST="${WIELKI_LUK_DIR:-/root/wielki-luk-web}"
@@ -11,10 +11,10 @@ DST="${WIELKI_LUK_DIR:-/root/wielki-luk-web}"
 
 mkdir -p "$DST/public/tokio-palau"
 cp -r "$SRC/public/tokio-palau/." "$DST/public/tokio-palau/"
-echo "skopiowano public/tokio-palau ($(ls "$DST/public/tokio-palau/img" | wc -l) zdjęć)"
+echo "skopiowano public/tokio-palau ($(ls "$DST/public/tokio-palau/img" | wc -l) plików img)"
 
-python3 "$SRC/scripts/patch-homepage.py" "$DST/src/components/HomePage.astro" "$SRC/patch/showcase-card.html"
-python3 "$SRC/scripts/patch-sitemap.py" "$DST/public/sitemap.xml"
+node "$SRC/scripts/patch-homepage.mjs" "$DST/src/components/HomePage.astro" "$SRC/patch/showcase-card.html"
+node "$SRC/scripts/patch-sitemap.mjs" "$DST/public/sitemap.xml"
 
 cd "$DST"
 if [ "${NO_DEPLOY:-0}" = "1" ]; then echo "NO_DEPLOY=1 — bez publikacji"; exit 0; fi
