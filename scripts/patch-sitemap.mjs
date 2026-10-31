@@ -17,6 +17,7 @@ if (!s.includes('</urlset>')) {
   process.exit(1);
 }
 const entry =
-  '  <url><loc>https://wielki-luk.pl/tokio-palau/</loc><lastmod>2026-10-25</lastmod><changefreq>weekly</changefreq></url>\n';
+  '  <url><loc>https://wielki-luk.pl/palau/</loc><lastmod>2026-10-31</lastmod><changefreq>weekly</changefreq></url>\n' +
+  '  <url><loc>https://wielki-luk.pl/tokio-palau/</loc><lastmod>2026-10-31</lastmod><changefreq>weekly</changefreq></url>\n';
 writeFileSync(p, s.replace('</urlset>', entry + '</urlset>'), 'utf8');
 console.log('sitemap.xml: dodano /tokio-palau/');

@@ -13,6 +13,7 @@ if curl -fsSL "$REPO_TGZ" | tar xz -C "$tmp" --strip-components=1; then
   [ -f "$HOME_ASTRO" ] && cp -f "$HOME_ASTRO" "$tmp/HomePage.astro.bak"
   mkdir -p public/tokio-palau
   cp -r "$tmp/public/tokio-palau/." public/tokio-palau/ && log "skopiowano public/tokio-palau ($(ls public/tokio-palau/img | wc -l) plików img)"
+  if [ -d "$tmp/public/palau" ]; then mkdir -p public/palau && cp -r "$tmp/public/palau/." public/palau/ && log "skopiowano public/palau"; fi
   node "$tmp/scripts/patch-homepage.mjs" "$HOME_ASTRO" "$tmp/patch/showcase-card.html" || log "karta na stronie głównej pominięta"
   node "$tmp/scripts/patch-sitemap.mjs" public/sitemap.xml || log "sitemap pominięta"
   if npm run build; then
