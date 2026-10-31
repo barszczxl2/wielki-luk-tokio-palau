@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400" role="img" aria-label="Stempel Palau">
+  <defs>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="6"/></filter>
+    <path id="topArc" d="M60 200 A140 140 0 0 1 340 200" fill="none"/>
+    <path id="botArc" d="M75 200 A125 125 0 0 0 325 200" fill="none"/>
+  </defs>
+  <g filter="url(#rough)" opacity="0.9">
+    <circle cx="200" cy="200" r="180" fill="none" stroke="#0FB5AE" stroke-width="10"/>
+    <circle cx="200" cy="200" r="150" fill="none" stroke="#0FB5AE" stroke-width="4"/>
+    <text font-family="Unbounded, sans-serif" font-weight="700" font-size="34" fill="#0FB5AE" letter-spacing="6">
+      <textPath href="#topArc" startOffset="50%" text-anchor="middle">PALAU · ROR</textPath>
+    </text>
+    <text font-family="Unbounded, sans-serif" font-weight="700" font-size="30" fill="#0FB5AE" letter-spacing="8">
+      <textPath href="#botArc" startOffset="50%" text-anchor="middle">ENTRY · KOROR</textPath>
+    </text>
+    <text x="200" y="215" text-anchor="middle" font-family="Unbounded, sans-serif" font-weight="900" font-size="52" fill="#0FB5AE">12.11</text>
+    <text x="200" y="255" text-anchor="middle" font-family="Sora, sans-serif" font-size="20" fill="#0FB5AE" letter-spacing="4">パラオ</text>
+  </g>
+</svg>

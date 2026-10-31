@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-label="Mapa trasy Tokio - Palau">
+  <defs>
+    <radialGradient id="sea" cx="70%" cy="55%" r="80%">
+      <stop offset="0%" stop-color="#0D1119"/>
+      <stop offset="100%" stop-color="#07090F"/>
+    </radialGradient>
+    <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF2E88"/>
+      <stop offset="55%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#0FB5AE"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sea)"/>
+  <!-- stylized Japan -->
+  <g stroke="#22D3EE" stroke-opacity="0.5" fill="none" stroke-width="2.5">
+    <path d="M250 250 q40 -30 70 -10 q30 20 20 60 q-10 45 10 80 q15 30 -5 70 q-20 40 -5 80 q10 30 -20 50 q-35 22 -60 -5 q-20 -22 -10 -55 q12 -40 -5 -75 q-18 -38 -8 -80 q10 -45 13 -115 z"/>
+    <path d="M330 200 q35 -25 60 -5 q20 18 5 45 q-18 30 -40 20 q-25 -12 -25 -60 z"/>
+  </g>
+  <!-- stylized Palau archipelago -->
+  <g stroke="#0FB5AE" stroke-opacity="0.7" fill="none" stroke-width="2">
+    <ellipse cx="1290" cy="560" rx="26" ry="14" transform="rotate(-30 1290 560)"/>
+    <ellipse cx="1330" cy="600" rx="18" ry="10" transform="rotate(-30 1330 600)"/>
+    <ellipse cx="1360" cy="635" rx="22" ry="11" transform="rotate(-30 1360 635)"/>
+    <ellipse cx="1255" cy="525" rx="14" ry="8" transform="rotate(-30 1255 525)"/>
+    <ellipse cx="1390" cy="665" rx="12" ry="7" transform="rotate(-30 1390 665)"/>
+  </g>
+  <!-- flight arc NRT -> ROR -->
+  <path id="routeArc" d="M340 420 Q 800 120 1270 555" fill="none" stroke="url(#arcGrad)" stroke-width="4" stroke-dasharray="14 12" stroke-linecap="round" filter="url(#glow)"/>
+  <!-- dots -->
+  <g filter="url(#glow)">
+    <circle cx="340" cy="420" r="10" fill="#FF2E88"/>
+    <circle cx="340" cy="420" r="20" fill="none" stroke="#FF2E88" stroke-opacity="0.5" stroke-width="2"/>
+    <circle cx="1270" cy="555" r="10" fill="#0FB5AE"/>
+    <circle cx="1270" cy="555" r="20" fill="none" stroke="#0FB5AE" stroke-opacity="0.5" stroke-width="2"/>
+  </g>
+  <!-- plane marker mid-arc -->
+  <circle cx="812" cy="276" r="6" fill="#F8F7F4"/>
+  <!-- labels -->
+  <g font-family="Sora, sans-serif" fill="#F8F7F4">
+    <text x="340" y="385" text-anchor="middle" font-size="30" font-weight="600">TOKIO · NRT</text>
+    <text x="1270" y="610" text-anchor="middle" font-size="30" font-weight="600">PALAU · ROR</text>
+    <text x="812" y="245" text-anchor="middle" font-size="20" fill="#9AA3B2">NRT → ROR · 4,5 h</text>
+  </g>
+  <!-- decorative graticule -->
+  <g stroke="#9AA3B2" stroke-opacity="0.08" stroke-width="1">
+    <line x1="0" y1="225" x2="1600" y2="225"/><line x1="0" y1="450" x2="1600" y2="450"/><line x1="0" y1="675" x2="1600" y2="675"/>
+    <line x1="400" y1="0" x2="400" y2="900"/><line x1="800" y1="0" x2="800" y2="900"/><line x1="1200" y1="0" x2="1200" y2="900"/>
+  </g>
+</svg>
