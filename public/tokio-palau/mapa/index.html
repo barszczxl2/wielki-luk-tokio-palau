@@ -281,7 +281,7 @@ function select(id,fly){
   document.querySelectorAll('#days .day').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.id===id)});
   var act=document.querySelector('#days .day[aria-pressed="true"]'); if(act&&act.scrollIntoView) act.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});
   layer.clearLayers(); markers=[];
-  var bounds=[R.home.ll], body=document.getElementById('body');
+  var bounds=id==='all'?[R.home.ll]:[], body=document.getElementById('body');
   var list=id==='all'?R.days:R.days.filter(function(d){return d.id===id});
   list.forEach(function(d){
     if(id==='all' && d.id==='9f') return; // Fuji tylko po wybraniu
@@ -319,7 +319,8 @@ function select(id,fly){
     g.href=url; g.style.display='';
   } else g.style.display='none';
   var pad=window.innerWidth>760?{paddingTopLeft:[440,40],paddingBottomRight:[40,40]}:{paddingTopLeft:[30,30],paddingBottomRight:[30,Math.round(window.innerHeight*.48)]};
-  if(fly) map.flyToBounds(L.latLngBounds(bounds),Object.assign({maxZoom:15,duration:1.1},pad));
+  if(!bounds.length) bounds=[R.home.ll];
+  if(fly){ map.stop(); map.fitBounds(L.latLngBounds(bounds),Object.assign({maxZoom:15,animate:true},pad)); }
 }
 
 document.querySelectorAll('.region button').forEach(function(b){b.onclick=function(){renderRegion(b.dataset.r)}});
