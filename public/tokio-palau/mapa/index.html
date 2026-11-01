@@ -88,6 +88,10 @@ h1 .jp{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:15px;colo
 :root[data-theme="light"] .arr span{background:rgba(255,255,255,.92);color:#111}
 .legline{list-style:none;margin:0 0 2px 40px;padding:2px 0 4px;font-size:12.5px;color:var(--muted);font-weight:600}
 .totals{margin-top:8px;font-size:13px;font-weight:700;color:var(--ink);background:var(--chip);border-radius:10px;padding:7px 10px;display:inline-block}
+.legline.go{display:flex;gap:6px;align-items:flex-start;color:var(--ink);font-weight:500;line-height:1.45;background:var(--chip);border-radius:10px;padding:7px 9px;margin:2px 0 6px 40px}
+.legline.go b{font-weight:700}
+.ln{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 4px;border-radius:50%;border:3px solid var(--l);background:#fff;color:#111;font:800 10.5px/1 "Bricolage Grotesque",sans-serif;margin-right:2px;flex:0 0 auto}
+.arr span .ln{min-width:18px;height:18px;border-width:2.5px;font-size:9.5px;vertical-align:middle}
 /* mobile: bottom sheet */
 .grab{display:none}
 @media (max-width:760px){
@@ -131,7 +135,7 @@ h1 .jp{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:15px;colo
   <div class="foot">
     <button type="button" id="kml">⬇ Plik do Google Moje Mapy</button>
     <a id="gmaps" href="#" target="_blank" rel="noopener">Trasa dnia w Google Maps ↗</a>
-    <small>Odległości szacunkowe (linia prosta +25%), czasy orientacyjne. Położenie części punktów jest przybliżone — przed wyjściem kliknij „nawiguj”. Mapa: © OpenStreetMap, Esri.</small>
+    <small>Odległości szacunkowe (linia prosta +25%), czasy orientacyjne. Linie metra: litera i numer stacji jak na tablicach w Tokio. Położenie części punktów jest przybliżone — przed wyjściem kliknij „nawiguj”. Mapa: © OpenStreetMap, Esri.</small>
   </div>
 </aside>
 
@@ -145,12 +149,12 @@ var D = {
   home:{n:'Tamayura Hotel Asakusa (dawniej Hatago)',d:'Pokój Twin: dwa łóżka, tatami, śniadanie. 2 min od stacji Asakusa. Położenie przybliżone.',ll:[35.7116,139.7948]},
   days:[
    {id:'5',date:'2026-11-05',lbl:'Czw 5.11',c:'#64748b',title:'Przylot',desc:'Wylot z Warszawy 4.11 o 22:40, przylot do Narity wieczorem. Keisei do Asakusy, hotel, sen.',stops:[
-     {n:'Hotel w Asakusie',t:'wieczór',d:'Zameldowanie. Kup kartę Suica w aplikacji Portfel albo na lotnisku.',ll:[35.7116,139.7948]}
+     {n:'Hotel w Asakusie',go:{l:['KS'],s:'Z Narity <b>Keisei Access Express</b>, kierunek <b>Haneda / Nishi-magome</b> → <b>Asakusa (A18)</b> bez przesiadki, ok. 1 h. Albo Skyliner do <b>Keisei Ueno</b> i Ginza Line z <b>Ueno (G16)</b> kierunek <b>Asakusa</b> → <b>Asakusa (G19)</b>.'},t:'wieczór',d:'Zameldowanie. Kup kartę Suica w aplikacji Portfel albo na lotnisku.',ll:[35.7116,139.7948]}
    ],tip:'<b>Lotnisko → hotel:</b> Keisei Access Express do Asakusy bez przesiadki albo Skyliner do Ueno i 1 stacja metrem.'},
-   {id:'6',date:'2026-11-06',lbl:'Pt 6.11',c:'#22c55e',title:'Shinjuku: aparat, film i neony',desc:'Rano Contax i obiektyw, Baśka na head spa i shiatsu. Pierwsza rolka od razu, wywołanie w 2 h i wydruk na SELPHY wieczorem.',stops:[
-     {n:'Map Camera',t:'10:30',w:'Jan',d:'Największy wybór używanych aparatów, tax-free. Contax 159MM + Planar 50/1.4 MMJ.',ll:[35.68945,139.69724]},
+   {back:{l:['M','G'],s:'Marunouchi Line z <b>Shinjuku-sanchōme (M09)</b>, kierunek <b>Ikebukuro</b> → <b>Akasaka-mitsuke (M13)</b>; przesiadka na tym samym peronie na Ginza Line, kierunek <b>Asakusa</b> → <b>Asakusa (G19)</b>, stacja końcowa. Ok. 40 min.'},id:'6',date:'2026-11-06',lbl:'Pt 6.11',c:'#22c55e',title:'Shinjuku: aparat, film i neony',desc:'Rano Contax i obiektyw, Baśka na head spa i shiatsu. Pierwsza rolka od razu, wywołanie w 2 h i wydruk na SELPHY wieczorem.',stops:[
+     {n:'Map Camera',go:{l:['G','M'],s:'Ginza Line z <b>Asakusa (G19)</b>, kierunek <b>Shibuya</b> → <b>Akasaka-mitsuke (G05)</b>; przesiadka na tym samym peronie na Marunouchi Line, kierunek <b>Ogikubo</b> → <b>Shinjuku (M08)</b>, wyjście West Exit. Ok. 40 min.'},t:'10:30',w:'Jan',d:'Największy wybór używanych aparatów, tax-free. Contax 159MM + Planar 50/1.4 MMJ.',ll:[35.68945,139.69724]},
      {n:'Kitamura Shinjuku',t:'11:15',w:'Jan',d:'4. piętro: używane aparaty. Parter: film i wywołanie w ok. 2 h (950 ¥ + 880 ¥ skany na telefon).',ll:[35.6911,139.7020]},
-     {n:'Camera Gokurakudo',x:1,t:'jeśli brak MMJ',w:'Jan',d:'Sklep specjalizujący się w Contaxie, od 11:00, nieczynny w poniedziałki.',ll:[35.6987,139.7189]},
+     {n:'Camera Gokurakudo',go:{l:['E'],s:'Toei Ōedo Line z <b>Shinjuku-nishiguchi (E01)</b>, kierunek <b>Iidabashi / Ryōgoku</b> → <b>Wakamatsu-kawada (E03)</b>, 2 stacje, potem 5 min pieszo.'},x:1,t:'jeśli brak MMJ',w:'Jan',d:'Sklep specjalizujący się w Contaxie, od 11:00, nieczynny w poniedziałki.',ll:[35.6987,139.7189]},
      {n:'Head spa + shiatsu',x:1,t:'rano',w:'Baśka',d:'Masaż głowy i shiatsu — zarezerwuj dla dwóch osób (Hot Pepper Beauty). Dokładny salon do wybrania.',ll:[35.6902,139.7005]},
      {n:'Shinjuku Gyoen',t:'13:00',d:'Ogród w jesiennych kolorach — tu wystrzelasz pierwszą rolkę (24 klatki).',ll:[35.6852,139.7101]},
      {n:'Kot 3D (Cross Shinjuku Vision)',t:'15:00',d:'Gigantyczny kot 3D na ekranie przy wschodnim wyjściu stacji.',ll:[35.6912,139.7016]},
@@ -158,7 +162,7 @@ var D = {
      {n:'Godzilla w Kabukichō',t:'18:30',d:'Głowa Godzilli na Hotel Gracery. Obok automaty do gier — Jan; Baśka może iść do łaźni Mannenyu (przyjmuje z tatuażami).',ll:[35.69556,139.70228]},
      {n:'Golden Gai',t:'20:00',d:'Ponad 200 maleńkich barów w wąskich uliczkach. Druga rolka na neonach.',ll:[35.6939,139.7046]}
    ],tip:'<b>Film:</b> oddaj do Kitamury najpóźniej ok. 15:00 — odbierasz wieczorem i drukujesz z telefonu na SELPHY.'},
-   {id:'7',date:'2026-11-07',lbl:'Sob 7.11',c:'#ef4444',title:'Asakusa, Ueno, Akihabara',desc:'Świątynia o świcie, kimono dla Baśki, Ueno z muzeum i outletem, wieczorem gry i sushi.',stops:[
+   {back:{l:['TS'],s:'Tobu Skytree Line z <b>Tokyo Skytree (TS02)</b> 1 stacja → <b>Asakusa (TS01)</b> albo 20 min pieszo do hotelu.'},id:'7',date:'2026-11-07',lbl:'Sob 7.11',c:'#ef4444',title:'Asakusa, Ueno, Akihabara',desc:'Świątynia o świcie, kimono dla Baśki, Ueno z muzeum i outletem, wieczorem gry i sushi.',stops:[
      {n:'Sensō-ji',t:'7:30',d:'Najstarsza świątynia Tokio, przed tłumami najlepsze światło.',ll:[35.7148,139.7967]},
      {n:'Kimono — sklepy w Asakusie',t:'9:30',w:'Baśka',d:'Priorytet z listy: używane kimona, ładne i dużo tańsze od nowych.',ll:[35.7126,139.7955]},
      {n:'Kappabashi',t:'10:30',d:'Ulica noży i przyborów kuchennych.',ll:[35.7132,139.7883]},
@@ -166,10 +170,10 @@ var D = {
      {n:'Ameyoko + outlet (Ueno 6-4-7)',t:'14:30',w:'Baśka',d:'Targ pod torami; outlet z listy Baśki w Welcome Mall.',ll:[35.7099,139.7745]},
      {n:'Akihabara — Super Potato',t:'16:30',w:'Jan',d:'Retro gry i automaty. Baśka w tym czasie drogerie (zamiast Don Quijote).',ll:[35.7004,139.7714]},
      {n:'Nadeshico Sushi',t:'19:00',d:'Sushi przygotowywane wyłącznie przez kobiety, z książki. Zarezerwuj; adres sprawdź przed wyjściem.',ll:[35.7008,139.7700]},
-     {n:'Skytree + Moomin Shop',t:'opcja',d:'Zakładki z Muminkami w Solamachi pod Skytree — po drodze do hotelu.',ll:[35.7101,139.8107]}
+     {n:'Skytree + Moomin Shop',go:{l:['G','TS'],s:'Ginza Line z <b>Suehirochō (G14)</b>, kierunek <b>Asakusa</b> → <b>Asakusa (G19)</b>; dalej Tobu Skytree Line z <b>Tōbu Asakusa (TS01)</b> 1 stacja → <b>Tokyo Skytree (TS02)</b> albo 20 min pieszo przez most Azuma-bashi.'},t:'opcja',d:'Zakładki z Muminkami w Solamachi pod Skytree — po drodze do hotelu.',ll:[35.7101,139.8107]}
    ],tip:'<b>Tori-no-Ichi:</b> jarmark z grabkami kumade w świątyni Ōtori — wieczorem, 20 min pieszo od hotelu.'},
-   {id:'8',date:'2026-11-08',lbl:'Nd 8.11',c:'#a855f7',title:'Harajuku i Shibuya',desc:'Rano świątynia w lesie, potem Baśka na zakupach, Jan na dżinsy przy Cat Street. Zachód słońca na Shibuya Sky.',stops:[
-     {n:'Meiji Jingū',t:'9:00',d:'Chram w lesie, brama z drewna cyprysowego.',ll:[35.6764,139.6993]},
+   {back:{l:['G'],s:'Ginza Line z <b>Shibuya (G01)</b>, kierunek <b>Asakusa</b> → <b>Asakusa (G19)</b> bez przesiadki, stacja końcowa. Ok. 35 min.'},id:'8',date:'2026-11-08',lbl:'Nd 8.11',c:'#a855f7',title:'Harajuku i Shibuya',desc:'Rano świątynia w lesie, potem Baśka na zakupach, Jan na dżinsy przy Cat Street. Zachód słońca na Shibuya Sky.',stops:[
+     {n:'Meiji Jingū',go:{l:['G','C'],s:'Ginza Line z <b>Asakusa (G19)</b>, kierunek <b>Shibuya</b> → <b>Omotesandō (G02)</b>; przesiadka na Chiyoda Line, kierunek <b>Yoyogi-uehara</b>, 1 stacja → <b>Meiji-jingūmae ‹Harajuku› (C03)</b>. Ok. 40 min.'},t:'9:00',d:'Chram w lesie, brama z drewna cyprysowego.',ll:[35.6764,139.6993]},
      {n:'Park Yoyogi',t:'10:30',d:'Jesienne liście, w niedziele muzycy i tancerze.',ll:[35.6717,139.6949]},
      {n:'Takeshita — Brandy Melville',t:'11:30',w:'Baśka',d:'Ulica mody i słodyczy.',ll:[35.6716,139.7031]},
      {n:'Kawiarnia z mini świnkami',t:'12:30',w:'Baśka',d:'mipig cafe — rezerwacja wejścia online.',ll:[35.6707,139.7043]},
@@ -179,25 +183,25 @@ var D = {
      {n:'Skrzyżowanie Shibuya',t:'16:15',d:'Najsłynniejsze przejście dla pieszych świata.',ll:[35.6595,139.7005]},
      {n:'Shibuya Sky',t:'16:30',d:'Taras na dachu na zachód słońca — bilet na godzinę kup wcześniej.',ll:[35.6584,139.7022]}
    ],tip:'<b>Rozdzielacie się</b> po Takeshita: Baśka zakupy, Jan Cat Street. Spotkanie pod Hachikō.'},
-   {mode:'bike',id:'9',date:'2026-11-09',lbl:'Pon 9.11',c:'#06b6d4',title:'Yanaka na rowerach',desc:'Stare Tokio na elektrycznych rowerach Docomo. Przy czystym niebie zamiast tego Fuji (zakładka Fuji).',stops:[
-     {n:'Kayaba Coffee',t:'9:00',d:'Kawiarnia z 1938 r., pokój z tatami na piętrze, kanapka z omletem.',ll:[35.72115,139.77077]},
+   {mode:'bike',back:{l:[],s:'Rowerem z Rikugien do Asakusy ok. 6 km albo oddaj rower i wróć pociągiem: JR Yamanote z <b>Komagome (JY10)</b> do <b>Ueno (JY05)</b> i Ginza Line → <b>Asakusa (G19)</b>.'},id:'9',date:'2026-11-09',lbl:'Pon 9.11',c:'#06b6d4',title:'Yanaka na rowerach',desc:'Stare Tokio na elektrycznych rowerach Docomo. Przy czystym niebie zamiast tego Fuji (zakładka Fuji).',stops:[
+     {n:'Kayaba Coffee',go:{l:[],s:'Rowerem Docomo z Asakusy przez Ueno, ok. 3 km. Stacje rowerowe przy hotelu i w Yanace.'},t:'9:00',d:'Kawiarnia z 1938 r., pokój z tatami na piętrze, kanapka z omletem.',ll:[35.72115,139.77077]},
      {n:'Nennekoya',t:'10:30',w:'Baśka',d:'Kawiarnia w kocim stylu. Położenie przybliżone.',ll:[35.7240,139.7670]},
      {n:'Kamachiku',t:'11:30',d:'Udon w stuletnim domu z ogrodem — przyjdź przed otwarciem, są kolejki.',ll:[35.7196,139.7628]},
      {n:'Chram Nezu',t:'13:00',d:'Korytarz czerwonych bram torii.',ll:[35.7202,139.7605]},
      {n:'Ogród Rikugien',t:'15:00',d:'Klasyczny ogród spacerowy, jesienne kolory.',ll:[35.7330,139.7465]}
    ],tip:'<b>Rowery:</b> Docomo Bike Share w aplikacji, ok. 165 ¥ za 30 min, wszystkie elektryczne. Jeździ się lewą stroną.'},
    {mode:'bus',id:'9f',date:'2026-11-09',lbl:'Fuji (opcja 9.11)',c:'#0ea5e9',title:'Fuji — jeśli niebo czyste',desc:'Autobus z Busta Shinjuku ok. 1 h 45 min albo pociąg Fuji Excursion. Wtedy Yanaka przechodzi na 7.11 rano.',stops:[
-     {n:'Pagoda Chūreitō',t:'10:00',d:'Klasyczny kadr z Fuji, ok. 400 schodów. Stacja Shimoyoshida.',ll:[35.5011,138.8016]},
+     {n:'Pagoda Chūreitō',go:{l:['G','M'],s:'Do Shinjuku jak 6.11 (Ginza + Marunouchi). Z dworca autobusowego <b>Busta Shinjuku</b> autobus do <b>Kawaguchiko</b> albo pociąg <b>Fuji Excursion</b> z JR Shinjuku do <b>Shimoyoshida</b>.'},t:'10:00',d:'Klasyczny kadr z Fuji, ok. 400 schodów. Stacja Shimoyoshida.',ll:[35.5011,138.8016]},
      {n:'Jezioro Kawaguchi — Momiji Corridor',t:'13:00',d:'Północny brzeg, festiwal jesiennych liści.',ll:[35.5195,138.7480]}
    ],tip:'Prognozę widoczności sprawdź wieczorem 8.11 — przy chmurach zostańcie w Tokio.'},
-   {id:'10',date:'2026-11-10',lbl:'Wt 10.11',c:'#f59e0b',title:'Tsukiji, pałac, Ginza i teamLab',desc:'Śniadanie na targu, ogrody pałacowe, pióra i notesy na Ginzie, wieczorem cyfrowa sztuka i Tokyo Tower.',stops:[
-     {n:'Targ Tsukiji',t:'8:00',d:'Przegrzebki, wagyu, tamagoyaki.',ll:[35.6654,139.7707]},
-     {n:'Wschodnie ogrody pałacu cesarskiego',t:'10:00',d:'Ruiny zamku Edo. We wtorek otwarte (zamknięte pn i pt).',ll:[35.6852,139.7528]},
+   {back:{l:['A'],s:'Toei Asakusa Line z <b>Daimon (A09)</b> (10 min pieszo od Tokyo Tower), kierunek <b>Oshiage / Narita Airport</b> → <b>Asakusa (A18)</b> bez przesiadki. Ok. 25 min.'},id:'10',date:'2026-11-10',lbl:'Wt 10.11',c:'#f59e0b',title:'Tsukiji, pałac, Ginza i teamLab',desc:'Śniadanie na targu, ogrody pałacowe, pióra i notesy na Ginzie, wieczorem cyfrowa sztuka i Tokyo Tower.',stops:[
+     {n:'Targ Tsukiji',go:{l:['A'],s:'Toei Asakusa Line z <b>Asakusa (A18)</b>, kierunek <b>Nishi-magome / Haneda Airport</b> → <b>Higashi-ginza (A11)</b>, potem 10 min pieszo. Ok. 20 min.'},t:'8:00',d:'Przegrzebki, wagyu, tamagoyaki.',ll:[35.6654,139.7707]},
+     {n:'Wschodnie ogrody pałacu cesarskiego',go:{l:['H'],s:'Hibiya Line z <b>Tsukiji (H11)</b>, kierunek <b>Naka-meguro</b> → <b>Hibiya (H08)</b>, potem ok. 15 min pieszo do bramy <b>Ōte-mon</b>.'},t:'10:00',d:'Ruiny zamku Edo. We wtorek otwarte (zamknięte pn i pt).',ll:[35.6852,139.7528]},
      {n:'LEGO Store — Tokyo Station',t:'12:00',w:'Jan',d:'Ichibangai pod dworcem — szukaj zestawów i minifigurek tylko na Japonię.',ll:[35.6798,139.7685]},
      {n:'Itoya Ginza',t:'13:00',d:'Pilot Capless (pióro z chowaną stalówką), papier Tomoe River, notesy Midori i Hobonichi. Pióra: 3. piętro.',ll:[35.67296,139.76743]},
      {n:'ancora (Sailor)',t:'14:00',d:'Pióro składane z części. We wtorek czynne, w środy zamknięte.',ll:[35.6712,139.7627]},
      {n:'Uniqlo Ginza',t:'15:00',w:'Baśka',d:'Flagowy sklep, 12 pięter. Tabi i skarpetki dla Jana!',ll:[35.6714,139.7650]},
-     {n:'teamLab Borderless',t:'17:30',d:'Cyfrowa sztuka w Azabudai Hills — bilet na godzinę kup wcześniej.',ll:[35.66200,139.74342]},
+     {n:'teamLab Borderless',go:{l:['H'],s:'Hibiya Line z <b>Ginza (H09)</b>, kierunek <b>Naka-meguro</b> → <b>Kamiyachō (H05)</b>, wyjście do Azabudai Hills.'},t:'17:30',d:'Cyfrowa sztuka w Azabudai Hills — bilet na godzinę kup wcześniej.',ll:[35.66200,139.74342]},
      {n:'Tokyo Tower nocą',t:'20:00',d:'Podświetlona wieża, 5 min od teamLab.',ll:[35.6586,139.7454]}
    ],tip:'<b>Tax-free:</b> wszystkie zakupy z 5–10.11 potwierdzasz 11.11 w Naricie — miej je w bagażu podręcznym.'}
   ]
@@ -302,14 +306,17 @@ function arrowIcon(c,ang,label,small){
   return L.divIcon({className:'',iconSize:[0,0],iconAnchor:[0,0],
     html:'<div class="arr'+(small?' sm':'')+'" style="--c:'+c+'"><svg viewBox="0 0 24 24" style="transform:translate(-50%,-50%) rotate('+ang+'deg)"><path d="M3 12h13M11 5l8 7-8 7" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'+(label?'<span>'+label+'</span>':'')+'</div>'});
 }
-function drawArrows(pts,c,mode,small){
+var LINES={G:['Ginza','#FF9500'],M:['Marunouchi','#F62E36'],H:['Hibiya','#9CAEB7'],C:['Chiyoda','#00BB85'],A:['Toei Asakusa','#E85298'],E:['Toei Ōedo','#B6007A'],TS:['Tobu Skytree','#0F6CC3'],KS:['Keisei','#1E50A2']};
+function lnb(l){return l.map(function(k){var x=LINES[k];return '<b class="ln" style="--l:'+x[1]+'" title="'+x[0]+' Line">'+k+'</b>'}).join('')}
+function goHtml(g,pre){return '<li class="legline go">'+(pre||'')+(g.l.length?lnb(g.l)+' ':'')+'<span>'+g.s+'</span></li>'}
+function drawArrows(pts,c,mode,small,chain){
   var out=[];
   for(var i=0;i<pts.length-1;i++){
     var a=pts[i],b=pts[i+1],L1=leg(a,b,mode);
     if(L1.km<0.05){out.push(null);continue;}
     var pa=map.project(a,10),pb=map.project(b,10),ang=Math.atan2(pb.y-pa.y,pb.x-pa.x)*180/Math.PI;
     var mid=[(a[0]+b[0])/2,(a[1]+b[1])/2];
-    L.marker(mid,{icon:arrowIcon(c,ang,(small||L1.km<0.3)?'':L1.ico+' '+L1.txt.split(' · ')[0],small),interactive:false,keyboard:false,zIndexOffset:-100}).addTo(layer);
+    L.marker(mid,{icon:arrowIcon(c,ang,(small||L1.km<0.3)?'':((chain&&chain[i]&&chain[i].go&&chain[i].go.l.length&&!L1.walk)?lnb(chain[i].go.l)+' ':L1.ico+' ')+L1.txt.split(' · ')[0],small),interactive:false,keyboard:false,zIndexOffset:-100}).addTo(layer);
     out.push(L1);
   }
   return out;
@@ -325,7 +332,7 @@ function select(id,fly){
     if(id==='all' && d.id==='9f') return; // Fuji tylko po wybraniu
     var chain=d.stops.filter(function(s){return !s.x}); var pts=[R.home.ll].concat(chain.map(function(s){return s.ll}));
     if(d.stops.length) L.polyline(pts,{color:d.c,weight:id==='all'?3:4.5,opacity:id==='all'?.55:.95,className:'route'}).addTo(layer);
-    if(d.stops.length) d._legs=drawArrows(pts,d.c,d.mode,id==='all');
+    if(d.stops.length) d._legs=drawArrows(pts,d.c,d.mode,id==='all',chain);
     d.stops.forEach(function(s,i){
       var m=L.marker(s.ll,{icon:pinIcon(i+1,d.c,false),riseOnHover:true})
         .bindPopup('<b>'+esc(s.n)+'</b><br><small>'+esc(d.lbl)+(s.t?' · '+esc(s.t):'')+'</small><br>'+esc(s.d)+'<br><a href="'+gm(s)+'" target="_blank" rel="noopener">nawiguj ↗</a>').addTo(layer);
@@ -344,7 +351,8 @@ function select(id,fly){
     legs.forEach(function(l){if(!l)return;walk+=l.walk||0;bike+=l.bike||0;if(!l.walk&&!l.bike)ride+=l.km});
     var tot=[];if(walk)tot.push('🚶 pieszo ok. '+fmtKm(walk)+' km');if(bike)tot.push('🚲 rowerem ok. '+fmtKm(bike)+' km');if(ride)tot.push((d.mode==='boat'?'🚤 łodzią':d.mode==='car'?'🚗 autem':d.mode==='bus'?'🚌 dojazd':'🚇 metrem')+' ok. '+fmtKm(ride)+' km');
     if(tot.length) html=html.replace('</p></div><ol class="stops"','</p><div class="totals">'+tot.join(' · ')+'</div></div><ol class="stops"');
-    var ci=0; d.stops.forEach(function(s,i){if(s.x){html+='<li class="legline">↪ poza trasą — opcja albo osobno</li>';}else{var lg=legs[ci];if(lg)html+='<li class="legline">'+lg.ico+' '+(ci===0?'z hotelu: ':'')+lg.txt+'</li>';ci++;}html+='<li class="stop" data-k="'+d.id+'-'+i+'"><div class="num">'+(i+1)+'</div><div><h3>'+(s.t?'<span class="t">'+esc(s.t)+'</span>':'')+esc(s.n)+'</h3><p>'+(s.w?'<span class="who">'+esc(s.w)+'</span>':'')+esc(s.d)+'</p><a class="nav" href="'+gm(s)+'" target="_blank" rel="noopener">nawiguj ↗</a></div></li>'});
+    var ci=0; d.stops.forEach(function(s,i){if(s.x){html+='<li class="legline">↪ poza trasą — opcja albo osobno</li>';if(s.go)html+=goHtml(s.go,'🚇 ');}else{var lg=legs[ci];if(lg)html+='<li class="legline">'+lg.ico+' '+(ci===0?'z hotelu: ':'')+lg.txt+'</li>';if(s.go)html+=goHtml(s.go);ci++;}html+='<li class="stop" data-k="'+d.id+'-'+i+'"><div class="num">'+(i+1)+'</div><div><h3>'+(s.t?'<span class="t">'+esc(s.t)+'</span>':'')+esc(s.n)+'</h3><p>'+(s.w?'<span class="who">'+esc(s.w)+'</span>':'')+esc(s.d)+'</p><a class="nav" href="'+gm(s)+'" target="_blank" rel="noopener">nawiguj ↗</a></div></li>'});
+    if(d.back){html+='<li class="legline">🏨 powrót do hotelu:</li>'+goHtml(d.back);}
     html+='</ol>'+(d.tip?'<div class="tip">'+d.tip+'</div>':'');
   }
   body.innerHTML=html; body.scrollTop=0;
