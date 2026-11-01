@@ -111,7 +111,7 @@ h1 .jp{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:15px;colo
 <aside class="panel" id="panel">
   <div class="grab" id="grab" title="Rozwiń / zwiń"></div>
   <div class="head">
-    <div class="top"><a href="/tokio-palau/">← plan wyprawy</a><span><button class="iconbtn" id="today" type="button">Dziś</button> <button class="iconbtn" id="theme" type="button" aria-label="Zmień motyw mapy">◐</button></span></div>
+    <div class="top"><a href="/tokio-palau/">← plan wyprawy</a><span><button class="iconbtn" id="today" type="button">Dziś</button> <button class="iconbtn" id="theme" type="button" aria-label="Zmień styl mapy">◐ ciemna</button></span></div>
     <h1 id="title">Tokio <span class="jp">東京</span></h1>
     <p class="sub" id="subtitle"></p>
     <div class="region" role="group" aria-label="Region">
@@ -124,7 +124,7 @@ h1 .jp{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:15px;colo
   <div class="foot">
     <button type="button" id="kml">⬇ Plik do Google Moje Mapy</button>
     <a id="gmaps" href="#" target="_blank" rel="noopener">Trasa dnia w Google Maps ↗</a>
-    <small>Położenie części punktów jest przybliżone — przed wyjściem kliknij „nawiguj”. Mapa: © OpenStreetMap, © CARTO.</small>
+    <small>Położenie części punktów jest przybliżone — przed wyjściem kliknij „nawiguj”. Mapa: © OpenStreetMap, Esri.</small>
   </div>
 </aside>
 
@@ -231,15 +231,27 @@ var D = {
 };
 
 // ---------- MAPA ----------
-var root=document.documentElement;
-var light=false; try{light=localStorage.getItem('wl-map-theme')==='light'}catch(e){}
-var TILES={dark:'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',light:'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'};
-var map=L.map('map',{zoomControl:false,attributionControl:true}).setView([35.69,139.75],12);
+var ESRI='https://server.arcgisonline.com/ArcGIS/rest/services/';
+var STY={
+  dark:{base:ESRI+'Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',ref:ESRI+'Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}',max:16,ui:'dark',label:'◐ ciemna'},
+  sat:{base:ESRI+'World_Imagery/MapServer/tile/{z}/{y}/{x}',ref:ESRI+'Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',max:18,ui:'dark',label:'🛰 satelita'},
+  light:{base:'https://tile.openstreetmap.org/{z}/{x}/{y}.png',ref:null,max:19,ui:'light',label:'☀ jasna'}
+};
+var ATTR='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · Tiles © Esri — Esri, HERE, Garmin, Maxar, OSM';
+var map=L.map('map',{zoomControl:false,attributionControl:true,maxZoom:18}).setView([35.69,139.75],12);
 L.control.zoom({position:'topright'}).addTo(map);
-var tiles=L.tileLayer(light?TILES.light:TILES.dark,{maxZoom:19,subdomains:'abcd',attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/attributions">CARTO</a>'}).addTo(map);
-if(light) root.setAttribute('data-theme','light');
-document.getElementById('theme').onclick=function(){light=!light;tiles.setUrl(light?TILES.light:TILES.dark);if(light)root.setAttribute('data-theme','light');else root.removeAttribute('data-theme');try{localStorage.setItem('wl-map-theme',light?'light':'dark')}catch(e){}};
-
+var baseL=null, refL=null, style=null, userStyle=null;
+try{userStyle=localStorage.getItem('wl-map-style')}catch(e){}
+function setStyle(k){
+  style=k; var S=STY[k];
+  if(baseL) map.removeLayer(baseL); if(refL) map.removeLayer(refL);
+  baseL=L.tileLayer(S.base,{maxZoom:19,maxNativeZoom:S.max,attribution:ATTR}).addTo(map);
+  refL=S.ref?L.tileLayer(S.ref,{maxZoom:19,maxNativeZoom:S.max,pane:'overlayPane',opacity:.9}).addTo(map):null;
+  if(S.ui==='light') root.setAttribute('data-theme','light'); else root.removeAttribute('data-theme');
+  document.getElementById('theme').textContent=S.label;
+}
+var root=document.documentElement;
+document.getElementById('theme').onclick=function(){var order=['dark','sat','light'];var k=order[(order.indexOf(style)+1)%3];userStyle=k;try{localStorage.setItem('wl-map-style',k)}catch(e){}setStyle(k)};
 var layer=L.layerGroup().addTo(map), homeLayer=L.layerGroup().addTo(map);
 var region='tokio', current=null, markers=[];
 var panel=document.getElementById('panel');
@@ -250,6 +262,7 @@ function pinIcon(i,c,dim){return L.divIcon({className:'',html:'<div class="pin'+
 
 function renderRegion(r){
   region=r; var R=D[r];
+  setStyle(userStyle||(r==='palau'?'sat':'dark'));
   document.querySelectorAll('.region button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.r===r)});
   document.getElementById('title').innerHTML=R.title;
   document.getElementById('subtitle').textContent=R.sub;
