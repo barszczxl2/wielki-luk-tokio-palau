@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mapa wyprawy Tokio i Palau</title>
+<meta name="description" content="Interaktywna mapa wyprawy: Tokio dzień po dniu (aparat, zakupy, sushi, Yanaka na rowerach) i Palau (Rock Islands, Babeldaob, Peleliu). Listopad 2026.">
+<link rel="canonical" href="https://wielki-luk.pl/tokio-palau/mapa/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗺</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root{
+  --bg:#0b0f17;--panel:rgba(14,19,30,.86);--panel-solid:#0f1522;--ink:#eef2f7;--muted:#9aa6b8;--line:rgba(255,255,255,.09);
+  --chip:#182133;--accent:#ff4d6d;--glow:0 0 0 1px rgba(255,255,255,.06),0 10px 40px rgba(0,0,0,.45);
+}
+:root[data-theme="light"]{--bg:#eef1f5;--panel:rgba(255,255,255,.9);--panel-solid:#fff;--ink:#111827;--muted:#5b6474;--line:rgba(0,0,0,.08);--chip:#eef1f6;--glow:0 10px 30px rgba(15,23,42,.15)}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+#map{position:fixed;inset:0;background:var(--bg)}
+.leaflet-container{background:var(--bg);font-family:inherit}
+.leaflet-control-attribution{background:rgba(0,0,0,.45)!important;color:#bbb!important;font-size:10px}
+.leaflet-control-attribution a{color:#ddd!important}
+:root[data-theme="light"] .leaflet-control-attribution{background:rgba(255,255,255,.7)!important;color:#444!important}
+:root[data-theme="light"] .leaflet-control-attribution a{color:#222!important}
+
+/* panel */
+.panel{position:fixed;z-index:500;left:16px;top:16px;bottom:16px;width:400px;display:flex;flex-direction:column;background:var(--panel);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);border:1px solid var(--line);border-radius:22px;box-shadow:var(--glow);overflow:hidden}
+.head{padding:18px 18px 10px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;color:var(--muted)}
+.top a{color:var(--muted);text-decoration:none}
+.top a:hover{color:var(--ink)}
+.iconbtn{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:999px;height:32px;min-width:32px;padding:0 10px;font:inherit;font-size:13px;cursor:pointer}
+h1{font-size:30px;line-height:1;margin:12px 0 4px;font-weight:800;letter-spacing:-.02em}
+h1 .jp{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:15px;color:var(--accent);margin-left:6px;letter-spacing:0}
+.sub{margin:0;color:var(--muted);font-size:14px}
+.region{display:flex;gap:6px;margin-top:12px}
+.region button{flex:1;border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:12px;padding:8px 10px;font:inherit;font-weight:700;font-size:14px;cursor:pointer}
+.region button[aria-pressed="true"]{background:var(--ink);color:var(--panel-solid)}
+.days{display:flex;gap:6px;overflow-x:auto;padding:12px 18px 12px;scrollbar-width:none;border-bottom:1px solid var(--line)}
+.days::-webkit-scrollbar{display:none}
+.day{flex:0 0 auto;border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:999px;padding:7px 12px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.day i{width:9px;height:9px;border-radius:50%;display:inline-block;background:var(--c);box-shadow:0 0 10px var(--c)}
+.day[aria-pressed="true"]{background:var(--c);border-color:var(--c);color:#fff;box-shadow:0 0 18px color-mix(in srgb,var(--c) 60%,transparent)}
+.day[aria-pressed="true"] i{background:#fff}
+.body{overflow-y:auto;padding:14px 18px 18px;flex:1}
+.dayhead{margin-bottom:10px}
+.dayhead .when{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--c)}
+.dayhead h2{margin:4px 0 4px;font-size:22px;line-height:1.15;font-weight:800;letter-spacing:-.01em}
+.dayhead p{margin:0;color:var(--muted);font-size:14px;line-height:1.45}
+.stops{list-style:none;margin:12px 0 0;padding:0;position:relative}
+.stops:before{content:"";position:absolute;left:15px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--c),transparent);opacity:.5}
+.stop{position:relative;display:grid;grid-template-columns:32px 1fr;gap:10px;padding:8px 6px 10px 0;border-radius:12px;cursor:pointer}
+.stop:hover,.stop.on{background:color-mix(in srgb,var(--c) 12%,transparent)}
+.num{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:14px;color:#fff;background:var(--c);box-shadow:0 0 0 3px var(--panel-solid),0 0 14px var(--c);z-index:1}
+.stop h3{margin:2px 0 2px;font-size:15.5px;font-weight:700;line-height:1.25}
+.stop .t{font-size:12px;color:var(--muted);font-weight:700;margin-right:6px}
+.stop p{margin:2px 0 4px;font-size:13.5px;color:var(--muted);line-height:1.4}
+.who{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--chip);color:var(--ink);margin-right:4px}
+.nav{font-size:12.5px;font-weight:700;color:var(--c);text-decoration:none}
+.tip{margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--chip);font-size:13px;color:var(--muted);line-height:1.45}
+.tip b{color:var(--ink)}
+.foot{padding:10px 18px;border-top:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.foot button,.foot a{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:10px;padding:7px 10px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;text-decoration:none}
+.foot small{color:var(--muted);font-size:11px;width:100%}
+
+/* markers */
+.pin{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#fff;font:800 13px/1 "Bricolage Grotesque",sans-serif;background:var(--c);border:2px solid rgba(255,255,255,.9);box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 30%,transparent),0 0 22px var(--c);transition:transform .2s}
+.pin.dim{opacity:.35;transform:scale(.7);box-shadow:none}
+.pin.hot{transform:scale(1.25)}
+.home{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:#111;border:2px solid #ffd166;box-shadow:0 0 0 0 rgba(255,209,102,.7);animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,209,102,.6)}70%{box-shadow:0 0 0 18px rgba(255,209,102,0)}100%{box-shadow:0 0 0 0 rgba(255,209,102,0)}}
+.route{stroke-dasharray:10 12;animation:flow 1.4s linear infinite;filter:drop-shadow(0 0 6px currentColor)}
+@keyframes flow{to{stroke-dashoffset:-22}}
+.leaflet-popup-content-wrapper{background:var(--panel-solid);color:var(--ink);border-radius:14px;box-shadow:var(--glow)}
+.leaflet-popup-tip{background:var(--panel-solid)}
+.leaflet-popup-content{margin:12px 14px;font-size:13.5px;line-height:1.4}
+.leaflet-popup-content b{font-size:15px}
+.leaflet-popup-content a{color:var(--accent);font-weight:700}
+.leaflet-container a.leaflet-popup-close-button{color:var(--muted)}
+
+/* mobile: bottom sheet */
+.grab{display:none}
+@media (max-width:760px){
+  .panel{left:0;right:0;bottom:0;top:auto;width:auto;height:56vh;border-radius:22px 22px 0 0;transition:height .25s}
+  .panel.big{height:86vh}
+  .panel.small{height:150px}
+  .grab{display:block;width:44px;height:5px;border-radius:9px;background:var(--muted);opacity:.5;margin:8px auto 0;cursor:pointer}
+  .head{padding:8px 16px 6px}
+  h1{font-size:22px;margin:6px 0 2px}
+  .sub{font-size:13px}
+  .region{margin-top:8px}
+  .days{padding:8px 16px}
+  .body{padding:10px 16px 16px}
+  .sub{display:none}
+  .top{font-size:12px}
+  .region button{padding:6px 8px;font-size:13px}
+  .foot{padding:8px 12px;flex-wrap:nowrap;overflow-x:auto}
+  .foot button,.foot a{white-space:nowrap;padding:6px 9px;font-size:12px}
+  .foot small{display:none}
+  .leaflet-top.leaflet-right{top:0}
+}
+@media (prefers-reduced-motion:reduce){.route,.home{animation:none}}
+</style>
+</head>
+<body>
+<div id="map" aria-label="Mapa wyprawy"></div>
+
+<aside class="panel" id="panel">
+  <div class="grab" id="grab" title="Rozwiń / zwiń"></div>
+  <div class="head">
+    <div class="top"><a href="/tokio-palau/">← plan wyprawy</a><span><button class="iconbtn" id="today" type="button">Dziś</button> <button class="iconbtn" id="theme" type="button" aria-label="Zmień motyw mapy">◐</button></span></div>
+    <h1 id="title">Tokio <span class="jp">東京</span></h1>
+    <p class="sub" id="subtitle"></p>
+    <div class="region" role="group" aria-label="Region">
+      <button type="button" data-r="tokio" aria-pressed="true">🇯🇵 Tokio 5–10.11</button>
+      <button type="button" data-r="palau" aria-pressed="false">🇵🇼 Palau 11–19.11</button>
+    </div>
+  </div>
+  <div class="days" id="days" role="group" aria-label="Dni"></div>
+  <div class="body" id="body"></div>
+  <div class="foot">
+    <button type="button" id="kml">⬇ Plik do Google Moje Mapy</button>
+    <a id="gmaps" href="#" target="_blank" rel="noopener">Trasa dnia w Google Maps ↗</a>
+    <small>Położenie części punktów jest przybliżone — przed wyjściem kliknij „nawiguj”. Mapa: © OpenStreetMap, © CARTO.</small>
+  </div>
+</aside>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+(function(){
+// ---------- DANE ----------
+var D = {
+ tokio:{
+  title:'Tokio <span class="jp">東京</span>', sub:'6 nocy w Asakusie · aparat pierwszego dnia · zakupy po drodze',
+  home:{n:'Tamayura Hotel Asakusa (dawniej Hatago)',d:'Pokój Twin: dwa łóżka, tatami, śniadanie. 2 min od stacji Asakusa. Położenie przybliżone.',ll:[35.7116,139.7948]},
+  days:[
+   {id:'5',date:'2026-11-05',lbl:'Czw 5.11',c:'#64748b',title:'Przylot',desc:'Wylot z Warszawy 4.11 o 22:40, przylot do Narity wieczorem. Keisei do Asakusy, hotel, sen.',stops:[
+     {n:'Hotel w Asakusie',t:'wieczór',d:'Zameldowanie. Kup kartę Suica w aplikacji Portfel albo na lotnisku.',ll:[35.7116,139.7948]}
+   ],tip:'<b>Lotnisko → hotel:</b> Keisei Access Express do Asakusy bez przesiadki albo Skyliner do Ueno i 1 stacja metrem.'},
+   {id:'6',date:'2026-11-06',lbl:'Pt 6.11',c:'#22c55e',title:'Shinjuku: aparat, film i neony',desc:'Rano Contax i obiektyw, Baśka na head spa i shiatsu. Pierwsza rolka od razu, wywołanie w 2 h i wydruk na SELPHY wieczorem.',stops:[
+     {n:'Map Camera',t:'10:30',w:'Jan',d:'Największy wybór używanych aparatów, tax-free. Contax 159MM + Planar 50/1.4 MMJ.',ll:[35.68945,139.69724]},
+     {n:'Kitamura Shinjuku',t:'11:15',w:'Jan',d:'4. piętro: używane aparaty. Parter: film i wywołanie w ok. 2 h (950 ¥ + 880 ¥ skany na telefon).',ll:[35.6911,139.7020]},
+     {n:'Camera Gokurakudo',t:'jeśli brak MMJ',w:'Jan',d:'Sklep specjalizujący się w Contaxie, od 11:00, nieczynny w poniedziałki.',ll:[35.6987,139.7189]},
+     {n:'Head spa + shiatsu',t:'rano',w:'Baśka',d:'Masaż głowy i shiatsu — zarezerwuj dla dwóch osób (Hot Pepper Beauty). Dokładny salon do wybrania.',ll:[35.6902,139.7005]},
+     {n:'Shinjuku Gyoen',t:'13:00',d:'Ogród w jesiennych kolorach — tu wystrzelasz pierwszą rolkę (24 klatki).',ll:[35.6852,139.7101]},
+     {n:'Kot 3D (Cross Shinjuku Vision)',t:'15:00',d:'Gigantyczny kot 3D na ekranie przy wschodnim wyjściu stacji.',ll:[35.6912,139.7016]},
+     {n:'Ratusz — taras 45. piętro',t:'16:30',d:'Darmowy widok 360°, przy dobrej pogodzie Fuji. Po zmroku pokaz świetlny na fasadzie.',ll:[35.6896,139.6917]},
+     {n:'Godzilla w Kabukichō',t:'18:30',d:'Głowa Godzilli na Hotel Gracery. Obok automaty do gier — Jan; Baśka może iść do łaźni Mannenyu (przyjmuje z tatuażami).',ll:[35.69556,139.70228]},
+     {n:'Golden Gai',t:'20:00',d:'Ponad 200 maleńkich barów w wąskich uliczkach. Druga rolka na neonach.',ll:[35.6939,139.7046]}
+   ],tip:'<b>Film:</b> oddaj do Kitamury najpóźniej ok. 15:00 — odbierasz wieczorem i drukujesz z telefonu na SELPHY.'},
+   {id:'7',date:'2026-11-07',lbl:'Sob 7.11',c:'#ef4444',title:'Asakusa, Ueno, Akihabara',desc:'Świątynia o świcie, kimono dla Baśki, Ueno z muzeum i outletem, wieczorem gry i sushi.',stops:[
+     {n:'Sensō-ji',t:'7:30',d:'Najstarsza świątynia Tokio, przed tłumami najlepsze światło.',ll:[35.7148,139.7967]},
+     {n:'Kimono — sklepy w Asakusie',t:'9:30',w:'Baśka',d:'Priorytet z listy: używane kimona, ładne i dużo tańsze od nowych.',ll:[35.7126,139.7955]},
+     {n:'Kappabashi',t:'10:30',d:'Ulica noży i przyborów kuchennych.',ll:[35.7132,139.7883]},
+     {n:'Park Ueno + Muzeum Narodowe',t:'12:00',d:'Tokyo National Museum — sztuka i historia Japonii.',ll:[35.7188,139.7765]},
+     {n:'Ameyoko + outlet (Ueno 6-4-7)',t:'14:30',w:'Baśka',d:'Targ pod torami; outlet z listy Baśki w Welcome Mall.',ll:[35.7099,139.7745]},
+     {n:'Akihabara — Super Potato',t:'16:30',w:'Jan',d:'Retro gry i automaty. Baśka w tym czasie drogerie (zamiast Don Quijote).',ll:[35.7004,139.7714]},
+     {n:'Nadeshico Sushi',t:'19:00',d:'Sushi przygotowywane wyłącznie przez kobiety, z książki. Zarezerwuj; adres sprawdź przed wyjściem.',ll:[35.7008,139.7700]},
+     {n:'Skytree + Moomin Shop',t:'opcja',d:'Zakładki z Muminkami w Solamachi pod Skytree — po drodze do hotelu.',ll:[35.7101,139.8107]}
+   ],tip:'<b>Tori-no-Ichi:</b> jarmark z grabkami kumade w świątyni Ōtori — wieczorem, 20 min pieszo od hotelu.'},
+   {id:'8',date:'2026-11-08',lbl:'Nd 8.11',c:'#a855f7',title:'Harajuku i Shibuya',desc:'Rano świątynia w lesie, potem Baśka na zakupach, Jan na dżinsy przy Cat Street. Zachód słońca na Shibuya Sky.',stops:[
+     {n:'Meiji Jingū',t:'9:00',d:'Chram w lesie, brama z drewna cyprysowego.',ll:[35.6764,139.6993]},
+     {n:'Park Yoyogi',t:'10:30',d:'Jesienne liście, w niedziele muzycy i tancerze.',ll:[35.6717,139.6949]},
+     {n:'Takeshita — Brandy Melville',t:'11:30',w:'Baśka',d:'Ulica mody i słodyczy.',ll:[35.6716,139.7031]},
+     {n:'Kawiarnia z mini świnkami',t:'12:30',w:'Baśka',d:'mipig cafe — rezerwacja wejścia online.',ll:[35.6707,139.7043]},
+     {n:'Omotesandō — Onitsuka Tiger',t:'13:30',w:'Baśka',d:'Aleja architektury, flagowy Onitsuka Tiger.',ll:[35.6672,139.7088]},
+     {n:'Cat Street — japońskie dżinsy',t:'13:30',w:'Jan',d:'Zagłębie sklepów z denimem; pytaj od razu o W40.',ll:[35.6655,139.7065]},
+     {n:'Hachikō',t:'16:00',d:'Pomnik wiernego psa przy stacji Shibuya.',ll:[35.6590,139.7006]},
+     {n:'Skrzyżowanie Shibuya',t:'16:15',d:'Najsłynniejsze przejście dla pieszych świata.',ll:[35.6595,139.7005]},
+     {n:'Shibuya Sky',t:'16:30',d:'Taras na dachu na zachód słońca — bilet na godzinę kup wcześniej.',ll:[35.6584,139.7022]}
+   ],tip:'<b>Rozdzielacie się</b> po Takeshita: Baśka zakupy, Jan Cat Street. Spotkanie pod Hachikō.'},
+   {id:'9',date:'2026-11-09',lbl:'Pon 9.11',c:'#06b6d4',title:'Yanaka na rowerach',desc:'Stare Tokio na elektrycznych rowerach Docomo. Przy czystym niebie zamiast tego Fuji (zakładka Fuji).',stops:[
+     {n:'Kayaba Coffee',t:'9:00',d:'Kawiarnia z 1938 r., pokój z tatami na piętrze, kanapka z omletem.',ll:[35.72115,139.77077]},
+     {n:'Nennekoya',t:'10:30',w:'Baśka',d:'Kawiarnia w kocim stylu. Położenie przybliżone.',ll:[35.7240,139.7670]},
+     {n:'Kamachiku',t:'11:30',d:'Udon w stuletnim domu z ogrodem — przyjdź przed otwarciem, są kolejki.',ll:[35.7196,139.7628]},
+     {n:'Chram Nezu',t:'13:00',d:'Korytarz czerwonych bram torii.',ll:[35.7202,139.7605]},
+     {n:'Ogród Rikugien',t:'15:00',d:'Klasyczny ogród spacerowy, jesienne kolory.',ll:[35.7330,139.7465]}
+   ],tip:'<b>Rowery:</b> Docomo Bike Share w aplikacji, ok. 165 ¥ za 30 min, wszystkie elektryczne. Jeździ się lewą stroną.'},
+   {id:'9f',date:'2026-11-09',lbl:'Fuji (opcja 9.11)',c:'#0ea5e9',title:'Fuji — jeśli niebo czyste',desc:'Autobus z Busta Shinjuku ok. 1 h 45 min albo pociąg Fuji Excursion. Wtedy Yanaka przechodzi na 7.11 rano.',stops:[
+     {n:'Pagoda Chūreitō',t:'10:00',d:'Klasyczny kadr z Fuji, ok. 400 schodów. Stacja Shimoyoshida.',ll:[35.5011,138.8016]},
+     {n:'Jezioro Kawaguchi — Momiji Corridor',t:'13:00',d:'Północny brzeg, festiwal jesiennych liści.',ll:[35.5195,138.7480]}
+   ],tip:'Prognozę widoczności sprawdź wieczorem 8.11 — przy chmurach zostańcie w Tokio.'},
+   {id:'10',date:'2026-11-10',lbl:'Wt 10.11',c:'#f59e0b',title:'Tsukiji, pałac, Ginza i teamLab',desc:'Śniadanie na targu, ogrody pałacowe, pióra i notesy na Ginzie, wieczorem cyfrowa sztuka i Tokyo Tower.',stops:[
+     {n:'Targ Tsukiji',t:'8:00',d:'Przegrzebki, wagyu, tamagoyaki.',ll:[35.6654,139.7707]},
+     {n:'Wschodnie ogrody pałacu cesarskiego',t:'10:00',d:'Ruiny zamku Edo. We wtorek otwarte (zamknięte pn i pt).',ll:[35.6852,139.7528]},
+     {n:'LEGO Store — Tokyo Station',t:'12:00',w:'Jan',d:'Ichibangai pod dworcem — szukaj zestawów i minifigurek tylko na Japonię.',ll:[35.6798,139.7685]},
+     {n:'Itoya Ginza',t:'13:00',d:'Pilot Capless (pióro z chowaną stalówką), papier Tomoe River, notesy Midori i Hobonichi. Pióra: 3. piętro.',ll:[35.67296,139.76743]},
+     {n:'ancora (Sailor)',t:'14:00',d:'Pióro składane z części. We wtorek czynne, w środy zamknięte.',ll:[35.6712,139.7627]},
+     {n:'Uniqlo Ginza',t:'15:00',w:'Baśka',d:'Flagowy sklep, 12 pięter. Tabi i skarpetki dla Jana!',ll:[35.6714,139.7650]},
+     {n:'teamLab Borderless',t:'17:30',d:'Cyfrowa sztuka w Azabudai Hills — bilet na godzinę kup wcześniej.',ll:[35.66200,139.74342]},
+     {n:'Tokyo Tower nocą',t:'20:00',d:'Podświetlona wieża, 5 min od teamLab.',ll:[35.6586,139.7454]}
+   ],tip:'<b>Tax-free:</b> wszystkie zakupy z 5–10.11 potwierdzasz 11.11 w Naricie — miej je w bagażu podręcznym.'}
+  ]
+ },
+ palau:{
+  title:'Palau <span class="jp">Belau</span>', sub:'Koror · Rock Islands · Babeldaob autem · Peleliu łodzią',
+  home:{n:'Nocleg w Koror',d:'Np. Sea Passion Hotel (z plażą) albo DW Motel (taniej). Położenie przybliżone.',ll:[7.3330,134.4870]},
+  days:[
+   {id:'p12',date:'2026-11-12',lbl:'Czw 12.11',c:'#22c55e',title:'Koror pieszo',desc:'Muzeum, akwarium, rezerwacja wycieczek łodzią na kolejne dni.',stops:[
+     {n:'Belau National Museum',t:'10:00',d:'Historia i kultura Palau, storyboardy.',ll:[7.3417,134.4794]},
+     {n:'Palau Aquarium (PICRC)',t:'13:00',d:'Rafa Palau w pigułce.',ll:[7.3086,134.4980]}
+   ],tip:'Wieczorem lokalne jedzenie: kelaguen, ulkoy, sashimi z tuńczyka, pudding z manioku i kokosa.'},
+   {id:'p13',date:'2026-11-13',lbl:'Pt 13.11',c:'#06b6d4',title:'Rock Islands łodzią',desc:'Jedna wycieczka: Jellyfish Lake, Milky Way i Big Drop-off. Wieczorem Night Market, jeśli wypadnie.',stops:[
+     {n:'Jellyfish Lake',t:'rano',d:'Tylko z licencjonowaną wycieczką, pozwolenie 100 USD/os. Bez kremu z filtrem.',ll:[7.1612,134.3762]},
+     {n:'Milky Way',t:'południe',d:'Białe wapienne błoto w turkusowej zatoce. Położenie przybliżone.',ll:[7.2200,134.3870]},
+     {n:'Big Drop-off (Ngemelis)',t:'po południu',d:'Ściana rafy opadająca w głębię — snorkeling z łodzi. Położenie przybliżone.',ll:[7.1220,134.2490]},
+     {n:'Koror Night Market',t:'17–21',d:'W wybrane piątki — sprawdź kalendarz na pristineparadisepalau.com. Położenie przybliżone.',ll:[7.3410,134.4760]}
+   ]},
+   {id:'p14',date:'2026-11-14',lbl:'Sob 14.11',c:'#f59e0b',title:'Babeldaob autem',desc:'Most z Koror, wynajęte auto, jazda prawą stroną.',stops:[
+     {n:'Airai — tradycyjny bai',t:'9:00',d:'Najstarszy dom zgromadzeń, kultura Palau. Położenie przybliżone.',ll:[7.3830,134.5630]},
+     {n:'Ngerulmud — Kapitol',t:'11:00',d:'Siedziba parlamentu na wzgórzu.',ll:[7.5006,134.6243]},
+     {n:'Wodospad Ngardmau',t:'13:00',d:'Szlak przez las, strome odcinki — dobre buty. Położenie przybliżone.',ll:[7.6050,134.5840]},
+     {n:'Monolity Badrulchau',t:'15:30',d:'Kamienne kolumny na północy wyspy. Położenie przybliżone.',ll:[7.7600,134.6320]}
+   ]},
+   {id:'p15',date:'2026-11-15',lbl:'Nd 15.11',c:'#a855f7',title:'Kajaki — Southern Lagoon',desc:'Wycieczka kajakowa z przewodnikiem między wysepkami UNESCO, ze snorkelingiem.',stops:[
+     {n:'Southern Lagoon (UNESCO)',t:'cały dzień',d:'445 wysepek wapiennych. Położenie przybliżone.',ll:[7.2700,134.4200]}
+   ]},
+   {id:'p16',date:'2026-11-16',lbl:'Pon 16.11',c:'#ef4444',title:'Peleliu — pole bitwy 1944',desc:'Tylko łodzią, ok. 1 h z Koror. Całodniowa wycieczka z przewodnikiem i pozwoleniem.',stops:[
+     {n:'Peleliu',t:'cały dzień',d:'Plaże lądowania, lotnisko, czołgi, bunkry, jaskinia 1000-Man Cave, wraki do snorkelingu.',ll:[7.0050,134.2430]}
+   ]},
+   {id:'p17',date:'2026-11-17',lbl:'Wt 17.11',c:'#0ea5e9',title:'Blue Corner i German Channel',desc:'Rekiny i manty. Blue Corner to miejsce dla nurków — ze snorkelem patrzycie z płycizny rafy.',stops:[
+     {n:'Blue Corner',t:'rano',d:'Silne prądy, rekiny rafowe. Położenie przybliżone.',ll:[7.1360,134.2210]},
+     {n:'German Channel',t:'po południu',d:'Manty przy stacji czyszczenia — da się je oglądać ze snorkelem. Położenie przybliżone.',ll:[7.1530,134.2650]}
+   ]},
+   {id:'p18',date:'2026-11-18',lbl:'Śr 18.11',c:'#64748b',title:'Dzień zapasowy',desc:'Na pogodę, pamiątki (storyboard), powtórka ulubionego miejsca. 19.11 lot do Narity.',stops:[]}
+  ]
+ }
+};
+
+// ---------- MAPA ----------
+var root=document.documentElement;
+var light=false; try{light=localStorage.getItem('wl-map-theme')==='light'}catch(e){}
+var TILES={dark:'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',light:'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png'};
+var map=L.map('map',{zoomControl:false,attributionControl:true}).setView([35.69,139.75],12);
+L.control.zoom({position:'topright'}).addTo(map);
+var tiles=L.tileLayer(light?TILES.light:TILES.dark,{maxZoom:19,subdomains:'abcd',attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a href="https://carto.com/attributions">CARTO</a>'}).addTo(map);
+if(light) root.setAttribute('data-theme','light');
+document.getElementById('theme').onclick=function(){light=!light;tiles.setUrl(light?TILES.light:TILES.dark);if(light)root.setAttribute('data-theme','light');else root.removeAttribute('data-theme');try{localStorage.setItem('wl-map-theme',light?'light':'dark')}catch(e){}};
+
+var layer=L.layerGroup().addTo(map), homeLayer=L.layerGroup().addTo(map);
+var region='tokio', current=null, markers=[];
+var panel=document.getElementById('panel');
+
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function gm(s){return 'https://www.google.com/maps/search/?api=1&query='+s.ll[0]+','+s.ll[1]}
+function pinIcon(i,c,dim){return L.divIcon({className:'',html:'<div class="pin'+(dim?' dim':'')+'" style="--c:'+c+'">'+i+'</div>',iconSize:[30,30],iconAnchor:[15,15],popupAnchor:[0,-14]})}
+
+function renderRegion(r){
+  region=r; var R=D[r];
+  document.querySelectorAll('.region button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.r===r)});
+  document.getElementById('title').innerHTML=R.title;
+  document.getElementById('subtitle').textContent=R.sub;
+  var dd=document.getElementById('days'); dd.innerHTML='';
+  var all=document.createElement('button');all.type='button';all.className='day';all.style.setProperty('--c','#ff4d6d');all.dataset.id='all';all.innerHTML='<i></i>Wszystko';dd.appendChild(all);
+  R.days.forEach(function(d){var b=document.createElement('button');b.type='button';b.className='day';b.style.setProperty('--c',d.c);b.dataset.id=d.id;b.innerHTML='<i></i>'+esc(d.lbl);dd.appendChild(b)});
+  dd.onclick=function(e){var b=e.target.closest('.day');if(b)select(b.dataset.id,true)};
+  homeLayer.clearLayers();
+  L.marker(R.home.ll,{icon:L.divIcon({className:'',html:'<div class="home">🏨</div>',iconSize:[42,42],iconAnchor:[21,21],popupAnchor:[0,-20]}),zIndexOffset:1000})
+   .bindPopup('<b>'+esc(R.home.n)+'</b><br>'+esc(R.home.d)+'<br><a href="'+gm(R.home)+'" target="_blank" rel="noopener">nawiguj ↗</a>').addTo(homeLayer);
+  select('all',true);
+}
+
+function select(id,fly){
+  current=id; var R=D[region];
+  document.querySelectorAll('#days .day').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.id===id)});
+  var act=document.querySelector('#days .day[aria-pressed="true"]'); if(act&&act.scrollIntoView) act.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});
+  layer.clearLayers(); markers=[];
+  var bounds=[R.home.ll], body=document.getElementById('body');
+  var list=id==='all'?R.days:R.days.filter(function(d){return d.id===id});
+  list.forEach(function(d){
+    if(id==='all' && d.id==='9f') return; // Fuji tylko po wybraniu
+    var pts=[R.home.ll].concat(d.stops.map(function(s){return s.ll}));
+    if(d.stops.length) L.polyline(pts,{color:d.c,weight:id==='all'?3:4.5,opacity:id==='all'?.55:.95,className:'route'}).addTo(layer);
+    d.stops.forEach(function(s,i){
+      var m=L.marker(s.ll,{icon:pinIcon(i+1,d.c,false),riseOnHover:true})
+        .bindPopup('<b>'+esc(s.n)+'</b><br><small>'+esc(d.lbl)+(s.t?' · '+esc(s.t):'')+'</small><br>'+esc(s.d)+'<br><a href="'+gm(s)+'" target="_blank" rel="noopener">nawiguj ↗</a>').addTo(layer);
+      m._k=d.id+'-'+i; markers.push(m); bounds.push(s.ll);
+    });
+  });
+  // panel
+  var html='';
+  if(id==='all'){
+    html+='<div class="dayhead" style="--c:#ff4d6d"><div class="when">'+(region==='tokio'?'5–10 listopada':'11–19 listopada')+'</div><h2>Cała wyprawa</h2><p>Wybierz dzień, żeby zobaczyć trasę i kolejne punkty. Hotel to złota ikonka 🏨.</p></div>';
+    R.days.forEach(function(d){html+='<div class="stop" style="--c:'+d.c+'" data-day="'+d.id+'"><div class="num">'+(d.stops.length||'–')+'</div><div><h3>'+esc(d.lbl)+' — '+esc(d.title)+'</h3><p>'+esc(d.desc)+'</p></div></div>'});
+  } else {
+    var d=list[0];
+    html+='<div class="dayhead" style="--c:'+d.c+'"><div class="when">'+esc(d.lbl)+'</div><h2>'+esc(d.title)+'</h2><p>'+esc(d.desc)+'</p></div><ol class="stops" style="--c:'+d.c+'">';
+    d.stops.forEach(function(s,i){html+='<li class="stop" data-k="'+d.id+'-'+i+'"><div class="num">'+(i+1)+'</div><div><h3>'+(s.t?'<span class="t">'+esc(s.t)+'</span>':'')+esc(s.n)+'</h3><p>'+(s.w?'<span class="who">'+esc(s.w)+'</span>':'')+esc(s.d)+'</p><a class="nav" href="'+gm(s)+'" target="_blank" rel="noopener">nawiguj ↗</a></div></li>'});
+    html+='</ol>'+(d.tip?'<div class="tip">'+d.tip+'</div>':'');
+  }
+  body.innerHTML=html; body.scrollTop=0;
+  body.querySelectorAll('[data-day]').forEach(function(el){el.onclick=function(){select(el.dataset.day,true)}});
+  body.querySelectorAll('[data-k]').forEach(function(el){
+    el.onclick=function(e){if(e.target.closest('a'))return;var m=markers.find(function(x){return x._k===el.dataset.k});if(m){map.flyTo(m.getLatLng(),16,{duration:.9});setTimeout(function(){m.openPopup()},900);if(window.innerWidth<=760){panel.classList.remove('big');}}};
+    el.onmouseenter=function(){var m=markers.find(function(x){return x._k===el.dataset.k});if(m&&m._icon)m._icon.firstChild.classList.add('hot')};
+    el.onmouseleave=function(){var m=markers.find(function(x){return x._k===el.dataset.k});if(m&&m._icon)m._icon.firstChild.classList.remove('hot')};
+  });
+  // Google Maps trasa dnia
+  var g=document.getElementById('gmaps');
+  if(id!=='all' && list[0].stops.length){
+    var st=list[0].stops.slice(0,10), o=R.home.ll;
+    var url='https://www.google.com/maps/dir/?api=1&origin='+o[0]+','+o[1]+'&destination='+st[st.length-1].ll.join(',')+(st.length>1?'&waypoints='+st.slice(0,-1).map(function(s){return s.ll.join(',')}).join('|'):'')+'&travelmode='+(region==='tokio'?'transit':'driving');
+    g.href=url; g.style.display='';
+  } else g.style.display='none';
+  var pad=window.innerWidth>760?{paddingTopLeft:[440,40],paddingBottomRight:[40,40]}:{paddingTopLeft:[30,30],paddingBottomRight:[30,Math.round(window.innerHeight*.48)]};
+  if(fly) map.flyToBounds(L.latLngBounds(bounds),Object.assign({maxZoom:15,duration:1.1},pad));
+}
+
+document.querySelectorAll('.region button').forEach(function(b){b.onclick=function(){renderRegion(b.dataset.r)}});
+
+// „Dziś” — dzień wyjazdu odpowiadający dzisiejszej dacie
+document.getElementById('today').onclick=function(){
+  var t=new Date(),iso=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
+  for(var r in D){var d=D[r].days.find(function(x){return x.date===iso&&x.id!=='9f'});if(d){if(region!==r)renderRegion(r);select(d.id,true);return}}
+  alertBox('Dziś nie ma dnia w planie — pierwszy dzień wyprawy to 5.11.');
+};
+function alertBox(msg){var b=document.getElementById('body');var n=document.createElement('div');n.className='tip';n.textContent=msg;b.prepend(n);setTimeout(function(){n.remove()},4000)}
+
+// Mobile: zwijanie panelu
+document.getElementById('grab').onclick=function(){panel.classList.toggle('big')};
+
+// KML do Google Moje Mapy
+document.getElementById('kml').onclick=function(){
+  function x(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+  function col(hex){hex=hex.replace('#','');return 'ff'+hex.substr(4,2)+hex.substr(2,2)+hex.substr(0,2)}
+  var k='<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2"><Document><name>Wyprawa Tokio + Palau 2026</name>';
+  ['tokio','palau'].forEach(function(r){var R=D[r];
+    R.days.forEach(function(d){k+='<Style id="s'+d.id+'"><IconStyle><color>'+col(d.c)+'</color><Icon><href>https://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href></Icon></IconStyle></Style>'});
+    k+='<Folder><name>'+(r==='tokio'?'Tokio — hotel':'Palau — nocleg')+'</name><Placemark><name>'+x(R.home.n)+'</name><description>'+x(R.home.d)+'</description><Point><coordinates>'+R.home.ll[1]+','+R.home.ll[0]+',0</coordinates></Point></Placemark></Folder>';
+    R.days.forEach(function(d){
+      if(!d.stops.length) return;
+      k+='<Folder><name>'+x(d.lbl+' — '+d.title)+'</name>';
+      d.stops.forEach(function(s,i){k+='<Placemark><name>'+(i+1)+'. '+x(s.n)+'</name><description>'+x((s.t?s.t+' · ':'')+(s.w?s.w+' · ':'')+s.d)+'</description><styleUrl>#s'+d.id+'</styleUrl><Point><coordinates>'+s.ll[1]+','+s.ll[0]+',0</coordinates></Point></Placemark>'});
+      k+='</Folder>';
+    });
+  });
+  k+='</Document></kml>';
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([k],{type:'application/vnd.google-earth.kml+xml'}));a.download='wyprawa-tokio-palau.kml';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);
+};
+
+var startR='tokio'; if(location.hash==='#palau') startR='palau';
+renderRegion(startR);
+})();
+</script>
+</body>
+</html>
