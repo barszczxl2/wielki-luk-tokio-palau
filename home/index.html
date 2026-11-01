@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wielki Łuk — dwie podróże, dwa zegary</title>
+<meta name="description" content="Tokio, Palau i Seul w listopadzie 2026 oraz wielki łuk kolejowy z Bangkoku do Zatoki Ha Long we wrześniu 2027. Odliczanie do wylotu, plany dzień po dniu i mapy.">
+<link rel="canonical" href="https://wielki-luk.pl/">
+<link rel="alternate" hreflang="pl" href="https://wielki-luk.pl/">
+<link rel="alternate" hreflang="fr" href="https://wielki-luk.pl/fr">
+<link rel="alternate" hreflang="el" href="https://wielki-luk.pl/el">
+<link rel="alternate" hreflang="x-default" href="https://wielki-luk.pl/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Wielki Łuk — dwie podróże, dwa zegary">
+<meta property="og:description" content="Tokio, Palau i Seul (4–24.11.2026) oraz Bangkok → Zatoka Ha Long koleją (1–30.09.2027). Odliczanie, plany dzień po dniu, mapy.">
+<meta property="og:url" content="https://wielki-luk.pl/">
+<meta property="og:image" content="https://wielki-luk.pl/tokio-palau/img/chureito-pagoda-and-mount-fuji.jpg">
+<meta property="og:locale" content="pl_PL">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,900;1,9..144,300&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚂</text></svg>">
+<style>
+:root{--bg0:#0A1218;--bg1:#0E1B22;--gold:#E8B04B;--gold-hi:#FFD98A;--river:#63B0A2;--robe:#D0603A;--hsr:#8CC3E4;--paper:#F6EDDC;--paper-dim:#B9AE96;--ink:#10181D;--radius:16px;--font-display:"Fraunces",serif;--font-body:"Work Sans",sans-serif;--font-mono:"IBM Plex Mono",monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg0);color:var(--paper);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+::selection{background:var(--gold);color:var(--ink)}
+.wrap{max-width:1160px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+.eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+
+/* nav — jak na reszcie serwisu */
+.nav{position:fixed;inset:0 0 auto;z-index:200;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
+.nav.scrolled{background:#0a1218c7;backdrop-filter:blur(14px);border-bottom-color:#f6eddc14}
+.nav-inner{max-width:1280px;margin:0 auto;padding:20px clamp(16px,4vw,44px);display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:var(--font-display);font-weight:900;font-size:20px;letter-spacing:.05em;text-decoration:none;color:var(--paper)}
+.brand em{color:var(--gold);font-weight:300}
+.nav-links{display:flex;gap:clamp(14px,3vw,34px);align-items:center;margin-left:auto}
+.nav-links a{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--paper-dim);text-decoration:none;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--gold)}
+.nav-cta{border:1px solid rgba(232,176,75,.55);border-radius:99px;padding:9px 18px;color:var(--gold)!important;transition:all .25s!important}
+.nav-cta:hover{background:var(--gold);color:var(--ink)!important}
+.lang-switch{display:inline-flex;align-items:center;gap:8px;margin-left:10px;padding-left:14px;border-left:1px solid rgba(246,237,220,.18)}
+.lang-switch a{display:block;text-decoration:none;opacity:.45;transition:opacity .2s;line-height:0}
+.lang-switch a svg{width:22px;height:15px;border-radius:2px;box-shadow:0 0 0 1px #f6eddc40;display:block}
+.lang-switch a:hover,.lang-switch a.active{opacity:1}
+.lang-switch a.active svg{box-shadow:0 0 0 1px var(--gold)}
+@media(max-width:820px){.nav-inner{padding:12px 16px;flex-wrap:wrap;row-gap:10px}.brand{font-size:18px}.nav-links{order:1;width:100%;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-left:0}.nav-links a{white-space:nowrap;font-size:10.5px;letter-spacing:.1em}.nav-cta{padding:7px 12px}.lang-switch{margin-left:auto;padding-left:0;border-left:none}}
+
+/* nagłówek */
+.intro{padding:clamp(120px,18vh,170px) 0 clamp(26px,4vw,44px);text-align:center}
+.intro h1{font-family:var(--font-display);font-weight:900;font-size:clamp(38px,7vw,84px);line-height:.98;letter-spacing:-.02em;margin-top:18px}
+.intro h1 em{font-weight:300;font-style:italic;color:var(--gold)}
+.intro p{margin:18px auto 0;max-width:52ch;color:var(--paper-dim);font-size:clamp(14.5px,1.5vw,17px)}
+.intro p b{color:var(--paper);font-weight:500}
+
+/* karty podróży */
+.trips{display:grid;gap:clamp(18px,3vw,30px)}
+.trip{scroll-margin-top:96px;position:relative;border-radius:calc(var(--radius) + 6px);overflow:hidden;border:1px solid rgba(246,237,220,.12);background:var(--bg1);transition:border-color .3s,box-shadow .3s}
+.trip:hover,.trip.open{border-color:color-mix(in srgb,var(--accent) 60%,transparent);box-shadow:0 30px 90px #00000080}
+.trip-toggle{display:block;width:100%;cursor:pointer;position:relative;min-height:clamp(380px,46vh,520px);-webkit-tap-highlight-color:transparent;user-select:none}
+.trip-toggle:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+.trip-bg{position:absolute;inset:0;background-image:var(--img);background-size:cover;background-position:center;transition:transform .9s cubic-bezier(.2,.6,.2,1)}
+.trip:hover .trip-bg{transform:scale(1.04)}
+.trip-veil{position:absolute;inset:0;background:linear-gradient(180deg,#0a121866,#0a1218b8 50%,#0a1218f2)}
+.trip-head{position:relative;z-index:2;padding:clamp(22px,4vw,44px);display:flex;flex-direction:column;justify-content:flex-end;min-height:inherit;gap:14px}
+.trip-head .eyebrow{color:var(--accent);text-shadow:0 2px 14px rgba(0,0,0,.8)}
+.trip-head h2{font-family:var(--font-display);font-weight:600;font-size:clamp(30px,4.8vw,56px);line-height:1.04;letter-spacing:-.01em;text-shadow:0 6px 40px rgba(0,0,0,.7);max-width:16ch}
+.trip-head h2 em{font-weight:300;font-style:italic;color:var(--accent)}
+
+.count{display:inline-flex;flex-direction:column;gap:10px;padding:16px 22px;border-radius:var(--radius);background:#0a121880;backdrop-filter:blur(14px);border:1px solid color-mix(in srgb,var(--accent) 35%,transparent);box-shadow:0 30px 80px #00000073;align-self:flex-start;max-width:100%}
+.count-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent)}
+.count-units{display:flex;gap:clamp(8px,2vw,22px);align-items:flex-start}
+.cell{text-align:center;min-width:clamp(46px,6.5vw,84px)}
+.num{font-family:var(--font-mono);font-weight:500;font-variant-numeric:tabular-nums;font-size:clamp(28px,4.4vw,52px);line-height:1;color:var(--paper);text-shadow:0 0 34px color-mix(in srgb,var(--accent) 45%,transparent)}
+.lbl{font-family:var(--font-mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--paper-dim);margin-top:8px;display:block}
+.sep{font-family:var(--font-mono);font-size:clamp(24px,3.6vw,44px);color:var(--accent);opacity:.55;padding-top:2px}
+.count-note{font-family:var(--font-mono);font-size:11px;color:var(--paper-dim);letter-spacing:.04em}
+.count-note b{color:var(--paper);font-weight:500}
+.count.enroute .count-units,.count.done .count-units{display:none}
+.count .big{display:none;font-family:var(--font-display);font-size:clamp(26px,3.6vw,42px);font-weight:600;line-height:1.1}
+.count.enroute .big,.count.done .big{display:block}
+.hint{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--paper);display:inline-flex;align-items:center;gap:10px;border-bottom:1px solid var(--accent);padding-bottom:3px;align-self:flex-start}
+.hint i{font-style:normal;display:inline-block;transition:transform .35s}
+.trip.open .hint i{transform:rotate(180deg)}
+.trip.open .hint .o{display:none}.trip:not(.open) .hint .c{display:none}
+
+/* rozwinięcie */
+.trip-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s cubic-bezier(.2,.7,.2,1)}
+.trip.open .trip-body{grid-template-rows:1fr}
+.trip-body>div{overflow:hidden}
+.trip-inner{padding:clamp(20px,3.5vw,40px);border-top:1px solid rgba(246,237,220,.1);display:grid;gap:clamp(18px,3vw,28px)}
+.trip-inner p.lead{color:var(--paper-dim);font-size:15.5px;max-width:70ch}
+.trip-inner p.lead b{color:var(--paper);font-weight:500}
+.legs{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.leg{position:relative;display:block;text-decoration:none;background:linear-gradient(160deg,#f6eddc0e,#f6eddc04);border:1px solid rgba(246,237,220,.1);border-radius:var(--radius);padding:18px 18px 16px;transition:transform .3s,border-color .3s}
+.leg:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--accent) 50%,transparent)}
+.leg .k{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+.leg h3{font-family:var(--font-display);font-size:21px;font-weight:600;margin-top:8px;line-height:1.15}
+.leg p{font-size:13.5px;color:var(--paper-dim);margin-top:8px;line-height:1.55}
+.leg .go{display:inline-block;margin-top:12px;font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--paper);border-bottom:1px solid var(--accent);padding-bottom:2px}
+.stats{display:flex;gap:10px;flex-wrap:wrap}
+.chip{font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;padding:8px 14px;border-radius:99px;border:1px solid rgba(246,237,220,.22);background:#0a121880;color:var(--paper)}
+.chip b{color:var(--accent);font-weight:500}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:14.5px;padding:13px 24px;border-radius:99px;transition:transform .25s,box-shadow .25s,background .25s,color .25s}
+.btn-gold{background:var(--accent);color:var(--ink);box-shadow:0 10px 40px color-mix(in srgb,var(--accent) 35%,transparent)}
+.btn-gold:hover{transform:translateY(-3px);filter:brightness(1.1)}
+.btn-ghost{color:var(--paper);border:1px solid rgba(246,237,220,.35);background:#f6eddc0d}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px)}
+.sub-links{font-family:var(--font-mono);font-size:12px;color:var(--paper-dim);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.sub-links a{color:var(--paper);text-decoration:none;border-bottom:1px solid rgba(246,237,220,.3);padding-bottom:1px}
+.sub-links a:hover{color:var(--accent);border-color:var(--accent)}
+
+/* mapy */
+.maps{padding:clamp(44px,7vw,80px) 0 0}
+.maps .eyebrow{display:block;text-align:center;margin-bottom:18px}
+.map-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.map-card{display:block;text-decoration:none;border-radius:var(--radius);border:1px solid rgba(246,237,220,.12);padding:18px 18px 16px;background:linear-gradient(160deg,#f6eddc0c,#f6eddc03);transition:transform .3s,border-color .3s}
+.map-card:hover{transform:translateY(-4px);border-color:#e8b04b80}
+.map-card .k{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.map-card h3{font-family:var(--font-display);font-size:20px;font-weight:600;margin-top:8px}
+.map-card p{font-size:13px;color:var(--paper-dim);margin-top:6px}
+
+.footer{border-top:1px solid rgba(246,237,220,.1);margin-top:clamp(50px,8vw,100px);padding:clamp(30px,5vw,50px) 0}
+.footer-inner{font-family:var(--font-mono);font-size:11.5px;color:var(--paper-dim);line-height:1.8}
+.footer-brand{font-family:var(--font-display);font-weight:900;font-size:22px;color:var(--paper);margin-bottom:10px}
+.footer-brand em{color:var(--gold);font-weight:300}
+.footer-inner a{color:var(--paper-dim)}
+.footer-inner a:hover{color:var(--gold)}
+@media(max-width:820px){.trip{scroll-margin-top:128px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="/">WIELKI<em>ŁUK</em></a>
+    <div class="nav-links">
+      <a href="/" class="active">Start</a>
+      <a href="/tokio-palau/">Tokio–Palau–Seul</a>
+      <a href="/bangkok-halong">Bangkok–Ha Long</a>
+      <a href="#mapy">Mapy</a>
+      <a href="/bangkok-halong/newsy" class="nav-cta" target="_blank" rel="noopener">📰 Newsy z trasy</a>
+    </div>
+    <span class="lang-switch">
+      <a href="/" class="active" hreflang="pl" lang="pl" title="Polski" aria-label="Polski"><svg viewBox="0 0 3 2" aria-hidden="true"><rect width="3" height="1" fill="#fff"/><rect y="1" width="3" height="1" fill="#DC143C"/></svg></a><a href="/fr" hreflang="fr" lang="fr" title="Français" aria-label="Français"><svg viewBox="0 0 3 2" aria-hidden="true"><rect width="1" height="2" fill="#0055A4"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#EF4135"/></svg></a><a href="/el" hreflang="el" lang="el" title="Ελληνικά" aria-label="Ελληνικά"><svg viewBox="0 0 27 18" aria-hidden="true"><rect width="27" height="18" fill="#0D5EAF"/><rect y="2" width="27" height="2" fill="#fff"/><rect y="6" width="27" height="2" fill="#fff"/><rect y="10" width="27" height="2" fill="#fff"/><rect y="14" width="27" height="2" fill="#fff"/><rect width="10" height="10" fill="#0D5EAF"/><rect x="4" width="2" height="10" fill="#fff"/><rect y="4" width="10" height="2" fill="#fff"/></svg></a>
+    </span>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header class="intro">
+    <span class="eyebrow">wielki-luk.pl · dwie podróże</span>
+    <h1>Dwa zegary <em>do wylotu</em></h1>
+    <p>Kliknij zegar, żeby rozwinąć podróż: <b>plan dzień po dniu, mapy, noclegi i formalności</b>.</p>
+  </header>
+
+  <section class="trips" aria-label="Podróże">
+
+    <!-- 1. Tokio – Palau – Seul -->
+    <article class="trip" id="tokio-palau" style="--img:url('/tokio-palau/img/chureito-pagoda-and-mount-fuji.jpg');--accent:#63B0A2"
+      data-departure="2026-11-04T22:40:00+01:00" data-return="2026-11-24T19:00:00+01:00" data-days="21">
+      <div class="trip-toggle" role="button" tabindex="0" aria-expanded="false" aria-controls="body-tp">
+        <div class="trip-bg"></div><div class="trip-veil"></div>
+        <div class="trip-head">
+          <span class="eyebrow">Wylot w środę 4.11 o 22:40 · standby — o ile będą miejsca · powrót 24.11</span>
+          <h2>Tokio, <em>laguna</em> Palau <em>i</em> Seul</h2>
+          <div class="count" data-count>
+            <span class="count-label" data-label>do wylotu pozostało</span>
+            <div class="count-units">
+              <div class="cell"><span class="num" data-u="d">—</span><span class="lbl">dni</span></div><div class="sep">:</div>
+              <div class="cell"><span class="num" data-u="h">—</span><span class="lbl">godz</span></div><div class="sep">:</div>
+              <div class="cell"><span class="num" data-u="m">—</span><span class="lbl">min</span></div><div class="sep">:</div>
+              <div class="cell"><span class="num" data-u="s">—</span><span class="lbl">sek</span></div>
+            </div>
+            <span class="big" data-big></span>
+            <span class="count-note">LOT Warszawa → Tokio Narita · <b>21 dni</b> · 🇯🇵 6 nocy · 🇵🇼 8 nocy · 🇰🇷 4 noce</span>
+          </div>
+          <span class="hint"><i>▾</i><span class="o">rozwiń podróż</span><span class="c">zwiń</span></span>
+        </div>
+      </div>
+      <div class="trip-body" id="body-tp"><div>
+        <div class="trip-inner">
+          <p class="lead">Sześć dni jesiennego Tokio z aparatem analogowym kupionym pierwszego dnia, osiem dni na Palau <b>ze snorkelem, bez butli</b> — Rock Islands, Jellyfish Lake, Peleliu — i cztery chłodne dni w Seulu na koniec.</p>
+          <div class="legs">
+            <a class="leg" href="/tokio-palau/mapa/#tokio">
+              <span class="k">🇯🇵 Tokio · 5–10.11</span>
+              <h3>Asakusa, Shinjuku, Yanaka na rowerach</h3>
+              <p>Contax i SELPHY w Shinjuku, kimono dla Baśki, jarmark Tori-no-Ichi, Ginza z piórami, przy czystym niebie Fuji.</p>
+              <span class="go">mapa Tokio →</span>
+            </a>
+            <a class="leg" href="/tokio-palau/mapa/#palau">
+              <span class="k">🇵🇼 Palau · 11–19.11</span>
+              <h3>Koror, Rock Islands, Peleliu</h3>
+              <p>Jellyfish Lake, Milky Way, kajaki w Southern Lagoon, Babeldaob autem, pole bitwy z 1944 r. łodzią.</p>
+              <span class="go">mapa Palau →</span>
+            </a>
+            <a class="leg" href="/tokio-palau/mapa/#seul">
+              <span class="k">🇰🇷 Seul · 20–24.11</span>
+              <h3>Pałace, Bukchon, Seongsu</h3>
+              <p>Gyeongbokgung w sobotę, Huwon z przewodnikiem, Monami Store i własny atrament, targ Gwangjang, Myeongdong.</p>
+              <span class="go">mapa Seulu →</span>
+            </a>
+          </div>
+          <div class="btns">
+            <a class="btn btn-gold" href="/tokio-palau/">Plan dzień po dniu →</a>
+            <a class="btn btn-ghost" href="/tokio-palau/mapa/">🗺 Mapa interaktywna</a>
+            <a class="btn btn-ghost" href="/palau/">Strona wyprawy z zegarem</a>
+          </div>
+          <div class="sub-links">
+            <span>Szybko:</span>
+            <a href="/tokio-palau/#formalnosci">formalności i dron</a>
+            <a href="/tokio-palau/#pakowanie">pakowanie</a>
+            <a href="/palau/#/zakupy">zakupy</a>
+            <a href="/palau/#/noclegi">noclegi</a>
+            <a href="/palau/#/praktyczne">praktyczne</a>
+          </div>
+        </div>
+      </div></div>
+    </article>
+
+    <!-- 2. Bangkok – Ha Long -->
+    <article class="trip" id="bangkok-halong" style="--img:url('/img/etap-11-zatoka-ha-long-rejs.jpg');--accent:#E8B04B"
+      data-departure="2027-09-01T14:25:00+02:00" data-return="2027-10-01T06:00:00+02:00" data-days="30">
+      <div class="trip-toggle" role="button" tabindex="0" aria-expanded="false" aria-controls="body-bh">
+        <div class="trip-bg"></div><div class="trip-veil"></div>
+        <div class="trip-head">
+          <span class="eyebrow">Wylot 1 września 2027 o 14:25 · LO65 · 30 dni, 4 kraje, 2 340 km koleją</span>
+          <h2>Bangkok <em>przez Laos i Junnan do</em> Zatoki Ha Long</h2>
+          <div class="count" data-count>
+            <span class="count-label" data-label>do wylotu pozostało</span>
+            <div class="count-units">
+              <div class="cell"><span class="num" data-u="d">—</span><span class="lbl">dni</span></div><div class="sep">:</div>
+              <div class="cell"><span class="num" data-u="h">—</span><span class="lbl">godz</span></div><div class="sep">:</div>
+              <div class="cell"><span class="num" data-u="m">—</span><span class="lbl">min</span></div><div class="sep">:</div>
+              <div class="cell"><span class="num" data-u="s">—</span><span class="lbl">sek</span></div>
+            </div>
+            <span class="big" data-big></span>
+            <span class="count-note">LOT Warszawa → Bangkok · <b>wielki łuk kolejowy</b> · Tajlandia, Laos, Chiny, Wietnam</span>
+          </div>
+          <span class="hint"><i>▾</i><span class="o">rozwiń podróż</span><span class="c">zwiń</span></span>
+        </div>
+      </div>
+      <div class="trip-body" id="body-bh"><div>
+        <div class="trip-inner">
+          <p class="lead">Nocny sleeper nad Mekong, potem danie główne: <b>Kolej Laotańsko-Chińska</b> przez Luang Prabang i krasowe góry do Kunmingu. Zjazd do Hanoi doliną Rzeki Czerwonej śladem magistrali z 1910 r., rejs po Zatoce Ha Long i dziesięć dni plaży w Khanom na deser.</p>
+          <div class="stats">
+            <span class="chip"><b>2 340 km</b> koleją</span><span class="chip"><b>4</b> kraje</span><span class="chip"><b>30</b> dni</span><span class="chip"><b>14</b> etapów</span>
+          </div>
+          <div class="legs">
+            <a class="leg" href="/bangkok-halong/mapa">
+              <span class="k">🇹🇭 → 🇱🇦 Etapy 1–5</span>
+              <h3>Bangkok, Nong Khai, Wientian, Vang Vieng</h3>
+              <p>Nocny pociąg nad Mekong i pierwsze kilometry nowej linii laotańskiej.</p>
+              <span class="go">mapa trasy →</span>
+            </a>
+            <a class="leg" href="/bangkok-halong/mapa">
+              <span class="k">🇱🇦 → 🇨🇳 Etapy 6–9</span>
+              <h3>Luang Prabang, Kunming</h3>
+              <p>Kolej Laotańsko-Chińska przez tunele i krasowe góry Junnanu.</p>
+              <span class="go">mapa trasy →</span>
+            </a>
+            <a class="leg" href="/bangkok-halong/mapa">
+              <span class="k">🇨🇳 → 🇻🇳 Etapy 10–14</span>
+              <h3>Hanoi, Zatoka Ha Long, Khanom</h3>
+              <p>Dolina Rzeki Czerwonej nocnym pociągiem, rejs po zatoce i plaża na koniec.</p>
+              <span class="go">mapa trasy →</span>
+            </a>
+          </div>
+          <div class="btns">
+            <a class="btn btn-gold" href="/bangkok-halong">Plan podróży →</a>
+            <a class="btn btn-ghost" href="/bangkok-halong/mapa">🗺 Mapa trasy</a>
+            <a class="btn btn-ghost" href="/bangkok-halong/wizy">Formalności i wizy</a>
+            <a class="btn btn-ghost" href="/bangkok-halong/newsy" target="_blank" rel="noopener">📰 Newsy z trasy</a>
+          </div>
+          <div class="sub-links">
+            <span>Inne języki:</span>
+            <a href="/fr/bangkok-halong" hreflang="fr">Français</a>
+            <a href="/el/bangkok-halong" hreflang="el">Ελληνικά</a>
+          </div>
+        </div>
+      </div></div>
+    </article>
+
+  </section>
+
+  <section class="maps" id="mapy" aria-label="Mapy">
+    <span class="eyebrow">mapy dzień po dniu</span>
+    <div class="map-grid">
+      <a class="map-card" href="/tokio-palau/mapa/#tokio"><span class="k">🇯🇵 5–10.11.2026</span><h3>Tokio</h3><p>Trasy dni, metro z kierunkami, odległości i czasy.</p></a>
+      <a class="map-card" href="/tokio-palau/mapa/#palau"><span class="k">🇵🇼 11–19.11.2026</span><h3>Palau</h3><p>Rock Islands łodzią, Babeldaob autem, Peleliu.</p></a>
+      <a class="map-card" href="/tokio-palau/mapa/#seul"><span class="k">🇰🇷 20–24.11.2026</span><h3>Seul</h3><p>Pałace, Namsan, Seongsu, AREX na lotnisko.</p></a>
+      <a class="map-card" href="/bangkok-halong/mapa"><span class="k">🚂 1–30.09.2027</span><h3>Bangkok → Ha Long</h3><p>Złota linia trasy rysowana w miarę czytania.</p></a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div class="footer-brand">WIELKI<em>ŁUK</em></div>
+    wielki-luk.pl — plany podróży, które aktualizują się same.<br>
+    Zdjęcia: Wikimedia Commons i wolne licencje · <a href="/tokio-palau/">Tokio–Palau–Seul</a> · <a href="/bangkok-halong">Bangkok–Ha Long</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var nav=document.getElementById('nav'),onS=function(){nav.classList.toggle('scrolled',window.scrollY>40)};
+  window.addEventListener('scroll',onS,{passive:true});onS();
+
+  var trips=Array.prototype.slice.call(document.querySelectorAll('.trip'));
+  function pad(n){return (n<10?'0':'')+n}
+  function tick(){
+    var now=Date.now();
+    trips.forEach(function(t){
+      var dep=Date.parse(t.dataset.departure),ret=Date.parse(t.dataset.return),box=t.querySelector('[data-count]'),big=box.querySelector('[data-big]'),lab=box.querySelector('[data-label]');
+      if(now<dep){
+        var s=Math.floor((dep-now)/1000),d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60),sec=s%60;
+        box.querySelector('[data-u="d"]').textContent=d;box.querySelector('[data-u="h"]').textContent=pad(h);
+        box.querySelector('[data-u="m"]').textContent=pad(m);box.querySelector('[data-u="s"]').textContent=pad(sec);
+        box.classList.remove('enroute','done');lab.textContent='do wylotu pozostało';
+      } else if(now<ret){
+        var day=Math.floor((now-dep)/86400000)+1,tot=t.dataset.days||'';
+        box.classList.add('enroute');box.classList.remove('done');lab.textContent='w drodze 🎒';big.textContent='dzień '+day+(tot?' z '+tot:'');
+      } else {
+        box.classList.add('done');box.classList.remove('enroute');lab.textContent='po podróży';big.textContent='wróciliśmy — zobacz plan i mapy';
+      }
+    });
+  }
+  tick();setInterval(tick,1000);
+
+  function setOpen(t,open,scroll){
+    t.classList.toggle('open',open);
+    t.querySelector('.trip-toggle').setAttribute('aria-expanded',open?'true':'false');
+    if(open){
+      trips.forEach(function(o){if(o!==t)setOpen(o,false)});
+      try{history.replaceState(null,'','#'+t.id)}catch(e){}
+      if(scroll){setTimeout(function(){t.scrollIntoView({behavior:'smooth',block:'start'})},60)}
+    }
+  }
+  trips.forEach(function(t){var tg=t.querySelector('.trip-toggle');function go(){var o=!t.classList.contains('open');setOpen(t,o,o)}tg.addEventListener('click',go);tg.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}})});
+  var h=location.hash.replace('#','');var init=document.getElementById(h);
+  if(init&&init.classList.contains('trip'))setOpen(init,true,true);
+})();
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

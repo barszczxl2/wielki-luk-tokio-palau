@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mapa wyprawy Tokio i Palau</title>
-<meta name="description" content="Interaktywna mapa wyprawy: Tokio dzień po dniu (aparat, zakupy, sushi, Yanaka na rowerach) i Palau (Rock Islands, Babeldaob, Peleliu). Listopad 2026.">
+<title>Mapa wyprawy Tokio, Palau i Seul</title>
+<meta name="description" content="Interaktywna mapa wyprawy dzień po dniu: Tokio (aparat, zakupy, sushi, Yanaka na rowerach), Palau (Rock Islands, Babeldaob, Peleliu) i Seul (pałace, Bukchon, Seongsu). 4–24 listopada 2026.">
 <link rel="canonical" href="https://wielki-luk.pl/tokio-palau/mapa/">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗺</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
 :root{
@@ -34,11 +34,14 @@ html,body{height:100%;margin:0;background:var(--bg);color:var(--ink);font-family
 .top a:hover{color:var(--ink)}
 .iconbtn{border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:999px;height:32px;min-width:32px;padding:0 10px;font:inherit;font-size:13px;cursor:pointer}
 h1{font-size:30px;line-height:1;margin:12px 0 4px;font-weight:800;letter-spacing:-.02em}
+h1 .jp.kr{font-family:"Noto Sans KR",sans-serif}
 h1 .jp{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:15px;color:var(--accent);margin-left:6px;letter-spacing:0}
 .sub{margin:0;color:var(--muted);font-size:14px}
 .region{display:flex;gap:6px;margin-top:12px}
 .region button{flex:1;border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:12px;padding:8px 10px;font:inherit;font-weight:700;font-size:14px;cursor:pointer}
+.region button small{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-top:1px}
 .region button[aria-pressed="true"]{background:var(--ink);color:var(--panel-solid)}
+.region button[aria-pressed="true"] small{color:inherit;opacity:.7}
 .days{display:flex;gap:6px;overflow-x:auto;padding:12px 18px 12px;scrollbar-width:none;border-bottom:1px solid var(--line)}
 .days::-webkit-scrollbar{display:none}
 .day{flex:0 0 auto;border:1px solid var(--line);background:var(--chip);color:var(--ink);border-radius:999px;padding:7px 12px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap}
@@ -126,8 +129,9 @@ h1 .jp{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:15px;colo
     <h1 id="title">Tokio <span class="jp">東京</span></h1>
     <p class="sub" id="subtitle"></p>
     <div class="region" role="group" aria-label="Region">
-      <button type="button" data-r="tokio" aria-pressed="true">🇯🇵 Tokio 5–10.11</button>
-      <button type="button" data-r="palau" aria-pressed="false">🇵🇼 Palau 11–19.11</button>
+      <button type="button" data-r="tokio" aria-pressed="true">🇯🇵 Tokio<small>5–10.11</small></button>
+      <button type="button" data-r="palau" aria-pressed="false">🇵🇼 Palau<small>11–19.11</small></button>
+      <button type="button" data-r="seul" aria-pressed="false">🇰🇷 Seul<small>20–24.11</small></button>
     </div>
   </div>
   <div class="days" id="days" role="group" aria-label="Dni"></div>
@@ -135,7 +139,7 @@ h1 .jp{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:15px;colo
   <div class="foot">
     <button type="button" id="kml">⬇ Plik do Google Moje Mapy</button>
     <a id="gmaps" href="#" target="_blank" rel="noopener">Trasa dnia w Google Maps ↗</a>
-    <small>Odległości szacunkowe (linia prosta +25%), czasy orientacyjne. Linie metra: litera i numer stacji jak na tablicach w Tokio. Położenie części punktów jest przybliżone — przed wyjściem kliknij „nawiguj”. Mapa: © OpenStreetMap, Esri.</small>
+    <small>Odległości szacunkowe (linia prosta +25%), czasy orientacyjne. Linie metra: w Tokio litera linii i numer stacji, w Seulu numer linii i numer stacji — jak na tablicach. Położenie części punktów jest przybliżone — przed wyjściem kliknij „nawiguj”. Mapa: © OpenStreetMap, Esri.</small>
   </div>
 </aside>
 
@@ -146,6 +150,7 @@ h1 .jp{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:15px;colo
 var D = {
  tokio:{
   title:'Tokio <span class="jp">東京</span>', sub:'6 nocy w Asakusie · aparat pierwszego dnia · zakupy po drodze',
+  range:'5–10 listopada', short:'Tokio',
   home:{n:'Tamayura Hotel Asakusa (dawniej Hatago)',d:'Pokój Twin: dwa łóżka, tatami, śniadanie. 2 min od stacji Asakusa. Położenie przybliżone.',ll:[35.7116,139.7948]},
   days:[
    {id:'5',date:'2026-11-05',lbl:'Czw 5.11',c:'#64748b',title:'Przylot',desc:'Wylot z Warszawy 4.11 o 22:40, przylot do Narity wieczorem. Keisei do Asakusy, hotel, sen.',stops:[
@@ -209,6 +214,7 @@ var D = {
  },
  palau:{
   title:'Palau <span class="jp">Belau</span>', sub:'Koror · Rock Islands · Babeldaob autem · Peleliu łodzią',
+  range:'11–19 listopada', short:'Palau',
   home:{n:'Nocleg w Koror',d:'Np. Sea Passion Hotel (z plażą) albo DW Motel (taniej). Położenie przybliżone.',ll:[7.3330,134.4870]},
   days:[
    {mode:'car',id:'p12',date:'2026-11-12',lbl:'Czw 12.11',c:'#22c55e',title:'Koror pieszo',desc:'Muzeum, akwarium, rezerwacja wycieczek łodzią na kolejne dni.',stops:[
@@ -238,6 +244,41 @@ var D = {
      {n:'German Channel',t:'po południu',d:'Manty przy stacji czyszczenia — da się je oglądać ze snorkelem. Położenie przybliżone.',ll:[7.1530,134.2650]}
    ]},
    {id:'p18',date:'2026-11-18',lbl:'Śr 18.11',c:'#64748b',title:'Dzień zapasowy',desc:'Na pogodę, pamiątki (storyboard), powtórka ulubionego miejsca. 19.11 lot do Narity.',stops:[]}
+  ]
+ },
+ seul:{
+  title:'Seul <span class="jp kr">서울</span>', sub:'4 noce w Myeongdong · pałace, hanoki, Seongsu · chłodno, 0–8 °C',
+  range:'20–24 listopada', short:'Seul',
+  home:{n:'Hotel w Myeongdong',d:'Np. Stanford Hotel Myeongdong (od ok. 84 USD ≈ 330 zł za noc, 2 łóżka) — 3 min do stacji Myeong-dong (linia 4) i do Olive Young. Położenie przybliżone.',ll:[37.5602,126.9851]},
+  days:[
+   {id:'s20',date:'2026-11-20',lbl:'Pt 20.11',c:'#64748b',title:'Przylot i wieczór w Myeongdong',desc:'Z Narity do Incheon po południu. AREX Express do Seoul Station, metrem do hotelu. Wieczorem neony, street food i flagowy Olive Young.',stops:[
+     {n:'Hotel w Myeongdong',go:{l:['AX','4'],s:'Z lotniska Incheon <b>AREX Express</b> (T1, poziom B1, bilet z automatu ok. 11 000 KRW ≈ 33 zł) → <b>Seoul Station</b>, 43 min bez postojów. Potem Line 4 z <b>Seoul Station (426)</b>, kierunek <b>Danggogae</b> → <b>Myeong-dong (424)</b>, 2 stacje.'},t:'po południu',d:'Zameldowanie. Kartę T-money kupisz w sklepie CU / GS25 na lotnisku (ok. 4 000 KRW) i doładujesz w automacie — działa w metrze, autobusach i taksówkach.',ll:[37.5602,126.9851]},
+     {n:'Olive Young Myeongdong Town',t:'18:00',w:'Baśka',d:'Flagowy sklep, trzy piętra kosmetyków, testery wszystkiego. Tax-free od 15 000 KRW na paragon — poproś o formularz, zwrot na lotnisku.',ll:[37.5637,126.9849]},
+     {n:'Uliczne jedzenie na Myeongdong-gil',t:'19:00',d:'Stragany od zmroku: tteokbokki, hotteok, kurczak w panierce, grillowane krewetki, lody w rożku 32 cm. Gotówka pewniejsza niż karta.',ll:[37.5633,126.9857]},
+     {n:'Myeongdong Kyoja',t:'20:00',d:'Kalguksu (makaron w rosole) i mandu od 1966 r., jedno danie ok. 12 000 KRW ≈ 36 zł. Kolejka posuwa się szybko.',ll:[37.5626,126.9860]}
+   ],tip:'<b>Lotnisko → hotel:</b> AREX Express jedzie bez przesiadek do Seoul Station (43 min). Zwykły AREX All Stop jest tańszy (ok. 4 800 KRW), ale jedzie godzinę i stoi na każdej stacji. Z walizkami: w Seoul Station winda przy wyjściu 1, do Myeongdong 2 stacje Line 4 albo taksówka 10 min, ok. 6 000 KRW.'},
+   {back:{l:[],s:'Kolejką Namsan w dół (kursuje do 23:00) i 10 min pieszo do hotelu. Z Insadongu wcześniej: Line 3 z <b>Anguk (328)</b>, kierunek <b>Ogeum</b> → <b>Chungmuro (330)</b>; przesiadka na Line 4, kierunek <b>Oido</b> → <b>Myeong-dong (424)</b>.'},id:'s21',date:'2026-11-21',lbl:'Sob 21.11',c:'#22c55e',title:'Pałac, hanoki, Insadong i Namsan',desc:'Gyeongbokgung o 9:00 (w sobotę otwarty), uliczki Bukchon, papier i pędzle w Insadong. Zachód słońca ok. 17:20 z wieży N Seoul.',stops:[
+     {n:'Gyeongbokgung — brama Gwanghwamun',go:{l:['4','3'],s:'Line 4 z <b>Myeong-dong (424)</b>, kierunek <b>Danggogae</b> → <b>Chungmuro (423)</b>; przesiadka na Line 3, kierunek <b>Daehwa</b> → <b>Gyeongbokgung (327)</b>, wyjście 5 prosto do pałacu. Ok. 20 min.'},t:'9:00',d:'Główny pałac dynastii Joseon, bilet 3 000 KRW ≈ 9 zł; w hanboku wstęp darmowy (wypożyczalnie przy wyjściu 5, ok. 15–30 000 KRW za 2–4 h). Zmiana straży przy bramie o 10:00 i 14:00. Nieczynny we wtorki.',ll:[37.5759,126.9769]},
+     {n:'Bukchon Hanok Village',t:'11:30',d:'Wzgórze z setkami domów hanok między pałacami; najładniejszy widok z Bukchon-ro 11-gil. Ludzie tu mieszkają — cicho, bez wchodzenia na podwórka. Z pałacu wyjście bramą wschodnią i 15 min pieszo.',ll:[37.5826,126.9838]},
+     {n:'Insadong — Ssamziegil',lf:0.7,t:'13:30',w:'Jan',d:'Ulica rzemiosła: papier hanji, pędzle i tusze do kaligrafii (sklepy przy Insadong-gil i w Ssamziegil), ceramika, herbaciarnie na piętrach. Obiad: bibimbap albo naengmyeon w bocznych uliczkach.',ll:[37.5742,126.9849]},
+     {n:'Kolejka na Namsan — stacja dolna',lf:0.65,go:{l:['3','4'],s:'Line 3 z <b>Anguk (328)</b>, kierunek <b>Ogeum</b> → <b>Chungmuro (330)</b>; przesiadka na Line 4, kierunek <b>Oido</b> → <b>Myeong-dong (424)</b>, wyjście 3, potem 10 min pod górę (ruchomy chodnik Namsan Oreumi).'},t:'16:00',d:'Kolejka linowa na Namsan: ok. 15 000 KRW w obie strony ≈ 45 zł, 3 min jazdy. Alternatywa: schody z Myeongdong, 25 min pod górę.',ll:[37.5570,126.9833]},
+     {n:'Wieża N Seoul',m:'cable',t:'16:30',d:'Zachód słońca ok. 17:20 — bądźcie na górze wcześniej. Taras widokowy ok. 21 000 KRW ≈ 62 zł; plac przy wieży i „kłódki miłości” za darmo, widok na całe miasto też. Wiatr: czapka i szalik.',ll:[37.5512,126.9882]}
+   ],tip:'<b>Sobota = dobry dzień na pałac:</b> Gyeongbokgung nieczynny we wtorki, Changdeokgung w poniedziałki. Targ Namdaemun (10 min od hotelu) działa w sobotę, w niedzielę większość stoisk zamknięta — po żeń-szeń wejdźcie tam dziś rano albo wracając z Namsan.'},
+   {back:{l:['4'],s:'Line 4 z <b>Dongdaemun History &amp; Culture Park (422)</b>, kierunek <b>Oido</b> → <b>Myeong-dong (424)</b>, 2 stacje, ok. 6 min. Albo 25 min pieszo wzdłuż Toegye-ro.'},id:'s22',date:'2026-11-22',lbl:'Nd 22.11',c:'#a855f7',title:'Changdeokgung, targ Gwangjang i DDP',desc:'Ogród Huwon tylko z przewodnikiem — rezerwacja online. Po południu jedzenie na targu Gwangjang, po zmroku futurystyczne DDP.',stops:[
+     {n:'Changdeokgung + ogród Huwon',go:{l:['4','3'],s:'Line 4 z <b>Myeong-dong (424)</b>, kierunek <b>Danggogae</b> → <b>Chungmuro (423)</b>; przesiadka na Line 3, kierunek <b>Daehwa</b> → <b>Anguk (328)</b>, wyjście 3, 5 min pieszo do bramy Donhwamun. Ok. 15 min.'},t:'10:00',d:'Pałac z listy UNESCO, bilet 3 000 KRW. Tajny ogród Huwon tylko z przewodnikiem: dopłata 5 000 KRW, grupy limitowane, tury po angielsku ok. 10:30, 11:30, 14:30 i 15:30 — rezerwacja online (Royal Palaces and Tombs Center) do 6 dni wcześniej. Nieczynny w poniedziałki, dlatego dziś.',ll:[37.5794,126.9910]},
+     {n:'Targ Gwangjang',t:'13:00',d:'Najstarszy targ w Seulu: bindaetteok (placki z fasoli mung), mayak gimbap, kalguksu, hotteok. Stoiska z jedzeniem w głównej hali, wokół tkaniny i hanboki. Siadacie przy straganie, gotówka albo karta.',ll:[37.5700,126.9996]},
+     {n:'Dongdaemun Design Plaza (DDP)',t:'15:30',d:'Budynek Zahy Hadid: srebrna, płynna bryła bez jednego kąta prostego, po zmroku podświetlona. W środku wystawy designu i sklep z gadżetami, wokół całodobowe centra hurtowe mody.',ll:[37.5665,127.0092]}
+   ],tip:'<b>Niedziela:</b> targ Namdaemun w większości zamknięty, Gwangjang i DDP działają. Jeśli zostanie siła: 10 min pieszo z DDP do strumienia Cheonggyecheon i spacer wzdłuż wody w stronę Gwanghwamun.'},
+   {back:{l:['2','4'],s:'Line 2 z <b>Seongsu (211)</b>, kierunek <b>Wangsimni / City Hall</b> (na tablicy 외선순환 Outer Circle) → <b>Dongdaemun History &amp; Culture Park (205)</b>; przesiadka na Line 4, kierunek <b>Oido</b> → <b>Myeong-dong (424)</b>. Ok. 25 min.'},id:'s23',date:'2026-11-23',lbl:'Pon 23.11',c:'#f59e0b',title:'Seongsu: Monami, Seoul Forest i kawiarnie',desc:'Przemysłowa dzielnica zamieniona w zagłębie kawiarni i concept store’ów. Rano Monami Store i własny atrament, potem park w jesiennych kolorach. Wieczorem ostatnie zakupy w Myeongdong i pakowanie.',stops:[
+     {n:'Monami Store Seongsu',go:{l:['4','2'],s:'Line 4 z <b>Myeong-dong (424)</b>, kierunek <b>Danggogae</b> → <b>Dongdaemun History &amp; Culture Park (422)</b>; przesiadka na Line 2, kierunek <b>Wangsimni → Seongsu</b> (na tablicy 내선순환 Inner Circle) → <b>Seongsu (211)</b>, 6 stacji, wyjście 4. Ok. 25 min.'},t:'10:30',w:'Jan',d:'104 Achasan-ro, codziennie 10:00–21:00, 50 m od wyjścia 4. Długopisy 153 w limitowanych kolorach, Ink Lab: mieszasz własny kolor atramentu i dostajesz butelkę z etykietą (ok. 20–30 000 KRW ≈ 60–90 zł, rezerwacja online; w poniedziałek mało ludzi).',ll:[37.5444,127.0567]},
+     {n:'Seoul Forest',t:'12:30',d:'Park nad rzeką Han z ogrodem jeleni, aleją metasekwoi i gingko — w drugiej połowie listopada ostatnie żółte liście. Z Monami 25 min pieszo na zachód albo Line 2 jedna stacja do Ttukseom (210), wyjście 8, i 10 min.',ll:[37.5444,127.0374]},
+     {n:'Daelim Changgo',t:'14:30',w:'Baśka',d:'Dawny magazyn ryżu, dziś kawiarnia-galeria z wysokim sufitem — symbol Seongsu. Kawa 7–9 000 KRW. Wokół butiki Ader Error i Gentle Monster Haus Nowhere, kawiarnia Onion.',ll:[37.5423,127.0560]},
+     {n:'Myeongdong — ostatnie zakupy',t:'18:00',d:'Olive Young, Daiso (kilka pięter, prezenty za 1–5 000 KRW), apteki z plastrami i maseczkami. Pakowanie: paragony tax-free do jednej koperty na lotnisko.',ll:[37.5634,126.9852]}
+   ],tip:'<b>Poniedziałek:</b> pałace Changdeokgung i Deoksugung nieczynne, dlatego dziś Seongsu. Monami Store mieści się w budynku dawnej fabryki długopisów — wejście od Achasan-ro, zaraz za wyjściem 4 ze stacji.'},
+   {id:'s24',date:'2026-11-24',lbl:'Wt 24.11',c:'#ef4444',title:'Powrót: Incheon → Warszawa',desc:'Wymeldowanie, Line 4 na Seoul Station, AREX Express na lotnisko. Na lotnisku zwrot tax-free i ostatnie wony na przekąski z duty free.',stops:[
+     {n:'Seoul Station — peron AREX',m:'metro',go:{l:['4'],s:'Line 4 z <b>Myeong-dong (424)</b>, kierunek <b>Oido</b> → <b>Seoul Station (426)</b>, 2 stacje. Z walizkami: winda przy wyjściu 1, przejście do AREX oznaczone na niebiesko, ok. 8 min. Albo taksówka 10 min, ok. 6 000 KRW.'},t:'rano',d:'Bilet na AREX Express z automatu przy peronie (ok. 11 000 KRW). Na Seoul Station odprawiają bagaż tylko koreańskie linie — LOT nie, więc walizki jadą z wami.',ll:[37.5547,126.9707]},
+     {n:'Lotnisko Incheon — Terminal 1',m:'train',far:true,t:'3 h przed odlotem',d:'AREX Express 43 min bez postojów. LOT odlatuje z Terminalu 1 (sprawdź na karcie pokładowej). Zwrot tax-free: kioski Tax Refund w hali odlotów przed odprawą (skan paszportu i paragonów), gotówka w okienkach za kontrolą bezpieczeństwa. Towar z paragonów trzymaj w bagażu podręcznym — celnik może poprosić o pokazanie.',ll:[37.4490,126.4510]}
+   ],tip:'<b>Tax-free w Korei:</b> paragony od 15 000 KRW. Część sklepów (Olive Young, Daiso) odlicza VAT od razu przy kasie po pokazaniu paszportu — wtedy na lotnisku nie ma nic do roboty.'}
   ]
  }
 };
@@ -296,6 +337,9 @@ function fmtMin(m){m=Math.max(1,Math.round(m/5)*5||Math.round(m));return m<60?m+
 // zwraca {km, txt, ico, walk}
 function leg(a,b,mode){
   var line=hav(a,b), km=line*1.25; // ulice ~25% dłuższe niż linia prosta
+  if(mode==='train') return {km:line*1.15,ico:'🚆',txt:fmtKm(line*1.15)+' km · pociąg ~'+fmtMin(line*1.15/90*60+8),walk:0};
+  if(mode==='cable') return {km:line,ico:'🚠',txt:fmtKm(line)+' km · kolejka linowa ~3 min',walk:0};
+  if(mode==='metro') return {km:km,ico:'🚇',txt:fmtKm(km)+' km · metro ~'+fmtMin(km/25*60+12),walk:0};
   if(mode==='boat') return {km:line*1.1,ico:'🚤',txt:fmtKm(line*1.1)+' km · łódź ~'+fmtMin(line*1.1/30*60+10),walk:0};
   if(mode==='car')  return {km:km,ico:'🚗',txt:fmtKm(km)+' km · autem ~'+fmtMin(km/40*60+5),walk:0};
   if(mode==='bus')  return {km:km,ico:'🚌',txt:fmtKm(km)+' km · pociąg/autobus ~'+fmtMin(km/50*60+15),walk:0};
@@ -307,16 +351,17 @@ function arrowIcon(c,ang,label,small){
   return L.divIcon({className:'',iconSize:[0,0],iconAnchor:[0,0],
     html:'<div class="arr'+(small?' sm':'')+'" style="--c:'+c+'"><svg viewBox="0 0 24 24" style="transform:translate(-50%,-50%) rotate('+ang+'deg)"><path d="M3 12h13M11 5l8 7-8 7" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'+(label?'<span>'+label+'</span>':'')+'</div>'});
 }
-var LINES={G:['Ginza','#FF9500'],M:['Marunouchi','#F62E36'],H:['Hibiya','#9CAEB7'],C:['Chiyoda','#00BB85'],A:['Toei Asakusa','#E85298'],E:['Toei Ōedo','#B6007A'],TS:['Tobu Skytree','#0F6CC3'],KS:['Keisei','#1E50A2']};
+var LINES={G:['Ginza','#FF9500'],M:['Marunouchi','#F62E36'],H:['Hibiya','#9CAEB7'],C:['Chiyoda','#00BB85'],A:['Toei Asakusa','#E85298'],E:['Toei Ōedo','#B6007A'],TS:['Tobu Skytree','#0F6CC3'],KS:['Keisei','#1E50A2'],'1':['Seul — Line 1','#0052A4'],'2':['Seul — Line 2','#00A84D'],'3':['Seul — Line 3','#EF7C1C'],'4':['Seul — Line 4','#00A5DE'],'AX':['AREX (lotnisko Incheon)','#0090D2']};
 function lnb(l){return l.map(function(k){var x=LINES[k];return '<b class="ln" style="--l:'+x[1]+'" title="'+x[0]+' Line">'+k+'</b>'}).join('')}
 function goHtml(g,pre){return '<li class="legline go">'+(pre||'')+(g.l.length?lnb(g.l)+' ':'')+'<span>'+g.s+'</span></li>'}
 function drawArrows(pts,c,mode,small,chain){
   var out=[];
   for(var i=0;i<pts.length-1;i++){
-    var a=pts[i],b=pts[i+1],L1=leg(a,b,mode);
+    var st=chain&&chain[i], lm=st&&st.m?st.m:(st&&st.go&&st.go.l.length&&!(mode==='car'||mode==='boat'||mode==='bus')?'metro':mode);
+    var a=pts[i],b=pts[i+1],L1=leg(a,b,lm);
     if(L1.km<0.05){out.push(null);continue;}
     var pa=map.project(a,10),pb=map.project(b,10),ang=Math.atan2(pb.y-pa.y,pb.x-pa.x)*180/Math.PI;
-    var mid=[(a[0]+b[0])/2,(a[1]+b[1])/2];
+    var f=(st&&st.lf)||0.5, mid=[a[0]+(b[0]-a[0])*f,a[1]+(b[1]-a[1])*f];
     L.marker(mid,{icon:arrowIcon(c,ang,(small||L1.km<0.3)?'':((chain&&chain[i]&&chain[i].go&&chain[i].go.l.length&&!L1.walk)?lnb(chain[i].go.l)+' ':L1.ico+' ')+L1.txt.split(' · ')[0],small),interactive:false,keyboard:false,zIndexOffset:-100}).addTo(layer);
     out.push(L1);
   }
@@ -337,20 +382,20 @@ function select(id,fly){
     d.stops.forEach(function(s,i){
       var m=L.marker(s.ll,{icon:pinIcon(i+1,d.c,false),riseOnHover:true})
         .bindPopup('<b>'+esc(s.n)+'</b><br><small>'+esc(d.lbl)+(s.t?' · '+esc(s.t):'')+'</small><br>'+esc(s.d)+'<br><a href="'+gm(s)+'" target="_blank" rel="noopener">nawiguj ↗</a>').addTo(layer);
-      m._k=d.id+'-'+i; markers.push(m); bounds.push(s.ll);
+      m._k=d.id+'-'+i; markers.push(m); if(!(id==='all'&&s.far)) bounds.push(s.ll);
     });
   });
   // panel
   var html='';
   if(id==='all'){
-    html+='<div class="dayhead" style="--c:#ff4d6d"><div class="when">'+(region==='tokio'?'5–10 listopada':'11–19 listopada')+'</div><h2>Cała wyprawa</h2><p>Wybierz dzień, żeby zobaczyć trasę i kolejne punkty. Hotel to złota ikonka 🏨.</p></div>';
+    html+='<div class="dayhead" style="--c:#ff4d6d"><div class="when">'+esc(R.range)+'</div><h2>Cała wyprawa</h2><p>Wybierz dzień, żeby zobaczyć trasę i kolejne punkty. Hotel to złota ikonka 🏨.</p></div>';
     R.days.forEach(function(d){html+='<div class="stop" style="--c:'+d.c+'" data-day="'+d.id+'"><div class="num">'+(d.stops.length||'–')+'</div><div><h3>'+esc(d.lbl)+' — '+esc(d.title)+'</h3><p>'+esc(d.desc)+'</p></div></div>'});
   } else {
     var d=list[0];
     html+='<div class="dayhead" style="--c:'+d.c+'"><div class="when">'+esc(d.lbl)+'</div><h2>'+esc(d.title)+'</h2><p>'+esc(d.desc)+'</p></div><ol class="stops" style="--c:'+d.c+'">';
-    var legs=d._legs||[], walk=0, bike=0, ride=0;
-    legs.forEach(function(l){if(!l)return;walk+=l.walk||0;bike+=l.bike||0;if(!l.walk&&!l.bike)ride+=l.km});
-    var tot=[];if(walk)tot.push('🚶 pieszo ok. '+fmtKm(walk)+' km');if(bike)tot.push('🚲 rowerem ok. '+fmtKm(bike)+' km');if(ride)tot.push((d.mode==='boat'?'🚤 łodzią':d.mode==='car'?'🚗 autem':d.mode==='bus'?'🚌 dojazd':'🚇 metrem')+' ok. '+fmtKm(ride)+' km');
+    var legs=d._legs||[], acc={}, ORDER=['🚶 pieszo','🚲 rowerem','🚇 metrem','🚆 pociągiem','🚠 kolejką','🚌 dojazd','🚗 autem','🚤 łodzią'];
+    legs.forEach(function(l){if(!l)return;var k=l.walk?'🚶 pieszo':l.bike?'🚲 rowerem':l.ico==='🚤'?'🚤 łodzią':l.ico==='🚗'?'🚗 autem':l.ico==='🚌'?'🚌 dojazd':l.ico==='🚆'?'🚆 pociągiem':l.ico==='🚠'?'🚠 kolejką':'🚇 metrem';acc[k]=(acc[k]||0)+l.km});
+    var tot=ORDER.filter(function(k){return acc[k]}).map(function(k){return k+' ok. '+fmtKm(acc[k])+' km'});
     if(tot.length) html=html.replace('</p></div><ol class="stops"','</p><div class="totals">'+tot.join(' · ')+'</div></div><ol class="stops"');
     var ci=0; d.stops.forEach(function(s,i){if(s.x){html+='<li class="legline">↪ poza trasą — opcja albo osobno</li>';if(s.go)html+=goHtml(s.go,'🚇 ');}else{var lg=legs[ci];if(lg)html+='<li class="legline">'+lg.ico+' '+(ci===0?'z hotelu: ':'')+lg.txt+'</li>';if(s.go)html+=goHtml(s.go);ci++;}html+='<li class="stop" data-k="'+d.id+'-'+i+'"><div class="num">'+(i+1)+'</div><div><h3>'+(s.t?'<span class="t">'+esc(s.t)+'</span>':'')+esc(s.n)+'</h3><p>'+(s.w?'<span class="who">'+esc(s.w)+'</span>':'')+esc(s.d)+'</p><a class="nav" href="'+gm(s)+'" target="_blank" rel="noopener">nawiguj ↗</a></div></li>'});
     if(d.back){html+='<li class="legline">🏨 powrót do hotelu:</li>'+goHtml(d.back);}
@@ -367,7 +412,7 @@ function select(id,fly){
   var g=document.getElementById('gmaps');
   if(id!=='all' && list[0].stops.length){
     var st=list[0].stops.slice(0,10), o=R.home.ll;
-    var url='https://www.google.com/maps/dir/?api=1&origin='+o[0]+','+o[1]+'&destination='+st[st.length-1].ll.join(',')+(st.length>1?'&waypoints='+st.slice(0,-1).map(function(s){return s.ll.join(',')}).join('|'):'')+'&travelmode='+(region==='tokio'?'transit':'driving');
+    var url='https://www.google.com/maps/dir/?api=1&origin='+o[0]+','+o[1]+'&destination='+st[st.length-1].ll.join(',')+(st.length>1?'&waypoints='+st.slice(0,-1).map(function(s){return s.ll.join(',')}).join('|'):'')+'&travelmode='+(region==='palau'?'driving':'transit');
     g.href=url; g.style.display='';
   } else g.style.display='none';
   var pad=window.innerWidth>760?{paddingTopLeft:[440,40],paddingBottomRight:[40,40]}:{paddingTopLeft:[30,30],paddingBottomRight:[30,Math.round(window.innerHeight*.48)]};
@@ -381,7 +426,7 @@ document.querySelectorAll('.region button').forEach(function(b){b.onclick=functi
 document.getElementById('today').onclick=function(){
   var t=new Date(),iso=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
   for(var r in D){var d=D[r].days.find(function(x){return x.date===iso&&x.id!=='9f'});if(d){if(region!==r)renderRegion(r);select(d.id,true);return}}
-  alertBox('Dziś nie ma dnia w planie — pierwszy dzień wyprawy to 5.11.');
+  alertBox('Dziś nie ma dnia w planie — wyprawa trwa 5–24.11.');
 };
 function alertBox(msg){var b=document.getElementById('body');var n=document.createElement('div');n.className='tip';n.textContent=msg;b.prepend(n);setTimeout(function(){n.remove()},4000)}
 
@@ -392,10 +437,10 @@ document.getElementById('grab').onclick=function(){panel.classList.toggle('big')
 document.getElementById('kml').onclick=function(){
   function x(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
   function col(hex){hex=hex.replace('#','');return 'ff'+hex.substr(4,2)+hex.substr(2,2)+hex.substr(0,2)}
-  var k='<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2"><Document><name>Wyprawa Tokio + Palau 2026</name>';
-  ['tokio','palau'].forEach(function(r){var R=D[r];
+  var k='<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2"><Document><name>Wyprawa Tokio, Palau, Seul 2026</name>';
+  Object.keys(D).forEach(function(r){var R=D[r];
     R.days.forEach(function(d){k+='<Style id="s'+d.id+'"><IconStyle><color>'+col(d.c)+'</color><Icon><href>https://maps.google.com/mapfiles/kml/paddle/wht-blank.png</href></Icon></IconStyle></Style>'});
-    k+='<Folder><name>'+(r==='tokio'?'Tokio — hotel':'Palau — nocleg')+'</name><Placemark><name>'+x(R.home.n)+'</name><description>'+x(R.home.d)+'</description><Point><coordinates>'+R.home.ll[1]+','+R.home.ll[0]+',0</coordinates></Point></Placemark></Folder>';
+    k+='<Folder><name>'+x(R.short+' — nocleg')+'</name><Placemark><name>'+x(R.home.n)+'</name><description>'+x(R.home.d)+'</description><Point><coordinates>'+R.home.ll[1]+','+R.home.ll[0]+',0</coordinates></Point></Placemark></Folder>';
     R.days.forEach(function(d){
       if(!d.stops.length) return;
       k+='<Folder><name>'+x(d.lbl+' — '+d.title)+'</name>';
@@ -404,10 +449,11 @@ document.getElementById('kml').onclick=function(){
     });
   });
   k+='</Document></kml>';
-  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([k],{type:'application/vnd.google-earth.kml+xml'}));a.download='wyprawa-tokio-palau.kml';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([k],{type:'application/vnd.google-earth.kml+xml'}));a.download='wyprawa-tokio-palau-seul.kml';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);
 };
 
-var startR='tokio'; if(location.hash==='#palau') startR='palau';
+var startR='tokio'; var hsh=location.hash.replace('#',''); if(D[hsh]) startR=hsh;
+window.addEventListener('hashchange',function(){var h=location.hash.replace('#','');if(D[h]&&h!==region)renderRegion(h)});
 renderRegion(startR);
 })();
 </script>

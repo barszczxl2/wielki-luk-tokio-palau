@@ -4,9 +4,12 @@ Statyczna podstrona planu podróży dla serwisu wielki-luk.pl (Astro, Vercel).
 
 ```
 public/tokio-palau/index.html   strona (plan dni, mapa, zakupy, noclegi, formalności)
+public/tokio-palau/mapa/        mapa interaktywna: Tokio, Palau, Seul (#tokio / #palau / #seul)
+public/palau/                   strona wyprawy z zegarem (adaptacja Kimi)
 public/tokio-palau/img/         28 zdjęć z Wikimedia Commons, zmniejszone do 1000 px
 public/tokio-palau/img/attribution.json   autorzy i licencje zdjęć
-patch/showcase-card.html        karta podróży na stronę główną
+home/index.html                 nowa strona główna PL: dwa zegary (Tokio–Palau–Seul, Bangkok–Ha Long), rozwijane podróże, linki do map
+patch/showcase-card.html        karta podróży na starą stronę główną (zapasowo)
 scripts/apply-on-vps.sh         wgranie do /root/wielki-luk-web na VPS + deploy
 ```
 

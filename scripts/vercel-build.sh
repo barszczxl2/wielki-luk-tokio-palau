@@ -1,5 +1,5 @@
 #!/bin/bash
-# Build wielki-luk.pl na Vercelu z nakładką: podstrona /tokio-palau/ + karta na stronie głównej.
+# Build wielki-luk.pl na Vercelu z nakładką: /tokio-palau/, /palau/ i nowa strona główna PL (home/index.html).
 # Ustawione jako Build Command projektu wielki-luk-web, więc działa też dla codziennych
 # wdrożeń z VPS (cron 05:36 UTC), które nie mają tych plików w źródłach.
 # Zasada: nakładka nigdy nie może zepsuć builda — przy błędzie budujemy stronę bez niej.
@@ -17,6 +17,11 @@ if curl -fsSL "$REPO_TGZ" | tar xz -C "$tmp" --strip-components=1; then
   node "$tmp/scripts/patch-homepage.mjs" "$HOME_ASTRO" "$tmp/patch/showcase-card.html" || log "karta na stronie głównej pominięta"
   node "$tmp/scripts/patch-sitemap.mjs" public/sitemap.xml || log "sitemap pominięta"
   if npm run build; then
+    if [ -f "$tmp/home/index.html" ] && [ -f dist/index.html ]; then
+      cp -f "$tmp/home/index.html" dist/index.html && log "strona główna PL podmieniona (dwa zegary)"
+    else
+      log "UWAGA: nie podmieniono strony głównej (brak home/index.html albo dist/index.html)"
+    fi
     log "build z nakładką OK"
     exit 0
   fi
