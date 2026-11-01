@@ -16,8 +16,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <style>
 :root{
   --bg:#F2F4F3; --surface:#FFFFFF; --ink:#1A1F24; --muted:#5B6670; --line:#D5DBDA;
@@ -88,6 +86,10 @@ ol.days li::before{content:"";position:absolute;left:-7px;top:12px;width:12px;he
 #tokio ol.days li::before{border-color:var(--tokio)} #palau ol.days li::before{border-color:var(--palau)} #seul ol.days li::before{border-color:var(--seul)}
 ol.days .d{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:16px;display:block}
 ol.days .d small{font-weight:400;color:var(--muted);margin-left:6px}
+.split{margin:8px 0;padding:8px 10px 8px 12px;border-left:3px solid #e8457a;background:color-mix(in srgb,#e8457a 10%,transparent);border-radius:0 10px 10px 0}
+.split-tag{display:inline-block;font:700 11px/1 "Bricolage Grotesque",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:#e8457a;border-radius:999px;padding:3px 8px;margin-right:6px;vertical-align:1px}
+.mapframe{border-radius:14px;overflow:hidden;border:1px solid var(--line);height:min(78vh,640px)}
+.mapframe iframe{width:100%;height:100%;border:0;display:block}
 ol.days li.today{background:var(--warn-bg);border-radius:0 10px 10px 0;padding-right:10px}
 ol.days li.today::before{background:var(--warn);border-color:var(--warn)}
 ol.days li.today .d::after{content:"dziś";font-size:12px;margin-left:8px;padding:2px 8px;border-radius:999px;background:var(--warn);color:var(--bg)}
@@ -255,53 +257,43 @@ figure.ph figcaption a{color:#fff;background:rgba(0,0,0,.55);padding:2px 6px;bor
 <section class="leg" id="tokio">
   <div class="wrap">
     <h2>Tokio</h2>
-    <p class="leg-meta">6–11.11 · w dzień ok. 15–18°C, wieczory chłodne · początek jesiennych liści · 2 osoby</p>
+    <p class="leg-meta">5–11.11 · w dzień ok. 15–18°C, wieczory chłodne · początek jesiennych liści · 2 osoby</p>
 
-    <h3>Plan dni</h3>
+    <h3>Plan dni — jedyny obowiązujący</h3>
+    <p class="leg-meta">Ten sam plan jest na <a href="/tokio-palau/mapa/"><b>mapie dzień po dniu</b></a>. Na różowo zaznaczone etapy, na które się rozdzielacie.</p>
     <ol class="days">
-      <li data-date="2026-11-04"><span class="d">4.11<small>środa</small></span>Wylot z Warszawy do Narity o <b>22:40</b> (standby). SELPHY naładowana, film i baterie LR44 w bagażu podręcznym.</li>
-      <li data-date="2026-11-05"><span class="d">5.11<small>czwartek</small></span>Przylot do Narity wieczorem czasu Tokio (godzinę przylotu sprawdź na karcie pokładowej). Keisei do Asakusy: Skyliner do Ueno albo Access Express, którego część kursów jedzie prosto do Asakusy. Zameldowanie w ryokanie i sen.</li>
-      <li data-date="2026-11-06"><span class="d">6.11<small>piątek</small></span><a href="#contax"><b>Dzień Contaxa</b></a> w Shinjuku. Od 10:00–10:30 <b>Map Camera</b> i <b>Kitamura Shinjuku</b> (4. piętro — używane aparaty, parter — film); jeśli nie będzie MMJ, <b>Camera Gokurakudo</b> (od 11:00, 5 min od stacji Wakamatsu-Kawada). Weź gotówkę i własne baterie LR44. Pierwszą rolkę — 24 klatki — wystrzelaj od razu w ogrodzie <b>Shinjuku Gyoen</b> (jesienne liście) i na ulicach Shinjuku. Do ok. 15:00 oddaj film w <b>Kitamurze</b> (parter): wywołanie trwa ok. 2 h, 950 ¥ plus 880 ¥ za skany na telefon kodem QR. Wieczorem odbierasz i drukujesz na SELPHY — to zarazem test aparatu, póki sklep jest blisko. Na noc neony Shinjuku na drugą rolkę.</li>
-      <li data-date="2026-11-07"><span class="d">7.11<small>sobota</small></span><b>Sensō-ji</b> o 7–8 rano, zanim przyjdą tłumy — wtedy jest najlepsze światło do zdjęć. Potem ulica Kappabashi (noże, przybory kuchenne), <b>park Ueno</b> i targ <b>Ameyoko</b> pod torami (używane zegarki, dżinsy, jedzenie) i <b>Edo-Tokyo Museum</b> w Ryōgoku (15 min metrem). Na zachód słońca <b>Tokyo Skytree</b>: w pogodny dzień widać stamtąd Fuji. Wieczorem <b>Tori-no-Ichi</b> w świątyni Ōtori, 20 min pieszo od ryokanu.</li>
-      <li data-date="2026-11-08"><span class="d">8.11<small>niedziela</small></span>Rano <b>Meiji Jingū</b> i <b>park Yoyogi</b>. Potem <b>Harajuku</b> — w niedzielę jest tam najwięcej przebierańców. Po południu <b>Shibuya</b>: skrzyżowanie i taras Shibuya Sky na zachód słońca. Wieczorem <b>Shinjuku</b>: darmowy taras w ratuszu (Metropolitan Government Building) z pokazem świetlnym na fasadzie, potem zaułek Omoide Yokochō i neony Kabukichō.</li>
-      <li data-date="2026-11-09"><span class="d">9.11<small>poniedziałek</small></span><b>Fuji</b>, jeśli prognoza jest czysta — szczegóły niżej. Plan B przy chmurach: <b>Odaiba</b> (Miraikan, Statua Wolności, Rainbow Bridge) i wieczorem iluminacja w <b>Roppongi</b>.</li>
-      <li data-date="2026-11-10"><span class="d">10.11<small>wtorek</small></span>O 8:00 targ <b>Tsukiji</b>, potem <a href="#ginza-piora"><b>misja pióra w Ginzie</b></a>: Itoya (3. piętro — pióra), <b>ancora</b> (Sailor, od 11:00 — we wtorek czynne, w środę już nie), Bic Camera Yūrakuchō; po drodze Seiko i Grand Seiko, Leica. Po południu <b>Nakano Broadway</b> (zegarki, kolekcjonerskie), wieczorem <b>Akihabara</b> — Yodobashi jest czynne do 22:00. Pakowanie zakupów tax-free tak, by dało się je pokazać celnikom.</li>
-      <li data-date="2026-11-11"><span class="d">11.11<small>środa</small></span>Narita → Palau. Na lotnisku potwierdzenie tax-free przy odprawie wylotowej.</li>
+      <li data-date="2026-11-04"><span class="d">4.11<small>środa</small></span>Wylot z Warszawy o <b>22:40</b> (standby). SELPHY naładowana, film i baterie LR44 w bagażu podręcznym.</li>
+      <li data-date="2026-11-05"><span class="d">5.11<small>czwartek</small></span>Przylot do Narity wieczorem. Keisei do Asakusy, zameldowanie w <b>Tamayura Hotel Asakusa</b> (pokój Twin), sen.</li>
+      <li data-date="2026-11-06"><span class="d">6.11<small>piątek</small> · Shinjuku</span><div class="split"><span class="split-tag">osobno</span><b>Jan:</b> <a href="#contax">Contax i obiektyw</a> — Map Camera, Kitamura (4. piętro), w razie braku MMJ Gokurakudo. <b>Baśka:</b> head spa i shiatsu (rezerwacja).</div>Razem: ogród <b>Shinjuku Gyoen</b> — tu pierwsza rolka; do ok. 15:00 film do Kitamury (wywołanie ok. 2 h), kot 3D przy wschodnim wyjściu, darmowy taras w <b>ratuszu</b>.<div class="split"><span class="split-tag">osobno</span><b>Jan:</b> automaty w Kabukichō. <b>Baśka:</b> łaźnia Mannenyu (wpuszcza z tatuażami).</div>Wieczorem razem: Godzilla, <b>Golden Gai</b>, odbiór skanów i wydruk na SELPHY.</li>
+      <li data-date="2026-11-07"><span class="d">7.11<small>sobota</small> · Asakusa, Ueno, Akihabara</span><b>Sensō-ji</b> o 7:30.<div class="split"><span class="split-tag">osobno</span><b>Baśka:</b> kimono w sklepach z używanymi kimonami w Asakusie. <b>Jan:</b> Kappabashi (noże).</div>Razem: park Ueno i <b>Muzeum Narodowe</b>, targ <b>Ameyoko</b> i outlet (Ueno 6-4-7).<div class="split"><span class="split-tag">osobno</span><b>Jan:</b> Super Potato i gry w Akihabarze. <b>Baśka:</b> drogerie.</div>Kolacja: <b>Nadeshico Sushi</b> (rezerwacja). Po drodze do hotelu zakładki z Muminkami pod Skytree; wieczorem jarmark Tori-no-Ichi.</li>
+      <li data-date="2026-11-08"><span class="d">8.11<small>niedziela</small> · Harajuku, Shibuya</span>Rano <b>Meiji Jingū</b> i park Yoyogi.<div class="split"><span class="split-tag">osobno</span><b>Baśka:</b> Takeshita (Brandy Melville), kawiarnia z mini świnkami, Onitsuka Tiger na Omotesandō. <b>Jan:</b> japońskie dżinsy przy Cat Street (pytaj o W40).</div>Spotkanie pod <b>Hachikō</b>, skrzyżowanie Shibuya, <b>Shibuya Sky</b> na zachód słońca (bilet wcześniej).</li>
+      <li data-date="2026-11-09"><span class="d">9.11<small>poniedziałek</small> · Yanaka na rowerach</span>Elektryczne rowery Docomo: <b>Kayaba Coffee</b> na śniadanie, kocia kawiarnia <b>Nennekoya</b>, udon w <b>Kamachiku</b> (przyjdź przed otwarciem), czerwone bramy <b>chramu Nezu</b>, ogród <b>Rikugien</b>. Przy czystym niebie zamiast tego <a href="#fuji">Fuji</a>, a Yanaka przechodzi na 7.11 rano.</li>
+      <li data-date="2026-11-10"><span class="d">10.11<small>wtorek</small> · Tsukiji, Ginza</span>O 8:00 targ <b>Tsukiji</b>, ogrody pałacu cesarskiego (we wtorek otwarte).<div class="split"><span class="split-tag">osobno</span><b>Jan:</b> LEGO Store na Tokyo Station. <b>Baśka:</b> Uniqlo Ginza (i skarpetki tabi dla Jana).</div>Razem: <a href="#ginza-piora">Itoya i ancora</a> — Pilot Capless, papier Tomoe River, notesy. Wieczorem <b>teamLab Borderless</b> i podświetlona <b>Tokyo Tower</b>. Pakowanie zakupów tax-free do bagażu podręcznego.</li>
+      <li data-date="2026-11-11"><span class="d">11.11<small>środa</small></span>Narita → Palau (United 17:55). Na lotnisku potwierdzenie tax-free przy odprawie wylotowej.</li>
     </ol>
 
     <h3 id="mapa">Mapa</h3>
-    <p>Kolorowe punkty to dni, linia pokazuje kolejność zwiedzania (nie trasę przejazdu). Domek to nocleg.</p>
-    <div class="map-filter" role="group" aria-label="Pokaż na mapie">
-      <button type="button" data-f="all" aria-pressed="true">Wszystko</button>
-      <button type="button" data-f="6">6.11</button>
-      <button type="button" data-f="7">7.11</button>
-      <button type="button" data-f="8">8.11</button>
-      <button type="button" data-f="9">9.11</button>
-      <button type="button" data-f="10">10.11</button>
-      <button type="button" data-f="hotel">Noclegi</button>
-      <button type="button" data-f="trip">Wycieczki</button>
-    </div>
-    <div id="map" aria-label="Mapa Tokio z punktami planu"></div>
-    <p class="map-note"><a href="/tokio-palau/mapa/"><b>Otwórz pełnoekranową mapę dzień po dniu (Tokio i Palau) →</b></a> · Mapa: © współtwórcy OpenStreetMap.</p>
+    <div class="mapframe"><iframe src="/tokio-palau/mapa/" title="Mapa wyprawy dzień po dniu" loading="lazy"></iframe></div>
+    <p class="map-note"><a href="/tokio-palau/mapa/"><b>Otwórz mapę na pełnym ekranie →</b></a> · W telefonie „nawiguj” przy każdym punkcie otwiera Google Maps.</p>
 
     <h3>Co zobaczyć — opis miejsc</h3>
     <div class="places">
       <div class="place"><figure class="ph"><img src="img/senso-ji-kaminarimon-201503a.jpg" alt="Brama Kaminarimon świątyni Sensō-ji" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Senso-ji_Kaminarimon_201503a.jpg" target="_blank" rel="noopener">Fot. Tak1701d · CC BY-SA 3.0</a></figcaption></figure><h4>Asakusa i Sensō-ji <span class="day">7.11</span></h4><p>Najstarsza świątynia Tokio (VII w.) z bramą Kaminarimon i wielkim czerwonym lampionem, do której prowadzi handlowa uliczka Nakamise. Rano jest pusta i fotogeniczna, od 10:00 robi się tłoczno. To Twoja dzielnica noclegowa.</p></div>
       <div class="place"><figure class="ph"><img src="img/tori-no-ichi-2011-asakusa-tokyo-japan.jpg" alt="Jarmark Tori-no-Ichi w Asakusie" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Tori-no-Ichi_2011%2C_Asakusa%2C_Tokyo%2C_Japan.JPG" target="_blank" rel="noopener">Fot. Shoestring (Wikivoyage) · CC BY-SA 4.0</a></figcaption></figure><h4>Tori-no-Ichi <span class="day">7.11</span></h4><p>Jarmark w świątyni Ōtori w dzień koguta: setki straganów z grabkami kumade obwieszonymi maskami i złotymi monetami, które mają zgarniać pomyślność. Trwa całą dobę, najładniej jest wieczorem przy lampionach.</p></div>
       <div class="place"><figure class="ph"><img src="img/tokyo-skytree-sunset-view.jpg" alt="Tokyo Skytree o zachodzie słońca" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Tokyo_Skytree_Sunset_View.jpg" target="_blank" rel="noopener">Fot. Pinterpandai.com · CC BY-SA 4.0</a></figcaption></figure><h4>Tokyo Skytree <span class="day">7.11</span></h4><p>Wieża widokowa o wysokości 634 m, z tarasami na 350 i 450 m. Najlepiej wjechać tuż przed zachodem słońca: widać miasto za dnia, o zmroku i w nocy, a w pogodne listopadowe dni także Fuji na horyzoncie.</p></div>
-      <div class="place"><figure class="ph"><img src="img/edo-tokyo-museum.jpg" alt="Budynek Edo-Tokyo Museum" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Edo-Tokyo_Museum.jpg" target="_blank" rel="noopener">Fot. Wiiii · CC BY-SA 3.0</a></figcaption></figure><h4>Edo-Tokyo Museum <span class="day">7.11</span></h4><p>Muzeum historii miasta od Edo do współczesności, z makietami w skali 1:1 (most Nihonbashi, teatr kabuki). Ponownie otwarte 31.03.2026 po czterech latach remontu. Bilet na wystawę stałą kosztuje ok. 800 jenów (≈ 20 zł).</p></div>
+      <div class="place"><figure class="ph"><img src="img/edo-tokyo-museum.jpg" alt="Budynek Edo-Tokyo Museum" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Edo-Tokyo_Museum.jpg" target="_blank" rel="noopener">Fot. Wiiii · CC BY-SA 3.0</a></figcaption></figure><h4>Edo-Tokyo Museum <span class="day">poza planem</span></h4><p>Muzeum historii miasta od Edo do współczesności, z makietami w skali 1:1 (most Nihonbashi, teatr kabuki). Ponownie otwarte 31.03.2026 po czterech latach remontu. Bilet na wystawę stałą kosztuje ok. 800 jenów (≈ 20 zł).</p></div>
       <div class="place"><figure class="ph"><img src="img/shinobazu-pond-ueno-park-11096102376.jpg" alt="Staw Shinobazu w parku Ueno" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Shinobazu_Pond_%40_Ueno_Park_%2811096102376%29.jpg" target="_blank" rel="noopener">Fot. Guilhem Vellut · CC BY 2.0</a></figcaption></figure><h4>Park Ueno <span class="day">7.11</span></h4><p>Duży park ze stawem Shinobazu, świątyniami i muzeami, w tym Muzeum Narodowym. Na zdjęciu w aplikacji kwitną wiśnie, ale to wiosna — w listopadzie są tu żółknące miłorzęby. Obok targ Ameyoko.</p></div>
       <div class="place"><figure class="ph"><img src="img/harajuku-takeshita-street-15-15119971464.jpg" alt="Ulica Takeshita w Harajuku" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Harajuku_-_Takeshita_Street_15_%2815119971464%29.jpg" target="_blank" rel="noopener">Fot. Joe Mabel · CC BY-SA 3.0</a></figcaption></figure><h4>Harajuku <span class="day">8.11</span></h4><p>Ulica Takeshita to młodzieżowa moda, cosplay i kolorowe słodycze. Przebierańcy ze zdjęcia pojawiają się głównie w weekendy. Równolegle biegnie elegancka aleja Omotesandō z architekturą Tadao Andō i SANAA.</p></div>
       <div class="place"><figure class="ph"><img src="img/torii-gate-at-meiji-jingu-shrine-tokyo-5.jpg" alt="Brama torii chramu Meiji Jingū" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Torii_Gate_at_Meiji_Jingu_Shrine%2C_Tokyo_%2850125273602%29.jpg" target="_blank" rel="noopener">Fot. Ray in Manila · CC BY 2.0</a></figcaption></figure><h4>Meiji Jingū i park Yoyogi <span class="day">8.11</span></h4><p>Chram cesarza Meiji w lesie liczącym 100 tys. drzew, tuż przy Harajuku. Za nim park Yoyogi z fontanną i stawem — w listopadzie liście zaczynają się tam przebarwiać.</p></div>
       <div class="place"><figure class="ph"><img src="img/2025-shibuya-crossing-at-night.jpg" alt="Skrzyżowanie Shibuya nocą" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:2025_Shibuya_Crossing_at_night.jpg" target="_blank" rel="noopener">Fot. Kakidai · CC BY-SA 4.0</a></figcaption></figure><h4>Shibuya <span class="day">8.11</span></h4><p>Najsłynniejsze skrzyżowanie świata — przy jednym zielonym świetle przechodzi nawet 3 tys. osób. Najlepiej widać je z góry: z Shibuya Sky (bilety z godziną wejścia, na zachód słońca kup wcześniej) albo z kawiarni nad stacją.</p></div>
-      <div class="place"><figure class="ph"><img src="img/omoide-yokocho-shinjuku-44144012872.jpg" alt="Zaułek Omoide Yokochō w Shinjuku" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Omoide_Yokocho%2C_Shinjuku_%2844144012872%29.jpg" target="_blank" rel="noopener">Fot. Fabio Achilli · CC BY 2.0</a></figcaption></figure><h4>Shinjuku nocą <span class="day">8.11</span></h4><p>Neony Kabukichō i wąski zaułek Omoide Yokochō pod torami, z kilkudziesięcioma barami z grillem yakitori na kilka miejsc każdy. Najlepszy klimat i zdjęcia po zmroku.</p></div>
-      <div class="place"><figure class="ph"><img src="img/tokyo-metropolitan-government-building-a.jpg" alt="Ratusz Tokio nocą" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Tokyo_Metropolitan_Government_Building_at_night.jpg" target="_blank" rel="noopener">Fot. DestinationFearFan · CC BY-SA 4.0</a></figcaption></figure><h4>Ratusz Tokio <span class="day">8.11</span></h4><p>Dwie wieże ratusza (Metropolitan Government Building) mają darmowe tarasy na 45. piętrze, czynne 9:30–22:00. Po zmroku na fasadzie odbywa się pokaz świetlny TOKYO Night &amp; Light — nie trzeba biletów.</p></div>
-      <div class="place"><figure class="ph"><img src="img/odaiba-statue-of-liberty-rainbow-bridge-.jpg" alt="Statua Wolności i Rainbow Bridge na Odaibie" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Odaiba_Statue_of_Liberty_%26_Rainbow_Bridge_7.jpg" target="_blank" rel="noopener">Fot. Zairon · CC BY-SA 4.0</a></figcaption></figure><h4>Odaiba <span class="day">9.11 · plan B</span></h4><p>Sztuczna wyspa w zatoce z repliką Statuy Wolności i widokiem na Rainbow Bridge oraz Tokyo Tower. Ładna na zachód słońca.</p></div>
-      <div class="place"><figure class="ph"><img src="img/main-hall-and-geo-cosmos-in-the-miraikan.jpg" alt="Globus Geo-Cosmos w Miraikan" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Main_hall_and_Geo-Cosmos_in_the_Miraikan_%289409476063%29.jpg" target="_blank" rel="noopener">Fot. Maarten Heerlien · CC BY 2.0</a></figcaption></figure><h4>Miraikan <span class="day">9.11 · plan B</span></h4><p>Narodowe muzeum nauki i innowacji, z wielkim globusem Geo-Cosmos zawieszonym nad holem i wystawami o kosmosie, robotyce i klimacie. Nieczynne we wtorki.</p></div>
-      <div class="place"><figure class="ph"><img src="img/roppongi-keyakizaka-01.jpg" alt="Aleja Keyakizaka w Roppongi" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Roppongi_Keyakizaka_-01.jpg" target="_blank" rel="noopener">Fot. Aimaimyi · CC BY-SA 3.0</a></figcaption></figure><h4>Roppongi <span class="day">9.11 · plan B</span></h4><p>Zdjęcie z aplikacji to iluminacja Keyakizaka przy Roppongi Hills: od 5.11 do 25.12, codziennie 17:00–22:00, z widokiem na Tokyo Tower. Pasuje na wieczór po Odaibie.</p></div>
+      <div class="place"><figure class="ph"><img src="img/omoide-yokocho-shinjuku-44144012872.jpg" alt="Zaułek Omoide Yokochō w Shinjuku" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Omoide_Yokocho%2C_Shinjuku_%2844144012872%29.jpg" target="_blank" rel="noopener">Fot. Fabio Achilli · CC BY 2.0</a></figcaption></figure><h4>Shinjuku nocą <span class="day">6.11</span></h4><p>Neony Kabukichō i wąski zaułek Omoide Yokochō pod torami, z kilkudziesięcioma barami z grillem yakitori na kilka miejsc każdy. Najlepszy klimat i zdjęcia po zmroku.</p></div>
+      <div class="place"><figure class="ph"><img src="img/tokyo-metropolitan-government-building-a.jpg" alt="Ratusz Tokio nocą" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Tokyo_Metropolitan_Government_Building_at_night.jpg" target="_blank" rel="noopener">Fot. DestinationFearFan · CC BY-SA 4.0</a></figcaption></figure><h4>Ratusz Tokio <span class="day">6.11</span></h4><p>Dwie wieże ratusza (Metropolitan Government Building) mają darmowe tarasy na 45. piętrze, czynne 9:30–22:00. Po zmroku na fasadzie odbywa się pokaz świetlny TOKYO Night &amp; Light — nie trzeba biletów.</p></div>
+      <div class="place"><figure class="ph"><img src="img/odaiba-statue-of-liberty-rainbow-bridge-.jpg" alt="Statua Wolności i Rainbow Bridge na Odaibie" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Odaiba_Statue_of_Liberty_%26_Rainbow_Bridge_7.jpg" target="_blank" rel="noopener">Fot. Zairon · CC BY-SA 4.0</a></figcaption></figure><h4>Odaiba <span class="day">poza planem</span></h4><p>Sztuczna wyspa w zatoce z repliką Statuy Wolności i widokiem na Rainbow Bridge oraz Tokyo Tower. Ładna na zachód słońca.</p></div>
+      <div class="place"><figure class="ph"><img src="img/main-hall-and-geo-cosmos-in-the-miraikan.jpg" alt="Globus Geo-Cosmos w Miraikan" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Main_hall_and_Geo-Cosmos_in_the_Miraikan_%289409476063%29.jpg" target="_blank" rel="noopener">Fot. Maarten Heerlien · CC BY 2.0</a></figcaption></figure><h4>Miraikan <span class="day">poza planem</span></h4><p>Narodowe muzeum nauki i innowacji, z wielkim globusem Geo-Cosmos zawieszonym nad holem i wystawami o kosmosie, robotyce i klimacie. Nieczynne we wtorki.</p></div>
+      <div class="place"><figure class="ph"><img src="img/roppongi-keyakizaka-01.jpg" alt="Aleja Keyakizaka w Roppongi" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Roppongi_Keyakizaka_-01.jpg" target="_blank" rel="noopener">Fot. Aimaimyi · CC BY-SA 3.0</a></figcaption></figure><h4>Roppongi <span class="day">poza planem</span></h4><p>Zdjęcie z aplikacji to iluminacja Keyakizaka przy Roppongi Hills: od 5.11 do 25.12, codziennie 17:00–22:00, z widokiem na Tokyo Tower. Pasuje na wieczór po Odaibie.</p></div>
       <div class="place"><figure class="ph"><img src="img/tsukiji-outer-market-01.jpg" alt="Zewnętrzny targ Tsukiji" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Tsukiji_Outer_Market_-01.jpg" target="_blank" rel="noopener">Fot. Aimaimyi · CC BY-SA 3.0</a></figcaption></figure><h4>Tsukiji <span class="day">10.11</span></h4><p>Hurtowy targ rybny przeniesiono do Toyosu, ale zewnętrzny targ został: kilkaset straganów z sushi, tamagoyaki (słodki omlet) i nożami. Przyjdź rano, część sklepów zamyka się po południu.</p></div>
       <div class="place"><figure class="ph"><img src="img/ginza-4-chome-crossing-2021-04-28.jpg" alt="Skrzyżowanie Ginza 4-chōme" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Ginza_4-Chome_Crossing_2021-04-28.jpg" target="_blank" rel="noopener">Fot. Asanagi · CC0</a></figcaption></figure><h4>Ginza <span class="day">10.11</span></h4><p>Najelegantsza dzielnica handlowa Tokio: domy towarowe, butiki zegarków, Itoya, Leica. W weekend główna ulica jest deptakiem, we wtorek jest spokojniej.</p></div>
-      <div class="place"><figure class="ph"><img src="img/akihabara-night.jpg" alt="Akihabara nocą" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Akihabara_Night.jpg" target="_blank" rel="noopener">Fot. ElHeineken · CC BY 4.0</a></figcaption></figure><h4>Akihabara <span class="day">10.11</span></h4><p>Dzielnica elektroniki, anime i gier, z salonami SEGA ze zdjęcia. Dla Ciebie liczy się Yodobashi Akiba: elektronika, foto i piętro z zabawkami i LEGO.</p></div>
+      <div class="place"><figure class="ph"><img src="img/akihabara-night.jpg" alt="Akihabara nocą" loading="lazy"><figcaption><a href="https://commons.wikimedia.org/wiki/File:Akihabara_Night.jpg" target="_blank" rel="noopener">Fot. ElHeineken · CC BY 4.0</a></figcaption></figure><h4>Akihabara <span class="day">7.11</span></h4><p>Dzielnica elektroniki, anime i gier, z salonami SEGA ze zdjęcia. Dla Ciebie liczy się Yodobashi Akiba: elektronika, foto i piętro z zabawkami i LEGO.</p></div>
     </div>
 
     <h3 id="fuji">Fuji — czy warto?</h3>
@@ -761,90 +753,6 @@ figure.ph figcaption a{color:#fff;background:rgba(0,0,0,.55);padding:2px 6px;bor
     else{document.getElementById('pakowanie').scrollIntoView();btn.textContent='Podróż zakończona';}
   });
 
-
-  // MAPA
-  (function(){
-    if(typeof L==='undefined'){var m=document.getElementById('map');if(m)m.innerHTML='<p style="padding:16px">Mapa nie wczytała się — sprawdź połączenie.</p>';return;}
-    var C={'5':'#3E5BA9','6':'#2E7D32','7':'#C0392B','8':'#8E44AD','9':'#0E7C86','9b':'#5B8C8F','10':'#C77D0A','hotel':'#1A1F24','trip':'#6B7680'};
-    // g: grupa koloru; f: filtry; far: poza Tokio
-    var P=[
-      ['6','Shinjuku Gyoen','Ogród, jesienne liście. Nieczynny w poniedziałki.',35.6852,139.7101],
-      ['7','Park Ueno','Staw Shinobazu, muzea, jesienne miłorzęby.',35.7148,139.7714],
-      ['7','Ameyoko','Targ pod torami: zegarki, dżinsy, jedzenie.',35.7101,139.7745],
-      ['6','Map Camera, Shinjuku','Największy wybór używanych aparatów, tax-free. Nishi-Shinjuku 1-12-5.',35.6907,139.6967],
-      ['6','Kitamura Shinjuku','Parter: film i wywołanie w ok. 2 h. 4. piętro: używane aparaty. 10:00–21:00. Shinjuku 3-26-14.',35.6911,139.7020],
-      ['6','Camera Gokurakudo','Specjalista Contax. 11:00–20:00, nd. do 18:00, nieczynne w poniedziałki. Obok Fotoborse.',35.6987,139.7189],
-      ['7','Sensō-ji','Najstarsza świątynia Tokio — przyjdź o 7–8 rano.',35.7148,139.7967],
-      ['7','Kappabashi','Ulica noży i przyborów kuchennych.',35.7132,139.7883],
-      ['7','Edo-Tokyo Museum','Historia miasta, makiety 1:1. Otwarte ponownie od 31.03.2026.',35.6966,139.7958],
-      ['7','Tokyo Skytree','634 m; wjedź przed zachodem słońca.',35.7101,139.8107],
-      ['7','Ōtori-jinja — Tori-no-Ichi','Jarmark z grabkami kumade, 7.11 przez całą dobę.',35.7237,139.7920],
-      ['8','Meiji Jingū','Chram cesarza Meiji w lesie.',35.6764,139.6993],
-      ['8','Park Yoyogi','Fontanna i staw, jesienne liście.',35.6717,139.6949],
-      ['8','Harajuku — Takeshita','Moda, cosplay; w niedzielę najwięcej przebierańców.',35.6716,139.7031],
-      ['8','Skrzyżowanie Shibuya','Najsłynniejsze przejście dla pieszych świata.',35.6595,139.7005],
-      ['8','Shibuya Sky','Taras na dachu — bilet z godziną wejścia.',35.6584,139.7022],
-      ['8','Ratusz Tokio','Darmowe tarasy na 45. piętrze, 9:30–22:00, pokaz świetlny po zmroku.',35.6896,139.6917],
-      ['8','Omoide Yokochō','Wąskie bary z grillem pod torami.',35.6929,139.6996],
-      ['9','Pagoda Chūreitō','Klasyczny kadr z Fuji, ok. 400 schodów. Stacja Shimoyoshida.',35.5011,138.8016,1],
-      ['9','Stacja Kawaguchiko','Stąd autobus Red Line wzdłuż jeziora.',35.4986,138.7689,1],
-      ['9','Park Ōishi i Momiji Corridor','Północny brzeg jeziora; festiwal liści 7–29.11.',35.5195,138.7480,1],
-      ['9b','Miraikan (plan B)','Muzeum nauki, globus Geo-Cosmos. Nieczynne we wtorki.',35.6190,139.7765],
-      ['9b','Statua Wolności, Odaiba (plan B)','Widok na Rainbow Bridge.',35.6274,139.7720],
-      ['9b','Roppongi Hills (plan B)','Iluminacja Keyakizaka 17:00–22:00, od 5.11.',35.6597,139.7297],
-      ['10','Targ Tsukiji','Rano: sushi, tamagoyaki, noże.',35.6654,139.7707],
-      ['10','Itoya, Ginza','Papiernik na kilkunastu piętrach; pióra na 3. piętrze. Obok Seiko, Leica.',35.6723,139.7670],
-      ['10','ancora, Ginza','Sklep Sailora: pióro składane z części, 144 kolory atramentu. 11:00–19:00, nieczynne w środy.',35.6712,139.7627],
-      ['10','Bic Camera Yūrakuchō','Elektronika, foto, atramenty Iroshizuku.',35.6751,139.7628],
-      ['10','Fujiya Camera, Nakano','Używane aparaty i obiektywy, tax-free. 10:00–20:30, 1 min od wyjścia północnego.',35.7067,139.6660],
-      ['10','Nakano Broadway','Jackroad (3. piętro), kolekcjonerskie.',35.7090,139.6656],
-      ['10','Yodobashi Akiba','Elektronika, foto, LEGO. Czynne do 22:00.',35.6990,139.7749],
-      ['hotel','Ryokan Asakusa Shigetsu','Pierwszy wybór. Pokój Japanese-Western Deluxe Twin. Położenie przybliżone.',35.7118,139.7953],
-      ['hotel','OMO3 Asakusa','Nowoczesny hotel naprzeciw Sensō-ji. Położenie przybliżone.',35.7126,139.7984],
-      ['hotel','Onsen Ryokan Yuen Shinjuku','Onsen na dachu, pokoje Twin. Położenie przybliżone.',35.6913,139.7089],
-      ['trip','Kamakura — Wielki Budda','Godzina pociągiem; dobra alternatywa przy chmurach nad Fuji.',35.3167,139.5358,1],
-      ['trip','Nikkō — Tōshō-gū','Prawie 2 h w jedną stronę; liście w dolinie 1–15.11.',36.7580,139.5990,1],
-      ['trip','Jokohama — Minato Mirai','Nowoczesny port; przy krótkim pobycie do pominięcia.',35.4570,139.6326,1]
-    ];
-    var map=L.map('map',{scrollWheelZoom:false});
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© współtwórcy <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'}).addTo(map);
-    var groups={},counters={};
-    P.forEach(function(r){
-      var g=r[0],col=C[g];counters[g]=(counters[g]||0)+1;
-      var label=g==='hotel'?'⌂':(g==='trip'?'•':counters[g]);
-      var icon=L.divIcon({className:'',html:'<div class="pin'+(g==='hotel'?' home':'')+'" style="background:'+col+'">'+label+'</div>',iconSize:[26,26],iconAnchor:[13,13],popupAnchor:[0,-12]});
-      var dayTxt=g==='hotel'?'Nocleg':(g==='trip'?'Wycieczka za miasto':(g==='9b'?'9.11 — plan B':g+'.11'));
-      var mk=L.marker([r[3],r[4]],{icon:icon,title:r[1]}).bindPopup('<b>'+r[1]+'</b><br><small>'+dayTxt+'</small><br>'+r[2]);
-      (groups[g]=groups[g]||{markers:[],pts:[],far:[]});
-      groups[g].markers.push(mk);groups[g].pts.push([r[3],r[4]]);groups[g].far.push(!!r[5]);
-    });
-    var layers={};
-    Object.keys(groups).forEach(function(g){
-      var lg=L.layerGroup(groups[g].markers);
-      if(['hotel','trip'].indexOf(g)<0 && groups[g].pts.length>1){
-        L.polyline(groups[g].pts,{color:C[g],weight:3,opacity:.7,dashArray:g==='9b'?'6 6':null}).addTo(lg);
-      }
-      layers[g]=lg;
-    });
-    var sets={
-      'all':['6','7','8','9b','10','hotel'],
-      '6':['6','hotel'],'7':['7','hotel'],'8':['8','hotel'],'9':['9','9b','hotel'],'10':['10','hotel'],
-      'hotel':['hotel'],'trip':['trip','9','hotel']
-    };
-    function show(f){
-      Object.keys(layers).forEach(function(g){map.removeLayer(layers[g]);});
-      var b=[];
-      sets[f].forEach(function(g){layers[g].addTo(map);b=b.concat(groups[g].pts);});
-      map.fitBounds(L.latLngBounds(b),{padding:[30,30],maxZoom:15});
-    }
-    document.querySelectorAll('.map-filter button').forEach(function(btn){
-      btn.addEventListener('click',function(){
-        document.querySelectorAll('.map-filter button').forEach(function(x){x.setAttribute('aria-pressed','false');});
-        btn.setAttribute('aria-pressed','true');show(btn.getAttribute('data-f'));
-      });
-    });
-    show('all');
-  })();
 
   // Przełącznik motywu
   var root=document.documentElement;
