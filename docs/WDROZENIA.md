@@ -14,14 +14,14 @@ Są DWA źródła, których nie wolno mylić:
 Przy codziennym buildzie na VPS nakładka z `main` tego repo jest kopiowana do projektu Astro (`public/tokio-palau`, `public/palau`). Czyli: cokolwiek jest w `main`, ląduje na produkcji przy następnym buildzie. Nie ma stagingu. (`scripts/vercel-build.sh` to pozostałość po Vercelu — nieużywany na produkcji.)
 
 ```
-home/index.html                   propozycja strony głównej PL — NIE jest wdrażana automatycznie; produkcyjna strona główna żyje w projekcie Astro na VPS (PR #2)
+home/index.html                   strona główna PL (v3: jasna szata, licznik, łuk trasy) — ta sama wersja, co na produkcji; NIE jest wdrażana przez cron, zmiany w niej trzeba ręcznie przenieść do projektu Astro na VPS
 public/tokio-palau/index.html     plan Tokio–Palau–Seul (dni, zakupy, noclegi, formalności, pakowanie) — czysty HTML
 public/tokio-palau/mapa/index.html mapa Leaflet; dane w obiekcie `var D = {tokio, palau, seul}` w <script>
 public/tokio-palau/img/           zdjęcia (Wikimedia Commons, licencje w attribution.json)
 public/palau/                     strona-wizytówka wyprawy (SPA React/Vite zbudowana przez Kimi, hash-router: /palau/#/plan, #/zakupy, #/noclegi, #/praktyczne, #/seul; trasa #/tokio przekierowuje do /tokio-palau/#tokio)
 public/palau/assets/index-*.js    zminifikowany bundle — edytuj TYLKO podmianą literalnych stringów, nie przebudowuj
 patch/showcase-card.html          zapasowa karta na starą stronę główną (nieużywana, gdy działa home/index.html)
-scripts/apply-on-vps.sh           skrypt używany przez cron na VPS (kopiuje nakładkę do projektu Astro) — zmieniaj ostrożnie
+scripts/apply-on-vps.sh + overlay-lib.sh   skrypty używane przez cron na VPS (kopiują nakładkę do projektu Astro) — zmieniaj tylko przez PR
 scripts/vercel-build.sh           pozostałość po Vercelu, nieużywana
 scripts/patch-homepage.mjs        dokleja kartę do HomePage.astro (zapasowe)
 scripts/patch-sitemap.mjs         dopisuje /palau/ i /tokio-palau/ do sitemap.xml
@@ -92,3 +92,21 @@ curl -s https://wielki-luk.pl/palau/assets/index-L67O7rc1.js | grep -c "function
 - Nie przebudowuj SPA `/palau/` od zera bez zgody właściciela; podmieniaj stringi w bundlu.
 - Nie dopisuj nowych etapów ani zakupów „od siebie”. Plan ustala właściciel; agent wdraża.
 - Nie publikuj danych osobowych, numerów rezerwacji, numerów biletów.
+
+## 7. Raportowanie zmian — OBOWIĄZKOWE przy każdej poprawce
+
+Właściciel i inni agenci (m.in. Claude) poznają Twoje zmiany z dwóch miejsc: **historii gita** i pliku **`docs/ZMIANY.md`**. Bez wpisu w `ZMIANY.md` poprawka jest uznana za nieudokumentowaną.
+
+Procedura:
+1. **Treść** (teksty, daty, ceny, punkty na mapie, stringi w `/palau/`): commit prosto na `main`.
+   **Skrypty** (`scripts/*`), `CLAUDE.md`, struktura plików: osobna gałąź `kimi/<temat>` i Pull Request — merguje właściciel lub Claude.
+2. W **tym samym commicie** dopisz wpis na górze `docs/ZMIANY.md` według szablonu z tego pliku (data, kto, co, pliki, jak sprawdzone, co wejdzie na produkcję i kiedy).
+3. Komunikat commita po polsku, jedno zdanie co i gdzie, np. `Mapa: Seul 22.11 — Gwangjang przed DDP`. Na końcu dopisz linię `Agent: Kimi` (albo swoją nazwę).
+4. Po pushu zwróć właścicielowi (do wklejenia w czacie) dokładnie to:
+   - SHA commita i link `https://github.com/barszczxl2/wielki-luk-tokio-palau/commit/<sha>`,
+   - skopiowany wpis z `docs/ZMIANY.md`,
+   - wynik testów składni z sekcji 3 (dosłownie: `syntax ok` / wynik `node --check`),
+   - zdanie: „na produkcji po cronie ok. 06:35 (Warszawa) dnia …” albo „wymaga ręcznego wdrożenia na VPS, bo dotyczy `home/`”.
+5. Nie zwracasz całych plików HTML/JS w czacie — od tego jest repo. Jeśli zmiana jest duża, dołącz `git diff --stat`.
+
+Zasada czytania dla agentów: zanim coś zmienisz, przeczytaj `git log --oneline -20` i pierwsze 5 wpisów `docs/ZMIANY.md`, żeby nie cofnąć cudzej świeżej poprawki.
