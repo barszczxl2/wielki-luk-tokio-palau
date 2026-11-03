@@ -10,10 +10,44 @@
     <link rel="stylesheet" crossorigin="" href="./assets/index-Y8yH_DMD.css"/>    <link rel="canonical" href="https://wielki-luk.pl/palau/">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏝</text></svg>">
     <style>.wl-back-wrap{position:fixed;left:16px;bottom:16px;z-index:9999;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-start;max-width:calc(100vw - 160px)}.wl-back{font:600 13px/1 Sora,system-ui,sans-serif;color:#fff;background:rgba(10,14,30,.78);border:1px solid rgba(255,255,255,.18);padding:9px 13px;border-radius:999px;text-decoration:none;backdrop-filter:blur(8px)}.wl-back:hover{background:rgba(10,14,30,.95)}</style>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* === chip dworcowy retro === */
+:root{--deska:#22392C;--deska-ciemna:#182A1F;--emalia:#F5EDDA;--mosiadz:#B08D3E;--mosiadz-jasny:#D4B36A}
+#wlcd{position:fixed;right:16px;bottom:16px;z-index:9999;
+  font:600 13px/1.5 'Oswald',sans-serif;letter-spacing:.04em;
+  color:var(--emalia);background:linear-gradient(#22392C,#182A1F);
+  border:2px solid var(--mosiadz);padding:9px 15px;border-radius:8px;
+  box-shadow:0 6px 16px rgba(0,0,0,.5)}
+#wlcd b{color:var(--mosiadz-jasny)}
+</style>
   </head>
   <body>
     <nav class="wl-back-wrap"><a class="wl-back" href="/">← wielki-luk.pl</a><a class="wl-back" href="/tokio-palau/mapa/">🗺 mapa dzień po dniu</a><a class="wl-back" href="/tokio-palau/">szczegółowy plan →</a></nav>
     <div id="root"></div>
   
+
+<div id="wlcd" aria-live="off"></div>
+<script>
+(function(){
+var wlLEGS=[
+  {rn:'Warszawa → Tokio',ts:Date.UTC(2026,10,4,21,40)},
+  {rn:'Tokio → Koror',ts:Date.UTC(2026,10,11,8,55)},
+  {rn:'Koror → Tokio',ts:Date.UTC(2026,10,19,3,0)},
+  {rn:'Tokio → Seul',ts:Date.UTC(2026,10,20,3,0)},
+  {rn:'Seul → Warszawa',ts:Date.UTC(2026,10,23,0,0)}
+];
+function wlDniTxt(n){if(n===1)return'1 dzień';var d=n%10,s=n%100;if(d>=2&&d<=4&&!(s>=12&&s<=14))return n+' dni';return n+' dni';}
+function wlNextLeg(now){for(var i=0;i<wlLEGS.length;i++){if(wlLEGS[i].ts>now)return i;}return -1;}
+var el=document.getElementById('wlcd');
+function tick(){
+  var now=Date.now(),n=wlNextLeg(now);
+  if(n===-1){el.style.display='none';return;}
+  var d=wlLEGS[n].ts-now,dni=Math.floor(d/864e5),h=Math.floor(d/36e5)%24,m=Math.floor(d/6e4)%60;
+  el.innerHTML=wlLEGS[n].rn+' — odjazd za <b>'+wlDniTxt(dni)+' '+h+' h '+m+' min</b>';
+}
+tick();setInterval(tick,30000);
+})();
+</script>
 
 </body></html>

@@ -166,7 +166,80 @@ figure.ph figcaption a{color:#fff;background:rgba(0,0,0,.55);padding:2px 6px;bor
 .topbar{font-family:"Bricolage Grotesque",sans-serif;font-size:14px;padding:10px 0 0}
 .topbar a{text-decoration:none;color:var(--muted)}
 .topbar a:hover{color:var(--ink)}
+
+/* === zegary dworcowe retro === */
+:root{
+  --deska:#22392C;--deska-ciemna:#182A1F;--emalia:#F5EDDA;--emalia-cien:#E4D8BE;
+  --mosiadz:#B08D3E;--mosiadz-jasny:#D4B36A;--nieb:#17456B;--czerw:#B5341F;--atrament:#2A3A2E;
+}
+.dworzec{position:relative;margin-top:26px;
+  background:linear-gradient(var(--deska) 0%,var(--deska-ciemna) 100%);
+  border:3px solid var(--mosiadz);border-radius:10px;
+  box-shadow:0 18px 40px rgba(24,42,31,.35),inset 0 0 60px rgba(0,0,0,.25);
+  padding:22px 22px 18px;overflow:hidden}
+.dworzec .sruba{position:absolute;width:12px;height:12px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,var(--mosiadz-jasny),var(--mosiadz) 60%,#6E5620);
+  box-shadow:inset 0 -1px 2px rgba(0,0,0,.5),0 1px 1px rgba(255,255,255,.15)}
+.dworzec .sruba::after{content:"";position:absolute;left:1px;right:1px;top:50%;height:2px;margin-top:-1px;background:rgba(0,0,0,.45);transform:rotate(38deg)}
+.sruba.s1{left:9px;top:9px}.sruba.s2{right:9px;top:9px}.sruba.s3{left:9px;bottom:9px}.sruba.s4{right:9px;bottom:9px}
+.dworzec-top{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.zegar{width:118px;height:118px;flex:none;border-radius:50%;
+  background:radial-gradient(circle at 50% 42%,#FFFDF6,var(--emalia) 75%);
+  border:5px solid #20211E;box-shadow:0 4px 10px rgba(0,0,0,.4),inset 0 0 0 2px rgba(0,0,0,.06);position:relative}
+.zegar .tarcza{position:absolute;inset:0}
+.zegar .kreska{position:absolute;left:50%;top:50%;width:4px;height:12px;margin:-54px 0 0 -2px;background:#20211E;transform-origin:2px 54px}
+.zegar .kreska.mala{height:7px;margin-top:-53px;width:2px;margin-left:-1px;transform-origin:1px 53px;opacity:.85}
+.wsk{position:absolute;left:50%;top:50%;background:#20211E;border-radius:3px;transform-origin:50% 100%}
+.wsk.godz{width:7px;height:32px;margin:-32px 0 0 -3.5px}
+.wsk.min{width:5px;height:46px;margin:-46px 0 0 -2.5px}
+.wsk.sek{width:2.5px;height:52px;margin:-44px 0 0 -1.25px;background:var(--czerw);transform-origin:50% calc(100% - 8px)}
+.wsk.sek::after{content:"";position:absolute;left:50%;top:-2px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--czerw)}
+.zegar .os{position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px;border-radius:50%;background:var(--czerw);box-shadow:0 0 0 2px rgba(0,0,0,.15)}
+.odjazd-cel{color:var(--emalia);flex:1;min-width:200px;text-align:right}
+.odjazd-cel .rel{font-family:'Oswald',sans-serif;font-size:clamp(24px,5vw,34px);font-weight:600;letter-spacing:.04em}
+.odjazd-cel .rel b{color:var(--mosiadz-jasny)}
+.odjazd-cel .godz{font-family:'Courier Prime',monospace;font-size:13px;color:#C9C2AC;margin-top:4px}
+.odjazd{margin-top:18px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
+.klapki{display:flex;gap:16px;flex-wrap:wrap}
+.kgrupa{text-align:center}
+.krzad{display:flex;gap:3px;perspective:400px}
+.klapka{position:relative;width:36px;height:50px;border-radius:4px;
+  background:linear-gradient(var(--emalia) 49.5%,#8A8266 49.5%,#8A8266 50.5%,var(--emalia-cien) 50.5%);
+  box-shadow:0 2px 0 #B9AE8E,0 4px 8px rgba(0,0,0,.4),inset 0 0 0 1px rgba(0,0,0,.12);
+  color:var(--atrament);font-family:'Oswald',sans-serif;font-weight:600;font-size:27px;
+  display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.klapka.flip{animation:klapIn .3s ease-out}
+@keyframes klapIn{0%{transform:rotateX(85deg);filter:brightness(1.25)}100%{transform:rotateX(0);filter:brightness(1)}}
+@media (prefers-reduced-motion:reduce){.klapka.flip,.mklapka.flip{animation:none}}
+.kopis{margin-top:6px;font-family:'Oswald',sans-serif;font-size:9px;font-weight:600;letter-spacing:.22em;color:#9FA98F}
+.rozklad{margin-top:20px;background:var(--emalia);border-radius:4px;box-shadow:0 3px 10px rgba(0,0,0,.3);padding:4px 0;position:relative;
+  -webkit-mask-image:radial-gradient(circle 4px at 8px 0,transparent 4px,#000 4px),radial-gradient(circle 4px at 8px 100%,transparent 4px,#000 4px);
+  -webkit-mask-size:16px 51%,16px 51%;-webkit-mask-position:0 0,0 100%;-webkit-mask-repeat:repeat-x;
+  mask-image:radial-gradient(circle 4px at 8px 0,transparent 4px,#000 4px),radial-gradient(circle 4px at 8px 100%,transparent 4px,#000 4px);
+  mask-size:16px 51%,16px 51%;mask-position:0 0,0 100%;mask-repeat:repeat-x}
+.rozklad-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:10px 20px 8px;border-bottom:2px solid var(--atrament)}
+.rozklad-head b{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.24em;font-size:15px;color:var(--atrament)}
+.rozklad-head span{font-family:'Courier Prime',monospace;font-size:12px;color:#7A735E}
+.rwiersz{display:flex;align-items:baseline;gap:14px;padding:7px 20px;
+  font-family:'Courier Prime',monospace;font-size:14px;color:var(--atrament);border-bottom:1px dashed #C9C0A4}
+.rwiersz:last-child{border-bottom:0}
+.rwiersz .data{font-weight:700;width:44px;flex:none}
+.rwiersz .rel{font-weight:700;letter-spacing:.06em}
+.rwiersz .g{margin-left:auto;color:#7A735E;white-space:nowrap}
+.rwiersz .st{font-family:'Oswald',sans-serif;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  border:2px solid #7A735E;color:#7A735E;border-radius:3px;padding:1px 7px;transform:rotate(-2deg);white-space:nowrap}
+.rwiersz.next{background:#FDF6DC}
+.rwiersz.next .st{border-color:var(--czerw);color:var(--czerw)}
+.rwiersz.done{color:#9A947E}
+.rwiersz.done .rel{text-decoration:line-through;text-decoration-thickness:1px}
+.rwiersz.done .st{border-color:#8A9A7C;color:#8A9A7C}
+@media (max-width:640px){
+  .odjazd{flex-direction:column;align-items:flex-start}
+  .klapka{width:30px;height:44px;font-size:23px}
+  .rwiersz .g{display:none}
+}
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -191,6 +264,32 @@ figure.ph figcaption a{color:#fff;background:rgba(0,0,0,.55);padding:2px 6px;bor
     </div>
   </div>
 </header>
+
+<div class="wrap">
+  <div class="dworzec" role="timer" aria-label="Odliczanie do najbliższego lotu">
+    <span class="sruba s1"></span><span class="sruba s2"></span><span class="sruba s3"></span><span class="sruba s4"></span>
+    <div class="dworzec-top">
+      <div class="zegar" aria-hidden="true">
+        <div class="tarcza" id="tarcza"></div>
+        <div class="wsk godz" id="wG"></div>
+        <div class="wsk min" id="wM"></div>
+        <div class="wsk sek" id="wS"></div>
+        <div class="os"></div>
+      </div>
+      <div class="odjazd-cel">
+        <div class="rel" id="bCodes">Warszawa → <b>Tokio</b></div>
+        <div class="godz" id="bMeta">odjazd 4.11 · 22:40 · standby</div>
+      </div>
+    </div>
+    <div class="odjazd">
+      <div class="klapki" id="bFlaps" aria-live="off"></div>
+    </div>
+    <div class="rozklad">
+      <div class="rozklad-head"><b>ROZKŁAD JAZDY</b><span>wyprawa listopad 2026 · odjazdy wg czasu lokalnego</span></div>
+      <div id="bLegs"></div>
+    </div>
+  </div>
+</div>
 
 <nav class="legs" aria-label="Sekcje">
   <div class="wrap">
@@ -721,6 +820,87 @@ figure.ph figcaption a{color:#fff;background:rgba(0,0,0,.55);padding:2px 6px;bor
     var n=dark?'light':'dark';root.setAttribute('data-theme',n);
     try{localStorage.setItem('wl-theme',n);}catch(e){}
   });
+})();
+</script>
+<script>
+(function(){
+var wlLEGS=[
+  {r:'WAW → NRT',rn:'Warszawa → Tokio',d:'4.11',t:'22:40 · standby',ts:Date.UTC(2026,10,4,21,40)},
+  {r:'NRT → ROR',rn:'Tokio → Koror',d:'11.11',t:'17:55 · United',ts:Date.UTC(2026,10,11,8,55)},
+  {r:'ROR → NRT',rn:'Koror → Tokio',d:'19.11',t:'',ts:Date.UTC(2026,10,19,3,0)},
+  {r:'NRT → ICN',rn:'Tokio → Seul',d:'20.11',t:'',ts:Date.UTC(2026,10,20,3,0)},
+  {r:'ICN → WAW',rn:'Seul → Warszawa',d:'23.11',t:'rano',ts:Date.UTC(2026,10,23,0,0)}
+];
+function wlDniTxt(n){if(n===1)return'1 dzień';var d=n%10,s=n%100;if(d>=2&&d<=4&&!(s>=12&&s<=14))return n+' dni';return n+' dni';}
+function wlNextLeg(now){for(var i=0;i<wlLEGS.length;i++){if(wlLEGS[i].ts>now)return i;}return -1;}
+function wlFlip(el,ch){if(el.textContent!==ch){el.textContent=ch;el.classList.remove('flip');void el.offsetWidth;el.classList.add('flip');}}
+/* zegar analogowy */
+var t=document.getElementById('tarcza');
+for(var i=0;i<60;i++){
+  var k=document.createElement('div');
+  k.className='kreska'+(i%5?' mala':'');
+  k.style.transform='rotate('+(i*6)+'deg)';
+  t.appendChild(k);
+}
+var g=document.getElementById('wG'),m=document.getElementById('wM'),s=document.getElementById('wS');
+function wlZegar(){
+  var n=new Date(),hh=n.getHours()%12,mm=n.getMinutes(),ss=n.getSeconds();
+  g.style.transform='rotate('+(hh*30+mm*.5)+'deg)';
+  m.style.transform='rotate('+(mm*6+ss*.1)+'deg)';
+  s.style.transform='rotate('+(ss*6)+'deg)';
+}
+wlZegar();setInterval(wlZegar,1000);
+/* klapki */
+var flapsEl=document.getElementById('bFlaps');
+var UNITS=[['DNI',2],['GODZ',2],['MIN',2],['SEK',2]];
+var cells=[];
+UNITS.forEach(function(u){
+  var gr=document.createElement('div');gr.className='kgrupa';
+  var row=document.createElement('div');row.className='krzad';
+  var cs=[];
+  for(var i=0;i<u[1];i++){var c=document.createElement('div');c.className='klapka';c.textContent='0';row.appendChild(c);cs.push(c);}
+  gr.appendChild(row);
+  var l=document.createElement('div');l.className='kopis';l.textContent=u[0];gr.appendChild(l);
+  flapsEl.appendChild(gr);cells.push(cs);
+});
+function setGroup(cs,val){
+  var str=String(val).padStart(cs.length,'0');
+  cs.forEach(function(c,i){wlFlip(c,str[i]);});
+}
+/* rozkład jazdy */
+var legsEl=document.getElementById('bLegs');
+wlLEGS.forEach(function(l){
+  var row=document.createElement('div');row.className='rwiersz';
+  row.innerHTML='<span class="data">'+l.d+'</span><span class="rel">'+l.r+'</span><span class="g">'+(l.t||'—')+'</span><span class="st">oczekuje</span>';
+  legsEl.appendChild(row);
+});
+var legRows=legsEl.children;
+var codes=document.getElementById('bCodes'),meta=document.getElementById('bMeta');
+function tick(){
+  var now=Date.now(),next=wlNextLeg(now);
+  for(var j=0;j<wlLEGS.length;j++){
+    var row=legRows[j],st=row.querySelector('.st');
+    row.classList.remove('next','done');
+    if(wlLEGS[j].ts<=now){row.classList.add('done');st.textContent='odjechał';}
+    else if(j===next){row.classList.add('next');st.textContent='najbliższy';}
+    else{st.textContent=wlDniTxt(Math.ceil((wlLEGS[j].ts-now)/864e5));}
+  }
+  if(next===-1){
+    codes.innerHTML='Seul → <b>Warszawa</b>';
+    meta.textContent='pociąg odjechał — relacje wkrótce';
+    cells.forEach(function(cs){setGroup(cs,0);});
+    return;
+  }
+  var L=wlLEGS[next],p=L.rn.split(' → ');
+  codes.innerHTML=p[0]+' → <b>'+p[1]+'</b>';
+  meta.textContent='odjazd '+L.d+(L.t?' · '+L.t:'');
+  var d=L.ts-now;
+  setGroup(cells[0],Math.floor(d/864e5));
+  setGroup(cells[1],Math.floor(d/36e5)%24);
+  setGroup(cells[2],Math.floor(d/6e4)%60);
+  setGroup(cells[3],Math.floor(d/1e3)%60);
+}
+tick();setInterval(tick,1000);
 })();
 </script>
 </body>

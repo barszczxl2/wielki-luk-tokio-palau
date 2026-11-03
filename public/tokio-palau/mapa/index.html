@@ -95,6 +95,24 @@ h1 .jp{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:15px;colo
 .legline.go b{font-weight:700}
 .ln{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 4px;border-radius:50%;border:3px solid var(--l);background:#fff;color:#111;font:800 10.5px/1 "Bricolage Grotesque",sans-serif;margin-right:2px;flex:0 0 auto}
 .arr span .ln{min-width:18px;height:18px;border-width:2.5px;font-size:9.5px;vertical-align:middle}
+/* === zegarek dworcowy retro (mini) === */
+:root{
+  --deska:#22392C;--deska-ciemna:#182A1F;--emalia:#F5EDDA;--emalia-cien:#E4D8BE;
+  --mosiadz:#B08D3E;--mosiadz-jasny:#D4B36A;--nieb:#17456B;--czerw:#B5341F;--atrament:#2A3A2E;
+}
+.mdworzec{display:inline-flex;align-items:center;gap:12px;row-gap:6px;flex-wrap:wrap;max-width:100%;box-sizing:border-box;margin-top:10px;padding:9px 14px;border-radius:8px;
+  background:linear-gradient(#22392C,#182A1F);border:2px solid var(--mosiadz);box-shadow:0 6px 16px rgba(0,0,0,.5)}
+.mdworzec .metyk{font-family:'Oswald',sans-serif;font-size:10px;font-weight:600;letter-spacing:.16em;color:var(--mosiadz-jasny);text-transform:uppercase;white-space:nowrap}
+.mklapki{display:flex;gap:3px;align-items:center;perspective:300px}
+.mklapka{position:relative;width:21px;height:29px;border-radius:3px;
+  background:linear-gradient(var(--emalia) 49.5%,#8A8266 49.5%,#8A8266 50.5%,var(--emalia-cien) 50.5%);
+  box-shadow:0 1px 0 #B9AE8E,0 2px 5px rgba(0,0,0,.45);
+  color:var(--atrament);font-family:'Oswald',sans-serif;font-weight:600;font-size:15px;display:grid;place-items:center;font-variant-numeric:tabular-nums}
+.mklapka.flip{animation:klapIn .3s ease-out}
+@keyframes klapIn{0%{transform:rotateX(85deg);filter:brightness(1.25)}100%{transform:rotateX(0);filter:brightness(1)}}
+.msep{color:var(--mosiadz);font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;line-height:29px}
+@media (prefers-reduced-motion:reduce){.mklapka.flip{animation:none}}
+
 /* mobile: bottom sheet */
 .grab{display:none}
 @media (max-width:760px){
@@ -118,6 +136,7 @@ h1 .jp{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:15px;colo
 }
 @media (prefers-reduced-motion:reduce){.route,.home{animation:none}}
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div id="map" aria-label="Mapa wyprawy"></div>
@@ -128,6 +147,10 @@ h1 .jp{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:15px;colo
     <div class="top"><a href="/tokio-palau/">← plan wyprawy</a><span><button class="iconbtn" id="today" type="button">Dziś</button> <button class="iconbtn" id="theme" type="button" aria-label="Zmień styl mapy">◐ ciemna</button></span></div>
     <h1 id="title">Tokio <span class="jp">東京</span></h1>
     <p class="sub" id="subtitle"></p>
+    <div class="mdworzec" id="mboard">
+      <span class="metyk" id="mbLabel">odjazd Warszawa → Tokio</span>
+      <span class="mklapki" id="mbFlaps"></span>
+    </div>
     <div class="region" role="group" aria-label="Region">
       <button type="button" data-r="tokio" aria-pressed="true">🇯🇵 Tokio<small>5–10.11</small></button>
       <button type="button" data-r="palau" aria-pressed="false">🇵🇼 Palau<small>11–19.11</small></button>
@@ -449,6 +472,35 @@ var startR='tokio'; var hsh=location.hash.replace('#',''); if(D[hsh]) startR=hsh
 window.addEventListener('hashchange',function(){var h=location.hash.replace('#','');if(D[h]&&h!==region)renderRegion(h)});
 renderRegion(startR);
 })();
+</script>
+<script>
+(function(){
+var wlLEGS=[
+  {rn:'Warszawa → Tokio',ts:Date.UTC(2026,10,4,21,40)},
+  {rn:'Tokio → Koror',ts:Date.UTC(2026,10,11,8,55)},
+  {rn:'Koror → Tokio',ts:Date.UTC(2026,10,19,3,0)},
+  {rn:'Tokio → Seul',ts:Date.UTC(2026,10,20,3,0)},
+  {rn:'Seul → Warszawa',ts:Date.UTC(2026,10,23,0,0)}
+];
+function wlNextLeg(now){for(var i=0;i<wlLEGS.length;i++){if(wlLEGS[i].ts>now)return i;}return -1;}
+function wlFlip(el,ch){if(el.textContent!==ch){el.textContent=ch;el.classList.remove('flip');void el.offsetWidth;el.classList.add('flip');}}
+var box=document.getElementById('mboard'),label=document.getElementById('mbLabel'),wrap=document.getElementById('mbFlaps');
+var cells=[];
+for(var i=0;i<8;i++){
+  if(i===2||i===4||i===6){var sep=document.createElement('span');sep.className='msep';sep.textContent=':';wrap.appendChild(sep);}
+  var c=document.createElement('span');c.className='mklapka';c.textContent='0';wrap.appendChild(c);cells.push(c);
+}
+function tick(){
+  var now=Date.now(),n=wlNextLeg(now);
+  if(n===-1){box.style.display='none';return;}
+  label.textContent='odjazd '+wlLEGS[n].rn;
+  var d=wlLEGS[n].ts-now;
+  var str=String(Math.floor(d/864e5)).padStart(2,'0')+String(Math.floor(d/36e5)%24).padStart(2,'0')+String(Math.floor(d/6e4)%60).padStart(2,'0')+String(Math.floor(d/1e3)%60).padStart(2,'0');
+  for(var i=0;i<8;i++)wlFlip(cells[i],str[i]);
+}
+tick();setInterval(tick,1000);
+})();
+/* koniec: mini tablica odjazdowa */
 </script>
 </body>
 </html>
