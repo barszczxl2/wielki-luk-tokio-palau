@@ -16,6 +16,13 @@ Produkcja = VPS Hostinger; cron publikuje `main` codziennie ok. 05:35 UTC (06:35
 
 ---
 
+## 2026-11-03 18:30 — Claude — Ręczne wdrożenie na VPS udokumentowane; apply-on-vps.sh bez Vercela
+- Co: Z INFRA.md właściciela: cron `/etc/cron.d/wielki-luk-news` 05:35 UTC → `/root/wielki-luk-web/scripts/daily-refresh.sh`, log `/var/log/wielki-luk-news.log`. Sekcja 4 WDROZENIA.md ma teraz komendy ręcznego wdrożenia. `apply-on-vps.sh` po skopiowaniu nakładki robi tylko `npm run build` (Caddy serwuje dist); `vercel deploy` tylko przy `WITH_VERCEL=1`.
+- Pliki: docs/WDROZENIA.md, scripts/apply-on-vps.sh
+- Sprawdzone: `bash -n` OK; ścieżka klonu repo na VPS niezweryfikowana (oznaczone w docs)
+- Produkcja: skrypt — po cronie 4.11 ok. 06:35 (albo ręcznie)
+- Commit: (ten)
+
 ## 2026-11-03 16:30 — Claude — Merge PR #1 i #2, dokumentacja wdrożeń na Hostingerze, dziennik zmian
 - Co: Zmergowane PR #1 (overlay-lib.sh, apply-on-vps.sh kopiuje też /palau/) i PR #2 (home/index.html = strona główna v3, zgodna z produkcją). `docs/WDROZENIA.md` i `CLAUDE.md` opisują produkcję na VPS Hostinger (Caddy, cron ~05:35 UTC), Vercel oznaczony jako nieaktualny. Nowy plik `docs/ZMIANY.md` i sekcja 7 w WDROZENIA.md (obowiązek raportowania).
 - Pliki: docs/WDROZENIA.md, docs/ZMIANY.md, CLAUDE.md, scripts/*, home/index.html

@@ -1,8 +1,8 @@
 #!/bin/bash
 # OPCJONALNE: wgrywa nakładkę (/tokio-palau/, /palau/, karta na stronie głównej, sitemap) do źródeł
 # wielki-luk.pl na VPS (/root/wielki-luk-web) i publikuje.
-# Od 25.10.2026 nie jest to konieczne — Build Command projektu na Vercelu (scripts/vercel-build.sh)
-# dokleja nakładkę przy każdym wdrożeniu, także tym z crona na VPS.
+# Od 11.2026 produkcja stoi na VPS Hostinger (Caddy), cron 05:35 UTC: /etc/cron.d/wielki-luk-news
+# → /root/wielki-luk-web/scripts/daily-refresh.sh. Ten skrypt = ręczne wdrożenie nakładki poza cronem.
 # Uruchom na VPS (jako root):  bash scripts/apply-on-vps.sh
 #   WIELKI_LUK_DIR=/inna/ścieżka  — inny katalog projektu
 #   NO_DEPLOY=1                   — tylko wgraj i zbuduj, bez publikacji
@@ -19,6 +19,8 @@ overlay_patch_homepage "$SRC" "$DST"
 overlay_patch_sitemap "$SRC" "$DST"
 
 cd "$DST"
-if [ "${NO_DEPLOY:-0}" = "1" ]; then echo "NO_DEPLOY=1 — bez publikacji"; exit 0; fi
-/usr/bin/npm run build >/dev/null 2>&1 && echo "build OK"
-/usr/bin/vercel deploy --prod --yes >/dev/null 2>&1 && echo "OK: https://wielki-luk.pl/tokio-palau/"
+if [ "${NO_DEPLOY:-0}" = "1" ]; then echo "NO_DEPLOY=1 — tylko wgrane, bez builda"; exit 0; fi
+# Produkcja od 11.2026: VPS Hostinger, Caddy serwuje zbudowany katalog — wystarczy build.
+npm run build >/dev/null 2>&1 && echo "build OK — Caddy serwuje nową wersję: https://wielki-luk.pl/tokio-palau/"
+# Vercel tylko na wyraźne życzenie (WITH_VERCEL=1); domyślnie pomijany, bo domena nie wskazuje na Vercel.
+if [ "${WITH_VERCEL:-0}" = "1" ]; then /usr/bin/vercel deploy --prod --yes >/dev/null 2>&1 && echo "Vercel: OK"; fi

@@ -71,7 +71,18 @@ Jak to działa dziś (z nagłówków `Last-Modified` i opisów PR #1/#2):
 - Codziennie ok. **05:35 UTC** cron na VPS buduje stronę i dokleja nakładkę z gałęzi `main` tego repo (`scripts/apply-on-vps.sh` / `overlay-lib.sh`): kopiuje `public/tokio-palau` i `public/palau`. **Nie kopiuje `home/`** — strona główna na produkcji jest zarządzana w projekcie Astro na VPS (aktualnie wersja z PR #2 „jasna szata, licznik, łuk trasy”).
 - Czyli: **push na `main` = zmiana na wielki-luk.pl następnego ranka ok. 06:35 czasu warszawskiego.** Dotyczy `/tokio-palau/`, `/tokio-palau/mapa/`, `/palau/`.
 
-Wdrożenie natychmiastowe: tylko z dostępem SSH do VPS (ma go właściciel): wejść na VPS i uruchomić ten sam skrypt, który odpala cron (`crontab -l` pokaże ścieżkę; w repo odpowiada mu `scripts/apply-on-vps.sh`). Agent bez SSH czeka na cron.
+Cron (z INFRA.md właściciela, 3.11.2026): plik **`/etc/cron.d/wielki-luk-news`**, 05:35 UTC → **`/root/wielki-luk-web/scripts/daily-refresh.sh`**, log **`/var/log/wielki-luk-news.log`**. Skrypt robi: newsy per destynacja (fetch_news.py), stopnie bezpieczeństwa MSZ (fetch_safety.py → public/safety.json), nakładkę z tego repo, `npm run build`. (INFRA.md wciąż pisze o „redeploy Vercel” — to nieaktualne; DNS wskazuje na ten VPS, serwuje Caddy.)
+
+**Wdrożenie natychmiastowe (root na VPS — SSH z Maca albo terminal przeglądarkowy w panelu Hostingera):**
+```bash
+# pełne odświeżenie, to samo co cron (newsy + MSZ + nakładka + build), 2–5 min:
+bash /root/wielki-luk-web/scripts/daily-refresh.sh && tail -5 /var/log/wielki-luk-news.log
+
+# albo sama nakładka + build (szybciej), z klonu tego repo na VPS:
+cd /root/wielki-luk-tokio-palau 2>/dev/null || git clone https://github.com/barszczxl2/wielki-luk-tokio-palau.git /root/wielki-luk-tokio-palau && cd /root/wielki-luk-tokio-palau
+git pull --ff-only && bash scripts/apply-on-vps.sh
+```
+Ścieżka klonu `/root/wielki-luk-tokio-palau` to założenie — jeśli `daily-refresh.sh` trzyma klon gdzie indziej, użyj tamtej (`grep -n tokio-palau /root/wielki-luk-web/scripts/daily-refresh.sh`). Agent bez SSH (Kimi, Maliniak w kontenerze) **nie wdraża** — pushuje na `main` i czeka na cron.
 
 Weryfikacja po wdrożeniu (z dowolnego komputera):
 ```bash
