@@ -6,23 +6,14 @@ Statyczne strony serwisu **wielki-luk.pl**, które nie pochodzą z bazy Astro:
 `/tokio-palau/` (plan Tokio → Palau → Seul, 4–23.11.2026, powrót rano 23.11), `/tokio-palau/mapa/`, `/palau/`
 oraz nowa strona główna PL `home/index.html` („dwa zegary”). Szczegóły plików są w `README.md`.
 
-## Jak trafia na produkcję
+## Jak trafia na produkcję (stan 3.11.2026)
 
-Build Command projektu Vercel `wielki-luk-web` to:
-`curl .../wielki-luk-tokio-palau/main/scripts/vercel-build.sh | bash` z fallbackiem na `npm run build`.
-Każdy build bazy (w tym codzienny cron z VPS o 05:36 UTC) pobiera **gałąź `main` tego repo**:
+**Produkcja = VPS Hostinger (187.124.166.64, Caddy). Vercel jest nieaktualny — nie używać.**
+Codziennie ok. 05:35 UTC cron na VPS buduje projekt Astro `/root/wielki-luk-web` i dokleja nakładkę z gałęzi `main`
+tego repo (`public/tokio-palau`, `public/palau`). Strona główna produkcji jest w projekcie Astro na VPS, nie w `home/`.
 
-1. kopiuje `public/tokio-palau` i `public/palau` do bazy,
-2. `scripts/patch-homepage.mjs` dodaje kartę do `HomePage.astro`, a `scripts/patch-sitemap.mjs` dopisuje adresy do sitemapy,
-3. `npm run build`, a potem `home/index.html` nadpisuje `dist/index.html`.
-
-**Push na `main` = zmiana na produkcji przy następnym buildzie.** Nie pushuj nieprzetestowanych zmian.
-`scripts/apply-on-vps.sh` to starsza ścieżka (wgranie na VPS). Główną ścieżką jest dziś `vercel-build.sh`.
-
-**Uwaga (stan 3.11.2026):** Build Command NIE jest zapisany na stałe w ustawieniach projektu (API zwraca 403 na zmianę ustawień).
-Redeploy z panelu albo deploy z VPS buduje bez nakładki (404 na podstronach, stara strona główna). Działa tylko redeploy przez API
-z `projectSettings.buildCommand` w treści żądania — pełna procedura, weryfikacja i zasady edycji: `docs/WDROZENIA.md`.
-Zadanie cykliczne właściciela o 05:52 UTC naprawia poranny deploy z crona.
+**Push na `main` = zmiana na wielki-luk.pl następnego ranka ok. 06:35 (Warszawa).** Nie pushuj nieprzetestowanych zmian.
+Procedura, testy i weryfikacja: `docs/WDROZENIA.md`. Natychmiastowe wdrożenie wymaga SSH na VPS (właściciel).
 
 ## Powiązane
 
