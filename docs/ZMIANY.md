@@ -16,6 +16,13 @@ Produkcja = VPS Hostinger; cron publikuje `main` codziennie ok. 05:35 UTC (06:35
 
 ---
 
+## 2026-11-06 — Claude — Mapa: dzień 8.11 (fioletowy) z dojazdem od RS Homestay; poprawione numery stacji
+- Co: Właściciel realizuje dziś fioletowy dzień (Harajuku i Shibuya). Pierwszy dojazd i powrót tego dnia przez Inarichō (G17), ok. 10 min pieszo od hotelu, zamiast Asakusy. Opis hotelu: Shin-okachimachi to E10 / TX02 (wcześniej błędnie E11). Pozostałe dni wciąż z Asakusy.
+- Pliki: public/tokio-palau/mapa/index.html, public/tokio-palau/index.html
+- Sprawdzone: syntax ok mapy
+- Produkcja: po cronie 7.11 ok. 06:35 albo ręcznie na VPS (daily-refresh.sh)
+- Commit: (ten)
+
 ## 2026-11-06 — Claude — Nocleg w Tokio: RS Homestay (Kojima, Taito) zamiast Tamayura Hotel Asakusa
 - Co: Na zlecenie właściciela („jesteśmy w RS hotel”) ikonka hotelu na mapie Tokio przeniesiona do RS Homestay, 1-1-2 Kojima, Taito-ku (adres z Tripadvisora). Współrzędne przybliżone: środek kwartału Kojima 1-chōme (35.7049, 139.7834). Zmieniony też punkt zameldowania 5.11 i wpis 5.11 w planie. Opisy dojazdów „powrót do hotelu” nadal kończą się na stacji Asakusa (G19/A18), skąd jest ok. 15 min pieszo; najbliższa stacja to Shin-okachimachi (E11 / TX).
 - Pliki: public/tokio-palau/mapa/index.html, public/tokio-palau/index.html
