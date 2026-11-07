@@ -16,6 +16,13 @@ Produkcja = VPS Hostinger; cron publikuje `main` codziennie ok. 05:35 UTC (06:35
 
 ---
 
+## 2026-11-07 15:10 UTC — Claude — Zamiana dni 6.11 ↔ 8.11; braki z fioletowego dnia na niedzielę 8.11
+- Co: Na zlecenie właściciela. Fioletowy dzień (Harajuku i Shibuya) zrobiony 6.11, więc w danych mapy i planie jest teraz pod 6.11 (bez Meiji Jingū, Yoyogi i Brandy Melville). Niedziela 8.11 (zielona): rano braki — Meiji Jingū, drewniana brama Ōtorii, park Yoyogi, Brandy Melville — potem JR Yamanote do Shinjuku: Hands, kot 3D, Kabukichō, ratusz na zachód słońca, Golden Gai. Usunięte head spa i Shinjuku Gyoen. Powrót i dojazd na Fuji przez Toei Ōedo (Shinjuku-nishiguchi E01 ↔ Shin-okachimachi E10). Nowa linia JY (JR Yamanote) w legendzie mapy. Daty 6.11/8.11 poprawione w zakupach, miejscach i liście kontrolnej.
+- Pliki: public/tokio-palau/mapa/index.html, public/tokio-palau/index.html
+- Sprawdzone: syntax ok mapy
+- Produkcja: po cronie 8.11 ok. 05:35 UTC (14:35 w Tokio) albo ręcznie na VPS
+- Commit: (ten)
+
 ## 2026-11-06 — Claude — Mapa: dzień 8.11 (fioletowy) z dojazdem od RS Homestay; poprawione numery stacji
 - Co: Właściciel realizuje dziś fioletowy dzień (Harajuku i Shibuya). Pierwszy dojazd i powrót tego dnia przez Inarichō (G17), ok. 10 min pieszo od hotelu, zamiast Asakusy. Opis hotelu: Shin-okachimachi to E10 / TX02 (wcześniej błędnie E11). Pozostałe dni wciąż z Asakusy.
 - Pliki: public/tokio-palau/mapa/index.html, public/tokio-palau/index.html
