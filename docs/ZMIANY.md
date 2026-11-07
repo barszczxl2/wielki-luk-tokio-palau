@@ -16,6 +16,13 @@ Produkcja = VPS Hostinger; cron publikuje `main` codziennie ok. 05:35 UTC (06:35
 
 ---
 
+## 2026-11-07 15:30 UTC — Claude — Przeniesienie 16e5cdb na produkcję (wielki-luk-web) + steki Kobe na mapie 8.11
+- Co: Na zlecenie właściciela. `scripts/apply-on-vps.sh` nie działa: produkcja buduje z `git archive HEAD` projektu Astro `wielki-luk-web`, a `HomePage.astro` już nie istnieje. Zmiany z 16e5cdb przeniesiono ręcznie do `wielki-luk-web/public/podroze/tokio-palau-seul/` (commit 7747775) i wdrożono od razu (`FORCE=1 deploy-from-git.sh`). Dodatkowo na mapie 8.11 trzy pinezki 🐂 ze stekami z wołowiny Kobe, bez stałej godziny (Steak Pandora Takumi — lunch i kolacja; Wagyu no Katana Nishi-Shinjuku 1 i KOBE Beef Emperor Steak Kabukichō — od 17:00); położenie przybliżone, „nawiguj” po adresie. W Astro nocleg to RS Hotel (Matsugaya 4-25-7), więc dojazdy zostały tamtejsze (Asakusa G19), nie Ōedo z Shin-okachimachi. Pliki `public/` tego repo nie zmienione — repo jest archiwalne (patrz CLAUDE.md).
+- Pliki: docs/ZMIANY.md, CLAUDE.md (osobny PR)
+- Sprawdzone: `node --check` skryptów mapy, `git diff --check`, curl domeny (Ōtorii, 🐂, brak Gyoen), `last-modified` 15:27 UTC
+- Produkcja: już wdrożone ręcznie — https://wielki-luk.pl/podroze/tokio-palau-seul/ i /mapa/
+- Commit: wielki-luk-web 7747775
+
 ## 2026-11-07 15:10 UTC — Claude — Zamiana dni 6.11 ↔ 8.11; braki z fioletowego dnia na niedzielę 8.11
 - Co: Na zlecenie właściciela. Fioletowy dzień (Harajuku i Shibuya) zrobiony 6.11, więc w danych mapy i planie jest teraz pod 6.11 (bez Meiji Jingū, Yoyogi i Brandy Melville). Niedziela 8.11 (zielona): rano braki — Meiji Jingū, drewniana brama Ōtorii, park Yoyogi, Brandy Melville — potem JR Yamanote do Shinjuku: Hands, kot 3D, Kabukichō, ratusz na zachód słońca, Golden Gai. Usunięte head spa i Shinjuku Gyoen. Powrót i dojazd na Fuji przez Toei Ōedo (Shinjuku-nishiguchi E01 ↔ Shin-okachimachi E10). Nowa linia JY (JR Yamanote) w legendzie mapy. Daty 6.11/8.11 poprawione w zakupach, miejscach i liście kontrolnej.
 - Pliki: public/tokio-palau/mapa/index.html, public/tokio-palau/index.html
