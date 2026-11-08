@@ -16,7 +16,7 @@ w miejsce, którego build nie widzi, i wywala się na brakującym `HomePage.astr
 
 **Publikacja = commit + `git push origin main` w `wielki-luk-web`** (cron `deploy-from-git.sh` co 10 min; natychmiast na VPS:
 `FORCE=1 /root/wielki-luk-web/scripts/deploy-from-git.sh`). Zmiany zrobione tutaj trzeba przenieść ręcznie do tamtych plików
-(ta sama struktura HTML, inna ścieżka; uwaga na rozjazdy, np. nocleg: tam RS Hotel Matsugaya 4-25-7, tu RS Hotel, ale wciąż pod adresem Kojima 1-1-2).
+(ta sama struktura HTML, inna ścieżka; nocleg i dojazdy wyrównane do produkcji 8.11.2026 — RS Hotel, Matsugaya 4-25-7; inne treści mogą się różnić).
 Szczegóły i zasady: `CLAUDE.md` w `wielki-luk-web`. Ostatnie przeniesienie: 16e5cdb → wielki-luk-web 7747775 (7.11.2026).
 
 ## Powiązane

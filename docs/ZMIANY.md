@@ -16,6 +16,13 @@ Produkcja = VPS Hostinger; cron publikuje `main` codziennie ok. 05:35 UTC (06:35
 
 ---
 
+## 2026-11-08 — Claude — Nocleg i dojazdy wyrównane do produkcji (RS Hotel, Matsugaya 4-25-7)
+- Co: Na zlecenie właściciela. Adres hotelu, pin na mapie (35.7181,139.7889), dojazd z Narity, powroty 6.11 i 8.11, dojazdy do Meiji/Harajuku i na Fuji przeniesione 1:1 z `wielki-luk-web` (trasy przez Asakusa G19 / Marunouchi zamiast Kojima, Shin-okachimachi E10 i Inarichō G17). Plan 5.11 = tekst z produkcji (lądowanie 19:40, Keisei lub taksówka). Reszta treści tego repo nadal nie jest kopią produkcji.
+- Pliki: public/tokio-palau/index.html, public/tokio-palau/mapa/index.html, CLAUDE.md
+- Sprawdzone: `node --check` skryptów mapy, brak słów Kojima / Shin-okachimachi / Inarichō
+- Produkcja: repo archiwalne, bez wpływu na wielki-luk.pl
+- Commit: patrz git log
+
 ## 2026-11-08 — Claude — Nazwa noclegu: RS Homestay → RS Hotel
 - Co: Na zlecenie właściciela. Zmieniona tylko nazwa (plan 5.11, pin hotelu na mapie). Adres i dojazdy w tym repo nadal wskazują Kojima 1-1-2 / Shin-okachimachi E10; produkcja (wielki-luk-web) ma RS Hotel, Matsugaya 4-25-7, pokój 501 i dojazdy przez Asakusa (G19).
 - Pliki: public/tokio-palau/index.html, public/tokio-palau/mapa/index.html, CLAUDE.md (uwaga o rozjazdach)
