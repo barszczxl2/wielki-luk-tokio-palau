@@ -16,6 +16,13 @@ Produkcja = VPS Hostinger; cron publikuje `main` codziennie ok. 05:35 UTC (06:35
 
 ---
 
+## 2026-11-08 — Claude — Nazwa noclegu: RS Homestay → RS Hotel
+- Co: Na zlecenie właściciela. Zmieniona tylko nazwa (plan 5.11, pin hotelu na mapie). Adres i dojazdy w tym repo nadal wskazują Kojima 1-1-2 / Shin-okachimachi E10; produkcja (wielki-luk-web) ma RS Hotel, Matsugaya 4-25-7, pokój 501 i dojazdy przez Asakusa (G19).
+- Pliki: public/tokio-palau/index.html, public/tokio-palau/mapa/index.html, CLAUDE.md (uwaga o rozjazdach)
+- Sprawdzone: grep — brak „RS Homestay” poza historią w ZMIANY.md
+- Produkcja: repo archiwalne, bez wpływu na wielki-luk.pl
+- Commit: patrz git log
+
 ## 2026-11-07 15:30 UTC — Claude — Przeniesienie 16e5cdb na produkcję (wielki-luk-web) + steki Kobe na mapie 8.11
 - Co: Na zlecenie właściciela. `scripts/apply-on-vps.sh` nie działa: produkcja buduje z `git archive HEAD` projektu Astro `wielki-luk-web`, a `HomePage.astro` już nie istnieje. Zmiany z 16e5cdb przeniesiono ręcznie do `wielki-luk-web/public/podroze/tokio-palau-seul/` (commit 7747775) i wdrożono od razu (`FORCE=1 deploy-from-git.sh`). Dodatkowo na mapie 8.11 trzy pinezki 🐂 ze stekami z wołowiny Kobe, bez stałej godziny (Steak Pandora Takumi — lunch i kolacja; Wagyu no Katana Nishi-Shinjuku 1 i KOBE Beef Emperor Steak Kabukichō — od 17:00); położenie przybliżone, „nawiguj” po adresie. W Astro nocleg to RS Hotel (Matsugaya 4-25-7), więc dojazdy zostały tamtejsze (Asakusa G19), nie Ōedo z Shin-okachimachi. Pliki `public/` tego repo nie zmienione — repo jest archiwalne (patrz CLAUDE.md).
 - Pliki: docs/ZMIANY.md, CLAUDE.md (osobny PR)
